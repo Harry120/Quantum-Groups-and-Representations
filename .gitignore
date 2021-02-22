@@ -1,0 +1,10 @@
+Banerjee\ -\ Microeconomics.pdf
+*.aux             
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+offcuts.*
+main.*

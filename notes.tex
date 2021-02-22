@@ -1,0 +1,79 @@
+\documentclass[a4paper]{article}
+
+\input{header}
+
+\begin{document}
+
+\input{title.tex}
+
+\tableofcontents
+
+\newpage
+\section{Axioms of quantum mechanics} 
+\subsection{Axioms}
+\begin{axiom}[State]
+    The state of a quantum system at time $t$ is given by a nonzero vector $\ket{\psi(t)}$ in a complex vector space $\h$ with a Hermitian inner product $\anglet{\cdot}{\cdot}$. If $\h$ is infinite dimensional, it is also required that it is a Hilbert space.
+\end{axiom}
+\begin{axiom}[Observable]
+    The observables of a quantum system are given by self-adjoint linear operators on $\h$. 
+\end{axiom}
+\begin{axiom}[Schr\"{o}dinger Equation]
+    The Hamiltonian $H$ is an observable with eigenvalues that are bounded below. Time evolution of a state $\ket{\psi(t)}$ is given by the Schr\"{o}dinger equation $$i\hbar\frac{d}{dt}\ket{\psi(t)} = H\ket{\psi(t)}.$$ 
+\end{axiom}
+
+\subsection{Measurement}
+The axioms of quantum mechanics become useful when they can be applied to deduce results of experiments that can be conducted by humans. The problem is that any measurement system has at least $\sim 10^{24}$ atoms, which is too cumbersome to model with Schr\"{o}dinger's equation. This is the reason for the Born rule.
+
+\begin{princ}[Born Rule]
+    When a particle is in the state $\ket{\psi} = \sum \alpha_\omega \ket{\omega}$, measurement of $\Omega$ will yield the value $\omega$ with probability $$P(\omega) = \frac{\abs{\anglet{\omega}{\psi}}^2}{\anglet{\psi}{\psi}} = \frac{|\alpha_\omega|^2}{\sum |\alpha_\omega|^2}.$$ This measurement will cause the state of the particle to change from $\ket{\psi}$ to $\ket{\omega}$. The implication of this rule is that $c\ket{\psi}$ has the same physical interpretation as $\ket{\psi}$ for any complex number $c$, so it is therefore customary to work with a normalised state where $\anglet{\ket{\psi}}{\ket{\psi}} = 1$.
+\end{princ}
+
+\subsection{Interpretations}
+Another perspective says that when a measurement is performed, the quantum system has simply become entangled with the measuring device. However, because each of the eigenstates of $\Omega$ would then evolve independently from each other, the question of whether or not the state has actually collapsed into an eigenvector is a matter of perspective. It can be argued that collapse (the Copenhagen interpretation) is `simpler' because it doesn't require the existence of vast numbers of noninteracting states, but on the other hand it can also be argued that `no collapse' (the many worlds interpretation) is simpler because it doesn't require a poorly defined, non-deterministic process to be a part of the theory. Proponents of either interpretation could then use Occam's razor to argue that their's is a more `likely' reality.
+
+\section{Basic representations}
+\subsection{Definitions}
+\begin{itemize}
+    \item A group is a set with an associative multiplication such that the set contains the an identity and multiplicative inverses
+    \item A group action of $G$ on a set $M$ is a map $$(g, x) \in G \times M \to g \cdot x \in M$$ such that $g(hx) = (g h)x$ and $ex = x$.
+    \item If $f$ is some function on $M$ and $g$ a group action, then the function $g f$ is defined by $(gf)(x)= f(g^{-1}x)$. This is a group action of $G$ on $F(M)$, the set of functions from $M$ to the complex numbers.
+    \item A representation $(\pi, V)$ of a group $G$ is a homomorphism $$\pi : g \in G \to \pi(g) \in GL(V)$$ where $V$ is any vector space.
+    \item A representation $(\pi, V)$ on $V$ with a Hermitian inner product $\anglet{\cdot}{\cdot}$ is a \textbf{unitary} representation if $\anglet{\pi(g)v}{\pi(g)u} = \anglet{v}{u}$ for all $g \in G$ and $u, v \in V$.
+\end{itemize}
+
+\subsection{Subrepresentations}
+\begin{itemize}
+    \item A subrepresentation of $(\pi, V)$ is a representation ($\pi_{|W}, W$) where $W \subset V$.
+    \item A representation $\pi$ is irreducible if it has no subrepresentations, and reducible if it does.
+    \item The direct sum $\pi_1 \oplus \pi_2$ of representations $\pi_1$ and $\pi_2$ (both over $V$) is the representation $$(\pi_1 \oplus \pi_2) : g \in G \to \begin{pmatrix}\pi_1(g) & \vec{0} \\ \vec{0} & \pi_2(g)\end{pmatrix}.$$
+    \item Any unitary representation $\pi$ can be written as a direct sum $\pi = \pi_1 \oplus \hdots \oplus \pi_m$ where the $\pi_j$ are irreducible. 
+    \item Schur's lemma says that if a complex representation $(\pi, V)$ is irreducible, then the only linear maps $M \in GL(V)$ commuting with all $\pi(g)$ are those of the form $\lambda I$, $\lambda \in \C$.
+    \item If G is commutative, all of its irreducible representations are one dimensional. (this is a result of Schur's lemma)
+\end{itemize}
+
+\subsection{U(1)}
+\begin{itemize}
+    \item $U(1)$ is the group of $1\times 1$ unitary matrices - the unit circle labeled by $e^{i\theta}$. The group operation is complex multiplication. This is isomorphic to $SO(2)$. 
+    \item All irreducible representations of $U(1)$ must be one dimensional, and are given by $\pi_k: e^{i\theta} \to e^{ik\theta}$ for $k \in \Z$. This is 
+\end{itemize}
+
+\newpage
+\section{Appendix}
+\subsection{Questions}
+\begin{itemize}
+    \item What is the difference between self-adjoint and Hermitian?
+    \item What was the statement about the only infinite dimensional Hilbert space being $L^2$. 
+\end{itemize}
+
+\subsection{Thoughts}
+\begin{itemize}
+    \item The reason for the $2n^2$ is because $GL(n, \C)$ has real dimension $2n^2$.
+    \item Schur's lemma is only true on complex spaces because it relies on the fundamental theorem of algebra. As quantum mechanics relies on Schur's lemma, this can be views as a reason why QM must operate on complex vector spaces.
+\end{itemize}
+
+\subsection{To do}
+\begin{itemize}
+    \item look at proof of decomposition of unitary representations.
+\end{itemize}
+
+\end{document} 
