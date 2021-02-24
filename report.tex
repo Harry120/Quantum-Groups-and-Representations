@@ -1,0 +1,97 @@
+\documentclass[a4paper]{article}
+
+\title{MATH3001}
+\author{Harry Partridge}
+\date{Term 1 2021}
+\def\descrip{Quantum Mechanics and Representation Theory}
+
+\input{header}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\newpage
+\section{Quantum Physics}
+\subsection{Axioms of Quantum Mechanics}
+\subsubsection{States and Observables}
+Classically, a particle is characterised by its properties - a particle is an entity with a specified position, momentum, energy etc. One of the key features of Quantum Mechanics is that it allows for discussion of a particle without reference to these properties. This is facilitated by introducing the notion of a state vector, which resides in a physical$^\dagger$ Hilbert space. 
+
+\begin{axiom}[Representation of State] 
+    Any physical system has a corresponding Hilbert Space $\h$. The state of a particle at time $t$ is represented by a unit vector $\ket{\psi(t)} \in \h$.
+\end{axiom}
+
+Instead of characterising the particle, quantum mechanics postulates that observable properties are hermitian operators with an orthogonally normalisable basis of eigenstates (an eigenbasis). The notion that a particle has a specific value for a given observable is then discarded - instead, we expand $\ket{\psi}$ in the eigenbasis corresponding to $\Omega$, and say that the probability of measuring the particle in the eigenstate $\ket{\omega}$ is the inner product $\anglet{\omega}{\psi}$ of $\ket{\psi}$ with $\ket{\omega}$. 
+
+\begin{axiom}[Observable]
+    Every observable property of the state is described by a hermitian operator $\Omega: \h \to \h$, with an orthogonally normalisable basis of eigenvectors $\ket{\omega}$. 
+\end{axiom}
+
+
+\begin{axiom}[Measurement]
+    When a particle is in the state $\ket{\psi} = \sum \alpha_\omega \ket{\omega}$ with $\anglet{\psi}{\psi} = 1$, measurement of $\Omega$ will yield the value $\omega$ with probability $\abs{\anglet{\omega}{\psi}}^2 = |\alpha_\omega|^2$. This measurement will cause the state of the particle to change from $\ket{\psi}$ to $\ket{\omega}$. 
+\end{axiom}
+
+This ensures that repeated measurements are consistent - if we measure the value of an observable to be $\omega$, the state of the particle will then be the eigenvector $\ket{\omega}$. If we then perform another measurement, the probability that the value of the observable is still $\omega$ is $\anglet{\omega}{\omega} = 1$.
+
+We now list a few common operators.
+
+\begin{defi}[Position operator] 
+    We define the position operator $X$ by requiring that the position vector $\ket{x}$ (corresponding to the particle being at position $x$) is an eigenvector of $X$. i.e.  $X\ket{x} = x\ket{x}$. The wave function $\psi(x)$ is defined by the inner product of the state with $\ket{x}$ eigenbasis: $\psi(x) = \anglet{x}{\psi}$.
+\end{defi}
+
+\begin{defi}[Momentum operator] 
+    The momentum operator $P$ can be defined by its action on wave functions. We have $\bra{x}P\ket{\psi} = -i\hbar \psi'(x)$.
+\end{defi}
+
+\begin{defi}[Hamiltonian operator] 
+    The hamiltonian operator $H$ is defined by its action on wave functions: $\bra{x}P\ket{\psi} = -i\hbar \psi'(x)$.
+\end{defi}
+ 
+\subsubsection{Schrodinger Equation}
+The final axiom of quantum mechanics describes how a state vector evolves through time.
+
+\begin{axiom}[Schrodinger Equation]
+    The state vector $\ket{\psi(t)}$ obeys $$i\hbar \frac{d}{dt}\ket{\psi(t)} = H\ket{\psi(t)},$$
+    where $H$ is the energy operator (the Hamiltonian) of the system.
+\end{axiom}
+
+\begin{eg}[Hamiltonian for a free particle]
+    For a particle that is not under the influence of 
+\end{eg}
+
+\subsection{Interpretations}
+\subsubsection{Copenhagen}
+\subsubsection{Many Worlds}
+\subsection{Expectation and Uncertainty}
+\subsubsection{Expectation, Uncertainty}
+\subsubsection{Ehrenfest's Theorem}
+\subsubsection{Heisenberg's Uncertainty Principle}
+\subsubsection{Probability Current}
+\subsection{Problems in One dimension}
+\subsubsection{Free Particle}
+\subsubsection{Gaussian Wavepacket}
+\subsubsection{Particle in a Box}
+\subsubsection{Finite Square Well}
+\subsubsection{Step Potential}
+\subsubsection{Harmonic Oscillator}
+\subsubsection{Scattering}
+\subsection{System with N degrees of freedom}
+\subsubsection{N particles in one dimension}
+\subsubsection{N particles in M dimensions}
+\subsection{Hydrogen Atom}
+\newpage
+\section{Lie Theory}
+\section{Category Theory}
+
+
+
+what is the wave function collapse?
+ - properties are always found to be discrete, not smeared out
+
+
+
+
+\end{document}

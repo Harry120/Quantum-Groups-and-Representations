@@ -1,0 +1,65 @@
+\documentclass[a4paper]{article}
+
+\title{Representations}
+\author{Notes taken by Harry Partridge}
+\date{Term 1 2021}
+\def\descrip{Based on course notes by Ed Segal at the Imperial College London}
+ 
+\input{header}
+
+\begin{document}
+
+\maketitle 
+\tableofcontents
+
+\newpage
+\section{Representations}
+\subsection{Definitions}
+\begin{itemize}
+    \item For any group G, an $n$ dimensional \textbf{matrix representation} of a group G is a homomorphism $$\rho: G \to GL_n(\C).$$
+    \item A representation is \textbf{faithful} if it is injective.
+    \item Define $c_P: GL_n(\C) \to GL_n(\C)$ by $c_P(M) = P^{-1}MP$. Two $n$ dimensional representations $\rho_1$ and $\rho_2$ are said to be \textbf{equivalent} if $\rho_2 = c_P \circ \rho_1$ for some $P$.
+    \item An $n$ dimensional \textbf{representation} of a group G is $(\rho, V)$ where $\rho: G \to GL(V)$ is a homomorphism and $V$ is an $n$ dimensional complex vector space.
+    \item For any $n$ dimensional complex vector space $V$ with a basis $\mathcal{B}$, there is an isomorphism $\phi^\mathcal{B}: GL(V) \to GL_n(\C)$. Therefore, for every representation $\rho: G \to GL(V)$, an \textbf{associated matrix representation} is $\rho^\mathcal{B} = \phi^\mathcal{B} \circ \rho: G \to GL(V) \to GL_n(\C)$. 
+    \item Two matrix representations are equivalent iff they are both associated to the same representation.
+\end{itemize}
+
+\subsection{Basic representations}
+\begin{itemize}
+    \item For any group G, the trivial representation of dimension $n$ is $\rho: g \mapsto I_V$, where $I_V$ is the identity map on $V$.
+    \item The \textbf{permutation representation} of $H \subset S_n$ is constructed by considering the action of $H$ on a set of $n$ basis vectors for $V$, and extending this to a linear map in $GL(V)$.
+    \item The \textbf{regular representation} of $G$ is found by considering the permutation action of $G$ on itself.
+    \item If $f: H \to G$ is a homomorphism, and $\rho: G \to GL(V)$, then $\rho \circ f$ is a representation of $H$ on $V$. (the composition of homomorphisms is a homomorphism)
+    \item The sign representation of a group is $\rho : g \mapsto \text{sgn}(\sigma_g)$ where $\sigma_g$ is the permutation corresponding to $g$.
+\end{itemize}
+
+\subsection{G-Linear maps}
+\begin{itemize}
+    \item For two representations $(\rho_1, V)$ and $(\rho_2, W)$ of $G$, a G-linear map is a linear map $f: V \to W$ such that for all $g \in G$, $$f \circ \rho_1(g) = \rho_2(g) \circ f.$$
+    \item Two representations of G are said to be isomorphic if there is a G-linear map between them which is also an isomorphism.
+    \item Isomorphism of representations is the same thing as equivalence of matrix representations in the sense that if two representations are isomorphic, then their associated matrix representations will be equivalent.
+\end{itemize}
+
+\subsection{Subrepresentations}
+\begin{itemize}
+    \item A subrepresentation of $(\rho, V)$ is a representation $(\rho_{|W}, W)$, where $W$ is a subspace of $V$.
+    \item If $f: V \to W$ is a G-linear map between two representations, then Ker$(f)$ is a subrepresentation of $V$ and Im$(f)$ is a subrepresentation of $W$. 
+    \item Applying the above, we see that for a given $\rho$, if $W$ is an eigenspace of $V$ for every $\rho(g)$, then $W$ is a subrepresentation of $V$.
+\end{itemize}
+
+\subsection{Maschke's Theorem}
+\begin{itemize}
+    \item For any two representations $(\rho_V, V)$ and $(\rho_W, W)$, there is a natural representation on $V \oplus W$: $\rho_{V \oplus W}(g): (x, y) \mapsto (\rho_V(g)(x), \rho_W(g)(y))$.
+    \item If two bases $\{a_1, \hdots, a_n\}$ and $\{b_1, \hdots, b_n\}$ are chosen for $V$ and $W$, then a natural basis for $V \oplus W$ is $\{(a_1, 0), \hdots, (a_n,0), (0, b_1), \hdots, (0,b_n)\}$. Then if $\rho_V(g)$ and $\rho_W(g)$ have associated matrices $M$ and $N$, then $$\rho_{V \oplus W}(g) = \begin{pmatrix}M & 0 \\ 0 & N\end{pmatrix}.$$
+    \item If $(\rho, V)$ is a representation with subrepresentations $W$ and $U$, where $W \cup W = \{0\}$ and $\dim U + \dim W = \dim V$, then $\rho_{V \oplus W}$ is isomorphic to $\rho$.
+    \item If $W \subset V$ is a subspace of $V$, and $f : V \to W: x \mapsto x \forall x \in W$ is a linear map, then 
+    \item Maschke's theorem
+\end{itemize}
+
+\newpage
+\section{questions}
+\begin{itemize}
+    \item Why do we sometimes treat a vector space as a representation? (i.e. there are statements like `$V$ is a 3 dimensional representation of $G$') Can we not have different homomorphisms from the same group to the vector space? i.e. $C_2$ to $GL(C^2)$ could map $\sigma$ to $$\begin{pmatrix}0 & 1 \\ 1 & 0\end{pmatrix} \text{ or } \begin{pmatrix}-1 & 0 \\ 0 & -1\end{pmatrix}.$$ Are these not different? 
+\end{itemize}
+
+\end{document}
