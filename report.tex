@@ -14,84 +14,725 @@
 \tableofcontents
 
 \newpage
-\section{Quantum Physics}
-\subsection{Axioms of Quantum Mechanics}
-\subsubsection{States and Observables}
-Classically, a particle is characterised by its properties - a particle is an entity with a specified position, momentum, energy etc. One of the key features of Quantum Mechanics is that it allows for discussion of a particle without reference to these properties. This is facilitated by introducing the notion of a state vector, which resides in a physical$^\dagger$ Hilbert space. 
+\section{Overview}
+The purpose of this report is to explore representation theory and Lie theory, and then examine implications for quantum mechanics. The key result here is that quantum observables arise from representations of Lie groups on a Hilbert space. This process occurs in the following way:
+\begin{enumerate}
+    \item Suppose $G$ is a Lie group. The tangent space at the identity $e \in G$ is a vector space that can be made into a lie algebra $\g$. 
+    \item Exponentiating elements $A$ of the lie algebra gives lie group elements $g = e^A$ in the connected component of the identity. 
+    \item Suppose $G$ acts unitarily on a Hilbert space $\H$. Then $e^{(A^\dagger)} = \left(e^{A}\right)^\dagger = e^{-A}$, so $A^\dagger = -A$ and $A$ is skew adjoint. 
+    \item A new self adjoint operator $O = iA$ can be defined, and this will be an observable of the quantum system. 
+\end{enumerate}
+Some examples that we will explore 
+\begin{enumerate}
+    \item Say $\H$ is $L^2(\R^3)$. Then $SO(3)$ acts on $\H$ by $(\rho(R)f)(x) = f(R^{-1}x)$.
+    \item Say $\H$ is $\C^n$. Then what??
+    \item Say $\H$ is $\C$. Then $U(1)$ acts on $\H$ by $\rho(e^{i\theta} = e^{ik\theta})$, $k$ an integer.
+    \item $G = \R$ - time?
+\end{enumerate}
 
-\begin{axiom}[Representation of State] 
-    Any physical system has a corresponding Hilbert Space $\h$. The state of a particle at time $t$ is represented by a unit vector $\ket{\psi(t)} \in \h$.
-\end{axiom}
+\section{Representations of finite groups}
+\textit{This section is based primarily on notes by \underline{\href{https://dec41.user.srcf.net/notes/II_L/representation_theory.pdf}{Dexter Chua}}.}
 
-Instead of characterising the particle, quantum mechanics postulates that observable properties are hermitian operators with an orthogonally normalisable basis of eigenstates (an eigenbasis). The notion that a particle has a specific value for a given observable is then discarded - instead, we expand $\ket{\psi}$ in the eigenbasis corresponding to $\Omega$, and say that the probability of measuring the particle in the eigenstate $\ket{\omega}$ is the inner product $\anglet{\omega}{\psi}$ of $\ket{\psi}$ with $\ket{\omega}$. 
-
-\begin{axiom}[Observable]
-    Every observable property of the state is described by a hermitian operator $\Omega: \h \to \h$, with an orthogonally normalisable basis of eigenvectors $\ket{\omega}$. 
-\end{axiom}
-
-
-\begin{axiom}[Measurement]
-    When a particle is in the state $\ket{\psi} = \sum \alpha_\omega \ket{\omega}$ with $\anglet{\psi}{\psi} = 1$, measurement of $\Omega$ will yield the value $\omega$ with probability $\abs{\anglet{\omega}{\psi}}^2 = |\alpha_\omega|^2$. This measurement will cause the state of the particle to change from $\ket{\psi}$ to $\ket{\omega}$. 
-\end{axiom}
-
-This ensures that repeated measurements are consistent - if we measure the value of an observable to be $\omega$, the state of the particle will then be the eigenvector $\ket{\omega}$. If we then perform another measurement, the probability that the value of the observable is still $\omega$ is $\anglet{\omega}{\omega} = 1$.
-
-We now list a few common operators.
-
-\begin{defi}[Position operator] 
-    We define the position operator $X$ by requiring that the position vector $\ket{x}$ (corresponding to the particle being at position $x$) is an eigenvector of $X$. i.e.  $X\ket{x} = x\ket{x}$. The wave function $\psi(x)$ is defined by the inner product of the state with $\ket{x}$ eigenbasis: $\psi(x) = \anglet{x}{\psi}$.
+\subsection{Basic Definitions}
+There are several equivalent ways to define a representation of a group. The first is via a homomorphism.
+\begin{defi}[Representation]
+    For a given group $G$, a \textbf{representation} is a group homomorphism $$\rho: G \to GL(V),$$ where $V$ is a vector space over a field $\F$. 
 \end{defi}
 
-\begin{defi}[Momentum operator] 
-    The momentum operator $P$ can be defined by its action on wave functions. We have $\bra{x}P\ket{\psi} = -i\hbar \psi'(x)$.
+Alternatively, a representation can also be viewed as a linear action on a vector space.
+\begin{defi}[Linear action]
+    A group $G$ \textbf{acts linearly} on a vector space $(V, \F)$ if acts on the set $V$ such that $$g(\vec{v}+ \vec{u}) = g\vec{v} + g\vec{u} \text{ and } g(\lambda \vec{v}) = \lambda g\vec{v}$$
+    for all $\vec{u}, \vec{v} \in V$ and $\lambda \in \F$. Such an action gives a homomorphism to $GL(V)$ via $\rho(g)(\vec{v}) = g\vec{v}$, and any homomorphism to $GL(V)$ also gives a linear action in an analogous way.
 \end{defi}
 
-\begin{defi}[Hamiltonian operator] 
-    The hamiltonian operator $H$ is defined by its action on wave functions: $\bra{x}P\ket{\psi} = -i\hbar \psi'(x)$.
+Lastly, a representation can also be viewed as a module over a the group algebra $\F G$.
+\begin{defi}[Group algebra]
+    For a given group $G$, the group algebra $\F G$ is 
+    $$\F G = \set{\sum_{g \in G} \alpha_g g: \alpha_g \in \F}.$$ This is another way of describing a linear action, and gives a homomorphism to $GL(V)$ in the same way.
 \end{defi}
- 
-\subsubsection{Schrodinger Equation}
-The final axiom of quantum mechanics describes how a state vector evolves through time.
 
-\begin{axiom}[Schrodinger Equation]
-    The state vector $\ket{\psi(t)}$ obeys $$i\hbar \frac{d}{dt}\ket{\psi(t)} = H\ket{\psi(t)},$$
-    where $H$ is the energy operator (the Hamiltonian) of the system.
-\end{axiom}
+Regardless of how a representation is defined, it has a \textbf{dimension} $n$ which is equal to dim$_{\F}(V)$. As a choice of basis gives a natural isomorphism from $V$ to $\F^n$, any representation also has an associated \textbf{matrix representation}. 
+\begin{defi}[matrix representation]
+    A matrix representation is a homomorphism $R$ from $G$ to $GL_n(\F)$. If $V$ is an $n$ dimensional vector space with $\theta: V \to \F^n$ an isomorphism, then $$\rho(g)(\vec{v}) =  \theta^{-1}(R(g)\theta(\vec{v})))$$ is an associated representation on $V$. 
+\end{defi}
 
-\begin{eg}[Hamiltonian for a free particle]
-    For a particle that is not under the influence of 
+If $V$ is a vector space with a representation from $G$ to $GL(V)$, then we say that $V$ is a $G$-space. Furthermore, if only the identity acts trivially on $V$ (equivalently if the kernel of the homomorphism to $GL(V)$ is $\{e\}$), then we say that the representation is \textbf{faithful}.
+
+We now prove some results about the eigenvalues and eigenvectors of representations.
+
+\begin{lemma}
+    Suppose that $\rho : G \to GL(V)$ is a representation of a finite group $G$. Then for every $g \in G$, any eigenvalue $\lambda$ of $\rho(g)$ satisfies $\lambda^n = 1$.
+\end{lemma} 
+
+\begin{proof}
+    Suppose that under the associated linear action of $G$ on $V$, $\lambda$ is an eigenvalue of $g$ with eigenvector $\vec{v}$. Then $g^n\vec{v} = \lambda^n \vec{v}$. As $G$ is a finite group, $g^n = e$ for some $n$, so $\lambda^n = 1$.
+\end{proof}
+In particular, $\F = \R$, then all representations have eigenvalues that are either $1$ or $-1$, and if $\F = \C$, then eigenvalues are roots of unity.
+
+\begin{cor}
+    Suppose that $\rho : G \to GL(V)$ is a complex representation of a finite group $G$. Then for every $g \in G$, $\rho(g)$ is diagonalizable. \textit{does this work in all algebraically closed fields?} 
+\end{cor} 
+
+\begin{proof}
+    According the characteristic polynomial of $\rho(g)$ must divide $t^n - 1$. As this polynomial has no repeated roots, $\rho(g)$ must be diagonalizable.
+\end{proof}
+
+\subsection{Subrepresentations}
+As with other algebraic topics, there is a lot that can be learned about representations by decomposing them into `simpler' parts.
+
+\begin{defi}[G-subspace]
+    For a given representation $\rho: G \to GL(V)$ of $G$, we say that $W \leq V$ is a $G$-subspace if it is a $\rho(G)$ invariant subspace of $V$: $$\rho(g)(W) \leq W$$ for all $g \in G$.
+\end{defi}
+
+Clearly, any $G$-subspace gives us another representation.
+
+\begin{defi}
+    If $W \leq V$ is a $G$-subspace for the representation $\rho$, then the map $\rho_{|W}: G \to GL(V)$ given by $\rho_{|W}(g) = \rho(g)|_{W}$ is a \textbf{subrepresentation} of $\rho$.
+\end{defi}
+
+A $G$-subspace is \textbf{proper} if it is not all of $V$, and \textbf{trivial} if it is just the zero vector.
+
+\begin{defi}[Reducible]
+    A representation $\rho: G \to GL(V)$ is said to be \textbf{reducible} if there are proper non-trivial \textit{G-subspaces}.
+\end{defi}
+
+A stronger requirement is for $V$ to be the sum of such \textit{G-subspaces}.
+
+\begin{defi}[Decomposable]
+    A representation $\rho$ is said to be \textbf{decomposable} if there are proper non-trivial \textit{G-subspaces} $U,W \leq V$ such that $$V = U \oplus W.$$ We then say that $\rho = \rho_W \oplus \rho_W$.
+\end{defi}
+
+A priori, it is not clear that reducibility implies decomposability. This is however, content of Maschke's Theorem, which we will prove later.
+
+\subsection{Equivalent Representations}
+We would like to describe a level of equivalence between two G-spaces. As usual, this is done by considering isomorphisms.
+
+\begin{defi}[G-homomorphism]
+    Suppose $V$ and $W$ are two G-spaces with representations $\rho_V$ and $\rho_W$. If $f: V \to W$ is a linear map such that $$f(\rho_V(g)\vec{v}) = \rho_W(g)f(\vec{v}),$$ we say that $f$ is a \textbf{G-homomorphism}, and that \textbf{intertwines} $\rho_V$ and $\rho_W$. If $f$ is also an isomorphism of vector spaces, then we say that $V$ and $W$ are \textbf{equivalent} and that $f$ is a \textbf{G-isomorphism}.
+\end{defi}
+
+Evidently, if $R_1$ and $R_2$ are two matrix representations of $G$ associated to the same representation $\rho$ on $V$ by isomorphisms $\theta_1$ and $\theta_2$, then they are equivalent, because $\theta_2 \theta_1^{-1}$ is a $G$-isomorphism that intertwines $R_1$ and $R_2$. 
+
+\subsection{Examples of Representations}
+We now list some common representations. 
+
+The \textbf{trivial representation} $1_G$ is defined by $1_G(g) = (id : \F \to \F)$ for any field $\F$. Note that the trivial representation is always one dimensional. One may also speak of `a trivial representation on $V$' which would be taken to mean $\rho(g) = $id$_V$.
+
+A more complicated type of representation is a \textbf{permutation representation}. For any set $X$, we can define a vector space $\F X$ as a set of formal sums $$\F X = \set{\sum_{x \in X} \alpha_x x : \alpha_x \in \F},$$ with addition and scalar multiplication defined in the obvious way. 
+If a group $G$ acts on a set $X$, we can therefore define a linear action on $\F X$ by $$g\sum_{x \in X} \alpha_x x = \sum_{x \in X} \alpha_x gx.$$ The corresponding representation is called a permutation representation of $G$.
+
+When $X = G$ with the action of $G$ corresponding to left multiplication, we get a particularly special type of permutation representation $\rho_{reg}$ called the \textbf{regular representation}. 
+
+\begin{eg}[Representations of $S_3$] 
+    $S_3$ acts naturally on the set $X = \{a,b,c\}$, which gives us a three dimensional permutation representation. The natural associated matrix representation are three by three permutation matrices. Contrastingly, the regular representation of $S_3$ is six dimensional, and its natural associated matrices are a subset of the six by six permutation matrices.
 \end{eg}
 
-\subsection{Interpretations}
-\subsubsection{Copenhagen}
-\subsubsection{Many Worlds}
-\subsection{Expectation and Uncertainty}
-\subsubsection{Expectation, Uncertainty}
-\subsubsection{Ehrenfest's Theorem}
-\subsubsection{Heisenberg's Uncertainty Principle}
-\subsubsection{Probability Current}
-\subsection{Problems in One dimension}
-\subsubsection{Free Particle}
-\subsubsection{Gaussian Wavepacket}
-\subsubsection{Particle in a Box}
-\subsubsection{Finite Square Well}
-\subsubsection{Step Potential}
-\subsubsection{Harmonic Oscillator}
-\subsubsection{Scattering}
-\subsection{System with N degrees of freedom}
-\subsubsection{N particles in one dimension}
-\subsubsection{N particles in M dimensions}
-\subsection{Hydrogen Atom}
-\newpage
+\subsection{Complete reducibility for finite groups}
+
+In this section, we will show that every finite dimensional representation of a finite group over a field of characteristic zero can be decomposed into a sum of irreducible representations.
+
+\begin{thm}[Maschke's Theorem]
+    Suppose $G$ is a finite group with a linear action on a finite dimensional vector space $V$ over $\F$ with (char$(\F), |G|) = 1$. Then if $W$ is a $G$-subspace of $V$, there exists a $G$-subspace $U$ of $V$ such that $V = W \oplus U$.
+\end{thm}
+
+\begin{proof} Suppose $f: V \twoheadrightarrow W$ is an endomorphism on $V$ defined by $f(w) = w$ for $w \in W$. Then because (char$(\F), |G|) = 1$, $\frac{1}{|G|}$ is well defined, so we can set  
+$$\bar{f}(v) = \frac{1}{|G|}\sum_{g\in G} gf(g^{-1}v).$$
+We claim that $V = W \oplus$ $\ker(\bar{f})$. First of all, since $f(g^{-1}v) \in W$, and $W$ is $G$ invariant, $\im(\bar{f}) \subseteq W$. Furthermore, note that for any $w \in W$, $g^{-1}(w) \in W$, so 
+\begin{align*}
+\bar{f}(w) &= \frac{1}{|G|}\sum_{g\in G} g f(g^{-1}w)\\ 
+&= \frac{1}{|G|}\sum_{g\in G} g g^{-1}w\\ 
+&= \frac{1}{|G|}\sum_{g\in G} w\\ 
+&= w.
+\end{align*}
+Therefore $\im(\bar{f}) = W$, and $\bar{f}^2 = \bar{f}$. Then for any $v \in V$, $\bar{f}(\bar{f}(v) - v) = 0$, so $\bar{f}(v) - v \in \ker(\bar{f})$. Hence $v = w + u$ where $u \in \ker(\bar{f})$ and $w = \bar{f}(v) \in W$, so $V = W + \ker(\bar{f})$. Now suppose $y \in W \cap \ker(\bar{f})$. Then $0 = \bar{f}(y) = y$, so $V = W \oplus \ker(\bar{f})$.
+
+Furthermore, if $v \in \ker(\bar{f})$, then for any $h \in G$, 
+\begin{align*}
+\bar{f}(hv)  &= \frac{1}{|G|}\sum_{g\in G} g f(g^{-1}hv)\\ 
+    &= \frac{1}{|G|}\sum_{g'\in G} hg'f(g'^{-1}v)\\ 
+    &= h\bar{f}(v)\\ 
+    &= 0.
+\end{align*}
+Therefore $\ker(\bar{f})$ is $G$-invariant, and the theorem is proved. 
+\end{proof} 
+
+\begin{cor}
+    Any finite dimensional complex representation of a finite group $G$ is \textbf{completely reducible} (\textbf{semisimple}): there exist irreducible $G$-subspaces $V_1, \hdots V_n$ such that $V \simeq V_1 \oplus \hdots \oplus V_n$.
+\end{cor}
+
+\begin{proof} If $V$ is one dimensional, it is irreducible so we are done. Otherwise, if $V$ is reducible, use Maschke's theorem to write $V = U \oplus W$, where $\dim(U) < \dim(V)$ and  $\dim(W) < \dim(V)$. The theorem then follows by induction on the dimension.
+\end{proof}
+
+\subsection{Schur's lemma} 
+
+Schur's lemma essentially says that irreducible representations of a group cannot be intertwined in a non trivial way. Crucially, the second part of Schur's lemma requires that $\F$ is an algebraically closed field, so it does not apply over $\R$.
+
+\begin{lemma}[Schur's lemma]
+    Suppose $V$ and $W$ are $G$-invariant vector spaces. Then if $f:V \to W$ is a $G$-homomorphism, then $f$ is either the zero map or an isomorphism. In particular, if $W = V$ and $\F$ is an algebraically closed field, then $f$ is a scalar multiple of the identity map.
+\end{lemma}
+
+\begin{proof}
+    Suppose $f$ is a $G$-homomorphism between $G$-spaces $V$ and $W$. Then $\ker(f)$ is a $G$-subspace of $V$, so irreducibility implies that either $\ker(f) = V$, in which case $f = 0$, or $\ker(f) = \{0\}$, in which case $f$ is injective. Similarly, if $f$ is not the zero map, then $\im(f)= W$, so $f$ is surjective and therefore an isomorphism. 
+
+    If $V = W$, then the algebraic closure of $\F$ implies that $f$ has an eigenvalue $\lambda$. Therefore $f - \lambda I$ is a $G$-homomorphism with non zero kernel, and is therefore the zero map. Hence $f - \lambda I = 0$, so $f = \lambda I$.
+\end{proof}
+
+Schur's lemma has a number of important corollaries. For these results, assume that the vector space is over an algebraically closed field.
+
+\begin{cor}
+    If $G$ is abelian, then its irreducible representations must be one dimensional.
+\end{cor}
+
+\begin{proof}
+    Suppose $\rho:G \to GL(V)$ is an irreducible representation of an abelian group $G$. Then for every $g \in G$, commutativity implies that $\rho(g)\rho(h) = \rho(h)\rho(g)$, so $\rho(h) \in \End(V)$ is a $G$-homomorphism, so $\rho(h)$ is a scalar multiple of the identity map, and every subspace of $V$ is $G$-invariant. Therefore $V$ must be one dimensional.
+\end{proof}
+
+\begin{cor}
+    $Z(G)$ is precisely the set of $g \in G$ such that if $\rho$ is a faithful irreducible representation, then $\rho(g) = \lambda \id_V$, where $\lambda \in \F$. 
+\end{cor}
+
+\begin{proof}
+    If $g \in Z(G)$, then $\rho(g)$ is a $G$-homomorphism, so according to Schur's lemma $\rho(g) = \lambda \id_V$ for some eigenvalue $\lambda \in \F$.
+
+    Conversely, if $\rho(g) = \lambda \id_V$, then $\rho(gh) = \lambda \id_V \rho(h) = \rho(h) \lambda \id_V = \rho(hg)$. As $\rho$ is faithful and therefore also injective, this implies that $gh = hg$, so $g \in Z(G)$.
+\end{proof}
+
+\subsection{Character Theory}
+An essential result from linear algebra says that for square matrices, trace is a similarity invariant: if $R_1 = MR_2M^{-1}$ for some matrix $M$, then $\tr(R_1) = \tr(R_2)$. Intuitively, this makes sense because the trace is the sum of eigenvalues, and 
+since eigenvalues are defined without reference to a basis, the trace should be basis independent. This means that for a given representation $\rho : G \to GL(V)$, $\tr(\rho(g))$ is well defined for every $g \in G$. For every representation we therefore have an associated function $\chi : G \to GL(V) \to \F$ given by $\chi = \tr \circ \rho$. This is known as the character of $G$.
+
+\begin{defi}[Character]
+    Suppose $\rho : G \to GL(V)$ is a representation of a finite group $G$ on a vector space $V$ with field $\F$. Then we say that $\rho$ affords a \textbf{character} $\chi: G \to \F$ defined by $\chi(g) = \tr(\rho(g))$ for every $g \in G$.
+\end{defi}
+
+Characters are incredibly useful because they turn out to be a complete invariant: a representation is uniquely determined by its character. We begin with some basic definitions and results. 
+
+\begin{defi}[Degree]
+    The \textbf{degree} of a character $\chi : G \to GL(V) \to \F$ is the dimension of the vector space $V$.
+\end{defi}
+
+\begin{defi}
+    A character $\chi$ is said to be \textbf{irreducible} iff its associated representation $\rho$ is irreducible. Similarly, $\chi$ is said to be \textbf{faithful} iff $\rho$ is. 
+\end{defi}
+
+An initial observation is that if $\chi$ has degree $n$, then for any $g \in \ker(\rho)$, we see that $\chi(g) = \tr(\id_V) = \dim(V) = n$. 
+
+For complex representations, we can say a bit more. Thanks to a lemma in section 2.1, we know that any eigenvalue $\lambda$ of $\rho(g)$ must be a root of unity. This allows us to bound $|\chi(g)|$ above by applying the Cauchy-Schwartz inequality: $|\chi(g)| = \left| \sum_i \lambda_i \right| \leq \sum_i \left| \lambda_i \right| = \dim(V) = n$. As equality holds when all $\lambda_i$ are equal, this also says that $|\chi(g)| = n$ iff $\rho(g) = \lambda \id_V$ for an eigenvalue $\lambda$. 
+
+We can now improve on the final corollary in section 2.6 and say that $Z(G)$ is precisely the set where $|\chi(g)| = n$ for any faithful and irreducible character $\chi$.
+
+\begin{lemma}
+    Suppose $\rho$ and $\rho'$ are two representations with characters $\chi$ and $\chi'$. Then if $\rho$ is equivalent to $\rho'$, then $\chi = \chi'$.
+\end{lemma}
+
+\begin{proof}
+    By equivalence, $\rho(g) = f \circ \rho'(g) \circ f^{-1}$ for some isomorphism $f$. Hence $\chi(g) = \tr(f \circ \rho'(g) \circ f^{-1}) = \chi'(g)$. 
+\end{proof}
+
+\begin{defi}[Class functions]
+    For a group $G$, the space of class functions over $\F$ is the set of functions from $G$ to $\F$ that are constant on the conjugacy classes $\class_j$ of $G$: $$\class(G) = \{f : G \to \F : f(ghg^{-1}) = f(h) \text{ for all } g, h \in G\}.$$
+    This set is made into a vector space under the normal addition and scalar multiplication of functions. By considering the class functions as column vectors with entries in $\F$, we can see that $\class(G)$ is isomorphic to $\F^k$, where $k$ is the number of conjugacy classes of $G$.
+\end{defi}
+
+\begin{lemma}
+    Any character $\chi$ is a class function.
+\end{lemma}
+
+\begin{proof}
+    By definition, $\chi(ghg^{-1}) = \tr\left(\rho(g)\rho(h)\rho(g)^{-1}\right) = \chi(h)$. 
+\end{proof}
+
+When taken over the complex numbers, $\class(G)$ can be made into a hermitian inner product space (In fact, $\class(G)$ is then a Hilbert space, as all norms on $\C^k$ are equivalent) by defining 
+$$\anglet{f}{f'} = \frac{1}{|G|}\sum_{g\in G} \overline{f(g)}f'(g).$$
+\textit{How can this be extended consistently to all fields where $(\ch(\F), |G|) = 1$?}
+
+The main result of character theory is that the irreducible characters of a group are orthonormal with respect to this inner product.
+
+\begin{thm}[Completeness of Characters]
+    Over the complex numbers, the irreducible characters of $G$ form an orthonormal basis for $\class(G)$: $\anglet{\chi_i}{\chi_j} = \delta_{ij}$ and every $f \in \class(G)$ can be written as $\sum_i \alpha_i \chi_i$ for some coefficients $\alpha_i$.
+\end{thm}
+
+\begin{proof}
+    TO DO.
+\end{proof}
+
+\begin{cor}
+    The number of conjugacy classes of $G$ is the number of complex irreducible characters.
+\end{cor}
+
+\begin{proof}
+    The irreducible characters form a basis for $\class(G) \simeq \C^k$, so there must be exactly $k$ such characters.
+\end{proof}
+
+\begin{cor}
+    Complex representations of finite groups are uniquely determined by their characters.
+\end{cor}
+
+\begin{proof}
+    TO DO.
+\end{proof}
+
+\begin{cor}[Irreduciblity Criterion]
+    A complex representation $\rho$ of a finite group $G$ affording character $\chi$ is irreducible iff $\anglet{\chi}{\chi} = 1$.
+\end{cor}
+
+\begin{proof}
+    Suppose $\rho$ is irreducible. Then so is $\chi$ and $\anglet{\chi}{\chi} = 1$. 
+
+    If $\anglet{\chi}{\chi} = 1$, then since $\chi = \sum m_i \chi_i$, we must have that $\sum m_i^2 = 1$ for some integers $m_0$. Then exactly one $m_i=1$, and the rest are zero, so $\chi$ is irreducible.
+\end{proof}
+
+\begin{thm}
+    sum of squares of dimensions is size of G.
+\end{thm}
+
+\begin{proof}
+    TO DO.
+\end{proof}
+
+To conclude this section, we look at an example.
+
+\begin{eg}[Irreducible representations of $S_3$]
+    TO DO.
+\end{eg}
+
+\section{Representations of Compact Groups}
+\subsection{Basic Definitions}
+\begin{defi}[Hilbert Space]
+    A vector space endowed with a inner product is a Hilbert space if it is complete under the norm induced by the inner product.
+\end{defi}
+
+\begin{defi}[Unitary group]
+    Suppose $\H$ is a Hilbert space. The unitary group $U(\H)$ is the set of all bounded linear operators $\H \to \H$ that satisfy $\anglet{Uv}{Uw} = \anglet{v}{w}$ for all $v, w \in \H$.
+\end{defi}
+
+\begin{defi}[Unitary representation]
+    Suppose $G$ is a compact group and $\H$ is a Hilbert space. A \textbf{strongly continuous unitary representation} of $G$ on $\H$ is a group homomorphism $\pi : G \to U(\H)$ such that 
+\end{defi}
+
+\subsection{Examples of Representations}
+\subsection{Maschke's Theorem}
+\subsection{Schur's Lemma}
+\subsection{Peter Weyl Theorem}
+\subsection{Characters}
+
 \section{Lie Theory}
-\section{Category Theory}
+
+\subsection{Manifolds}
+We begin by reviewing some manifold theory.
+
+\begin{defi}[Manifold]
+    Let $M$ be a set with a second countable Hausdorff topology $\tau$. A $n$ dimensional smooth structure on $M$ consists of the following elements:
+    \begin{enumerate}
+        \item A collection of connected open sets $V_\alpha \in \tau$ whose union is $M$. 
+        \item A collection of homomorphisms $\phi_\alpha : V_\alpha \to U_\alpha$, where $U_\alpha$ is a connected open subset of $\R^n$. These are known as charts
+    \end{enumerate}
+    $M$ is made into an $n$ dimensional \textbf{manifold} if the charts are compatible: for all $\phi_\alpha$ and $\phi_\beta$, we must have $\phi_\alpha(V_\alpha \cap V_\beta)$ open in $\R^n$ and $$\phi_\alpha \circ  \phi_\beta ^{-1}: \phi_\beta(V_\alpha \cap V_\beta) \to \phi_\alpha(V_\alpha \cap V_\beta)$$ must be smooth maps on $\R^n$.
+\end{defi}
+
+\begin{defi}[Smooth map between manifolds]
+    Suppose that $M$ with charts $\phi_\alpha$ and $N$ with charts $\psi_\beta$ are smooth $m$ and $n$ dimensional manifolds respectively. A function $f: M \to N$ is smooth iff for all $\phi_\alpha$ and $\psi_\beta$, we have that $\psi_\beta \circ f \circ \phi_\alpha^{-1}$ is a smooth map from $\R^m$ to $\R^n$ in the usual sense.
+\end{defi}
+
+\begin{defi}[Diffeomorphism]
+    A smooth map $f$ between two manifolds $M$ and $N$ is a \textbf{diffeomorphism} if $f^{-1}$ exists and is also a smooth map.
+\end{defi}
+
+In particular, a diffeomorphism is a special type of homeomorphism between topological spaces.
+
+We omit the proof of the following proposition.
+
+\begin{prop}[Product manifold]
+    Suppose that $M$ with topology $\tau_M$ and smooth structure $(V_\alpha, \phi_\alpha)$ and $N$ with topology $\tau_N$ and smooth structure $(U_\beta, \psi_\beta)$ are smooth $m$ and $n$ dimensional manifolds respectively. Then 
+    \begin{enumerate}
+        \item $M \times N$ with the product topology $\tau_M \times \tau_N$ is a manifold when endowed with charts $\phi_{\alpha\beta}: V_\alpha \times U_\beta \to \R^m \times \R^n: (v, u) \mapsto (\phi(v), \psi(u))$.
+        \item If $X$ and $Y$ are submanifolds of $M$ and $N$ respectively, then $X \times Y$ is a submanifold of $M \times N$.
+    \end{enumerate}
+    In particular, for any $x \in M$, $\{x\} \times N$ is a submanifold of $M \times N$.
+\end{prop}
+
+\subsection{Lie groups}
+
+A Lie group is a group $G$ that is also a smooth manifold. 
+
+\begin{defi}[Lie Group]
+    Let $G$ be a group that is also a manifold under a given topology $\tau$ and smooth structure $(V_\alpha, \phi_\alpha)$. Then $G$ is a \textbf{Lie group} iff 
+    \begin{enumerate}
+        \item $m: G \times G \to G : (g, h) \mapsto gh$ and
+        \item $\inv: G \to G : g \mapsto g^{-1}$ 
+    \end{enumerate}
+    are both smooth maps between manifolds.
+\end{defi}
+
+\begin{defi}[Lie group homomorphism]
+    A map between two lie groups $G$ and $H$ is a \textbf{lie group homomorphism} if it is a homomorphism of groups that is also a smooth map.
+\end{defi}
+
+A homomorphism of Lie groups $f$ is an isomorphism if $f^{-1}$ exists and is also a Lie group homomorphism. Equivalently, an isomorphism of Lie groups is a diffeomorphism that is also a homomorphism in both directions.
+
+For a given $n$ dimensional vector space $V$, the general linear group $GL(V)$ is a Lie group with manifold structure inherited from $\R^{n^2}$.
+
+\begin{defi}[Lie group action]
+    Let $G$ be a Lie group and let $X$ be a manifold. A \textbf{Lie group action} of $G$ on $X$ is a group action $G \times X \to X : (g, x) \mapsto gx$ that is also a differentiable map between manifolds. 
+\end{defi}
+
+\begin{defi}[Left and right actions]
+    For any $g$ an element of a Lie group $G$, the \textbf{left action} of $g$ is $L_g : G \to G: h \mapsto gh$. Similarly, the \textbf{right action} of $g$ is $R_g : G \to G: h \mapsto hg$.
+\end{defi}
+
+\begin{thm}
+    For any element $g\in G$, the left and right actions of $G$ are diffeomorphisms on $G$. 
+\end{thm}
+
+\begin{proof}
+The left action of $g$ is the restriction of the multiplication map $m$ to the Lie subgroup $\{g\} \times G = \{(g, h) : h \in G\}$. This can be written as $L_g = m \circ \iota$, so as the composition of smooth maps, $L_g$ is also smooth. $L_{g^{-1}}$ is an obvious smooth inverse, so $L_g$ is a diffeomorphism. The argument for $R_g$ is the same.
+\end{proof}
+
+\begin{defi}[Conjugation action]
+    For any $g \in S$, the \textbf{Conjugation action} $\Psi_g : G \to G$ of $g$ is composed of left and right actions: $\Psi_g(h) = L_g \circ R_g^{-1}(h) = ghg^{-1}$. 
+\end{defi}
+
+As a composition of diffeomorphisms, the conjugation action is itself a diffeomorphism. From elementary group theory, we know that the conjugation action is also a homomorphism with an inverse that is also a homomorphism. Hence the conjugation action is in fact a Lie group isomorphism.
+
+\subsection{Lie Group Representations}
+As expected, A Lie group representation is a Lie group homomorphism from $G$ to $GL(V)$ for some vector space $V$. This can also be viewed as a linear Lie action on a vector space $V$ where $V$ is made into a manifold in the natural way. The conjugation map $\Psi_g$ gives a particularly nice Lie group representation.
+
+Since $\Psi_g$ fixes the identity $e$ in $G$, the derivative $(d\Psi_g)_e : T_e G \to T_e G$ is an endomorphism on $T_e G$. Furthermore, because $\Psi_g$ is a Lie group isomorphism, $\Psi_g^{-1}$ is smooth, so $(d\Psi_g)^{-1}_e$ exists. Therefore $(d\Psi_g)_e$ is actually an automorphism on $T_e G$. This motivates the following definition.
+
+\begin{defi}[Adjoint representation of a Lie group]
+    Suppose $G$ is a Lie group. The \textbf{adjoint representation} $\Ad: G \to \Aut(T_e G)$ of $G$ is the map $\Ad(g) = (d\Psi_g)_e$.
+\end{defi}
+
+\subsection{Lie Algebras}
+We begin with the definition of a Lie algebra.
+
+\begin{defi}[Lie algebra]
+    A vector space $V$ over a field $\F$ is a Lie algebra if it is endowed with a multiplication $V \times V \to V$ denoted $(x, y) \mapsto \bracket{x, y}$ such that
+    \begin{enumerate}
+        \item The bracket operation is bilinear.
+        \item $\bracket{x, x} = 0$ for all $x \in V$. 
+        \item $\bracket{x, \bracket{y, z}} + \bracket{y, \bracket{z, x}} + \bracket{z, \bracket{x, y}} = 0$
+    \end{enumerate}
+    The third requirement is known as the Jacobi identity.
+\end{defi}
+
+The first thing to note is that applying the first and second requirements to $\bracket{x + y, x + y}$ we see that $\bracket{x, y} = -\bracket{y, x}$, so the bracket is anti commutative. We also note that in general the bracket does not have to be associative (the Jacobi identity can be used to show that associativity will hold only when $\bracket{a, \bracket{b,c}} = 0)$ for all $a, b, c$).
+
+Our first example of a Lie algebra is a very important one.
+
+\begin{defi}[General linear algebra]
+    For a given vector space $V$, the set of all endomorphisms on $V$ form an algebra with scalar multiplication from the field $\F$ in $V$. This vector space can be made into the \textbf{general linear algebra} $\gl(V)$ by replacing the standard product with a bracket operation where $$\bracket{x, y} = xy - yx$$
+    for all $x, y \in V$.
+\end{defi}
+
+Any vector space $V$ can be made into a trivial lie algebra by defining $\bracket{x, y} = 0$ for all $x, y \in V$. Such a lie algebra is said to be \textbf{abelian}.
+
+\begin{defi}[Lie algebra homomorphism]
+    Suppose $\g$ and $\h$ are two Lie algebras. A function $\tau: \g \to \h$ is a \textbf{Lie algebra homomorphism} if for all $X, Y \in \g$, $$\tau(\bracket{X, Y}) = \bracket{\tau(X), \tau(Y)}$$ and $$\tau(\alpha X + \beta Y) = \alpha \tau(X) + \beta \tau(Y).$$
+\end{defi}
+
+As usual, a homomorphism is a monomorphism, epimorphism or isomorphism if it is respectively injective, surjective or bijective. Two Lie algebras $\g$ and $\h$ are said to be \textbf{isomorphic} if there exists a Lie algebra isomorphism between them. 
+
+\begin{defi}[Subalgebra]
+    Suppose $\g$ is a Lie algebra. A vector subspace $\h$ of $\g$ is a Lie subalgebra if it is closed under the bracket operation in $\g$: $\bracket{x, y} \in \h$ for all $x, y \in \h$.
+\end{defi}
+
+\begin{defi}[ideal]
+    An \textbf{ideal} $\a$ of a Lie algebra $\g$ is a subalgebra that has total closure: for all $x \in \g$ and $a \in \a$, $\bracket{a, x} \in \a$. According to skew symmetry, this is equivalent to requiring that $\bracket{x, a} \in \a$.
+\end{defi}
+
+When $\a$ is an ideal of a Lie algebra $\g$, the quotient vector space $\g/\a$ can be made into a Lie algebra under the bracket $\bracket{x + \a, y + \a} = \bracket{x, y} + \a$.
+
+\subsection{Lie Algebra Representations}
+to do: expand.
+
+Just as a group representation was a group homomorphism into the general linear group, a lie algebra representation is a lie algebra homomorphism into the general linear algebra.
+
+\begin{defi}[Representation of a Lie algebra]
+    Suppose $\g$ is a Lie algebra. A \textbf{representation} of $\g$ on a vector space $V$ is a Lie algebra homomorphism 
+    $$\tau : \g \to \gl(V).$$
+\end{defi}
+
+Suppose $\g$ is a Lie algebra, and $x \in \g$. The map $\ad x : \g \to \g: y \mapsto \bracket{x, y}$ is a derivation on $\g$. This gives rise to the following important Lie algebra representation.
+
+\begin{defi}[Adjoint representation of a Lie algebra]
+    The map $\Ad : \g \to \Der(\g) : x \mapsto \ad x$ is the \textbf{adjoint} representation of $\g$.
+\end{defi}
+
+\subsection{The Lie Algebra of a Lie Group}
+It turns out that every Lie group has an associated Lie algebra. This is very useful, because often Lie algebras are easier to study than Lie groups. The key result is that the adjoint representation of a Lie group allows for the definition of a bracket operation on the tangent space.
+
+Recall that the adjoint representation $\Ad$ of a Lie group $G$ is a map from $G$ to the automorphisms on $T_e G$. $\Aut(T_e G)$ is an open subset of $\End(T_e G)$, so the tangent space of $\Aut(T_e G)$ at the identity $I = \id_{T_e G}$ can be naturally identified with $\End(T_e G)$. As such, the derivative of $\Ad$ is a map
+$$\ad = (d\Ad)_{I}: T_e G \to \End(T_e G).$$
+
+\begin{thm}
+    For a Lie group $G$, the vector space $T_e G$ is made into a Lie algebra $\g$ by the bilinear map
+    $$\bracket{\cdot, \cdot} : \g \times \g \to \g : \bracket{x, y} = \ad(x)(y).$$
+\end{thm}
+
+\begin{proof} 
+We verify the three axioms for Lie algebras.
+\begin{enumerate}
+    \item $\rho $ 
+    \item $\bracket{x, x} = (d\Ad)_{I}(x)(x)$. 
+    \item 
+\end{enumerate}
+\end{proof}
+
+There is also a one to one correspondence between homomorphisms between Lie groups and homomorphisms between their associated Lie algebras.
+
+\begin{thm}
+    Suppose $G$ and $H$ are Lie groups with $G$ simply connected. A homomorphism $\rho: G \to H$ is uniquely determined by its differential $(d\rho)_e : T_e G \to T_e H$. Furthermore, a linear map $T_e G \to T_e H$ is the differential of a homomorphism $\rho: G \to H$ iff it preserves the bracket operation.
+\end{thm}
+
+\begin{proof}
+    
+\end{proof}
+
+\subsection{Covering spaces}
+
+to do: define covering space map. Prove the theorems. 
+
+\begin{thm}
+    Suppose $G$ is a Lie group, $H$ a connected manifold and $\phi: H \to G$ is a covering space map. If $e' \in \phi^{-1}(\{e\})$, then there is a unique Lie group structure on $H$ such that $e'$ is the identity and $\phi$ is a homomorphism of Lie groups. In this case, the kernel of $\phi$ is in the center of $H$.
+\end{thm}
+
+\begin{thm}
+    Suppose $H$ is a Lie group, and $\Gamma \subseteq Z(H)$ is a  discrete subgroup of its center. Then there is a unique Lie group structure on $G = H / \Gamma$ such that the quotient map $H \to G$ is a Lie group homomorphism. 
+\end{thm}
+
+\begin{thm}
+    Suppose $G$ is a connected Lie group, and $U \subseteq G$ is any neighborhood of the identity. Then $U$ generates $G$.
+\end{thm}
+
+\begin{proof}
+First of all, note that any neighborhood of a point contains an open neighborhood of that point, so if necessary we replace $U$ with open subset. $U^{-1}$ is also an open neighborhood of the identity, so if necessary, we further replace $U$ with $U \cap U^{-1}$ such that $U=U^{-1}$.
+
+Let $S$ be the set generated by $U$. For any $g \in S$, the left action of $g$ is a diffeomorphism, so $gU$ is open because $U$ is. Now write $H = G \setminus S$. If $hu \in S$ for any $u \in U$, $h \in H$, then $huu^{-1} = h$ is also in $S$, so we must have that $hU$ is disjoint with $S$. Hence as $hU$ is also open, $H' = \bigcup_{h \in H} hU$ is a open subset of $G$ that is disjoint from $S$ with $G = H' \cup S$. By the connectedness of $G$, since $S$ is nonempty, we must have $G=S$. 
+\end{proof}
+
+\subsection{The Exponential Map}
+
+We now illustrate how a Lie group homomorphism induces a Lie algebra homomorphism via the exponential map.
+
+\subsection{Lie algebras of U(n), SL(n, \texorpdfstring{$\C$}{C}) and SU(n)}
+
+\begin{defi}[U(n)]
+    $U(n)$ is the group of unitary matrices in $n$ dimensions: 
+    $$U(n) = \{X \in GL(n, \C) : XX^\dagger = 1\}.$$
+\end{defi}
+If we write $\mathfrak{u}(n)$ for the Lie algebra of $U(n)$, then for all $X \in \mathfrak{u}(n)$ and $t \in \R$, $e^{tX} \in U(n)$, so $e^{tX}e^{tX^\dagger} = 1$. Differentiating this expression with respect to $t$ yields the condition $X + X^\dagger = 0$. Therefore, elements of $\mathfrak{u}(n)$ must be skew adjoint matrices. This inspires the following proposition. 
+
+\begin{prop}
+    The Lie algebra $\mathfrak{u}(n)$ of $U(n)$ is precisely the set of skew adjoint $n \times n$ complex matrices.
+\end{prop}
+
+\begin{proof}
+    For a skew adjoint complex matrix, diagonal entries are imaginary and entries in the upper triangular section are completely determined by the lower triangular section. Therefore, there are $n + 2 \frac{n^2 - n }{2} = n^2$ real parameters in such a matrix.
+
+    On the other hand, because the tangent space has the same dimension as the manifold, the dimension of $\mathfrak{u}(n)$ must be the same as $U(n)$. Unitary matrices are embedded in $2n^2$ real dimensional space, but are subject to $n$ real constraints normalizing the columns, and $\frac{n^2 - n }{2}$ complex constraints requiring that columns are orthogonal. Therefore $\mathfrak{u}(n)$ has dimension $2n^2 - n - 2 \frac{n^2 - n }{2} = n^2$ as well. 
+    
+    Therefore, every skew adjoint matrix must also be in $\mathfrak{u}(n)$ because $\mathfrak{u}(n)$ is a subset of the skew adjoint matrices with the same dimension.
+\end{proof}
+
+\begin{defi}[$SL(n, \C)$]
+    $SL(n, \C)$ is the group of $n\times n$ complex matrices with determinant 1:
+    $$SL(n, \C) = \{X \in GL(n, \C) : \det(X) = 1\}.$$
+\end{defi}
+
+Once again, we can use the exponential map to examine the Lie algebra: for any element $X \in \sl(n, \C)$, we have $\det(e^X) = 1$, so as $\det(e^X) = e^{\tr(X)}$, we have that $\tr(X) = 0$. 
+
+\begin{prop}
+    The Lie algebra $\sl{u}(n)$ of $SL(n, \C)$ is precisely the set of traceless $n \times n$ complex matrices. 
+\end{prop}
+
+\begin{proof}
+    As both the trace and determinant map a matrix to the complex numbers, both conditions impose two constraints on the matrices. 
+    
+    Therefore, every traceless $n \times n$ complex matrix must also be in $\sl{u}(n)$ because $\sl{u}(n)$ is a subset with the same dimension.
+\end{proof}
+
+\begin{defi}[$SU(n)$]
+    $SU(n)$ is the intersection of $SL(n, \C)$ and $U(n)$:
+    $$SU(n) = \{X \in GL(n, \C) : XX^\dagger = 1, \det(X) = 1\}.$$
+\end{defi}
+
+As such, the lie algebra $\su(n)$ of $SU(n)$ is just the intersection of $\sl(n, \C)$ and $\mathfrak{u}(n)$. 
+
+\begin{prop}
+    $SL(n, \C)$ is the set of $n \times n$ complex skew adjoint traceless matrices: $$\su(n) = \{X \in M(n, \C) : X^\dagger = -X, \tr(X) = 0\}.$$
+\end{prop}
+
+\subsection{Irreducible representations of U(1)}
+$U(1)$ is the set of unitary one by one matrices. Therefore $U(1)$ is just the unit circle in the complex numbers. This group is clearly abelian, so by the first corollary of Schur's lemma, the irreducible representations of $U(1)$ must be one dimensional. This implies that any irreducible representation $\rho$ of $U(1)$ is actually just an automorphism on $U(1)$. This gives us our first lemma.
+
+\begin{lemma}
+    Any irreducible representation $\rho$ of $U(1)$ is of the form $$\rho(e^{i\theta}) = e^{ik\theta}$$
+\end{lemma}
+
+\begin{proof}
+    As argued above, we must have that $\rho$
+\end{proof}
+
+\subsection{\texorpdfstring{$\su(2)$}{su(2)} and \texorpdfstring{$\sl(2, \C)$}{sl(2, \C)}}
+
+Recall that $\su(2)$ is the set of skew symmetric traceless $2 \times 2$ complex matrices: 
+
+$$\su(2) = \left\{\begin{pmatrix}-ix & -y+iz \\ y + iz & ix\end{pmatrix} : x, y, z \in \R\right\}.$$
+
+On the other hand, since $\sl(2, \C)$ is just the set of traceless $2 \times 2$ complex matrices, we see that 
+\begin{align*}
+\sl(2) &= \begin{pmatrix}x-i y & a+i b \\ c + id & -x+i y\end{pmatrix}\\
+&= \begin{pmatrix}-i y & -s+i u \\ s + i u & i y\end{pmatrix} + i\begin{pmatrix}-i x & -v+i t \\ v + i t & i x\end{pmatrix}
+\end{align*}
+where $s = \frac{1}{2}(c - a)$, $t = -\frac{1}{2}(c + a)$, $u = \frac{1}{2}(d - b)$ and $v = \frac{1}{2}(d - b)$. Hence, it is not hard to see that $\sl(2, C) = \su(2) \oplus i \su(2)$. We will therefore work primarily with $\sl(2, \C)$, and derive representations of $\su(2)$ as a consequence. 
+
+A basis for $\sl(2, \C)$ is given by 
+
+$$h = \begin{pmatrix}1 & 0 \\ 0 & -1\end{pmatrix}, \hspace{2em} e = \begin{pmatrix}0 & 0 \\ 1 & 0\end{pmatrix}, \hspace{2em} f = \begin{pmatrix}0 & 1 \\ 0 & 0\end{pmatrix}.$$
+
+Recalling that the bracket is defined by $\bracket{x, y} = xy - yx$, we see that these matrices obey the commutation relations
+$$\bracket{h, e} = -2e, \hspace{2em} \bracket{h, f} = 2f, \hspace{2em} \bracket{e, f} = -h.$$
+
+\subsection{Irreducible representations of \texorpdfstring{$\sl(2, \C)$}{sl(2, \C)}}
+Suppose that $\sl(2, \C)$ acts linearly on a finite dimensional vector space $V$. We define the \textit{weight space} $V_\lambda = \{v \in V : hv = \lambda v\}$ for a given \textit{weight} $\lambda$. Clearly, if $\lambda$ is not an eigenvalue of $h$, then $V_\lambda = \{0\}$.
+
+\begin{prop}
+    For any $v \in V_\lambda$, $e v \in V_{\lambda - 2}$ and $f v \in V_{\lambda + 2}$.
+\end{prop}
+
+\begin{proof}
+    According to the commutation relations given in the above section, $he - eh = -2e$, so $h(ev) = (eh - 2e) v = (\lambda - 2)ev$. Similarly, $hf - fh = 2f$, so $h(fv) = (fh + 2f) v = (\lambda - 2)fv$.
+\end{proof}
+
+The point of this proposition is to show that these weight spaces of $h$ form chains with weights incrementing by $2$. The next two propositions shows that there is exactly one such chain.
+
+\begin{prop}
+    Suppose that $\sl(2, \C)$ acts linearly on a finite dimensional vector space $V$. Then there exists an eigenvector $w \in V$ for $H$ such that $e w = 0$.
+\end{prop}
+
+\begin{proof}
+    As $\C$ is algebraically closed, $h$ must have at least one eigenvalue with an eigenvalue $v$. Then if $v, ev, e^2v, \hdots$ are all non zero, then they must all be eigenvectors of $h$ with distinct eigenvalues. This would be an infinite sequence of independent vectors in $V$, which is impossible because $V$ is finite dimensional. Hence there exists an eigenvector $w = e^k v$ for $h$ such that $ew = e^{k+1}v = 0$ for some $k$. 
+\end{proof}
+
+If $w$ is an eigenvector of $h$ with eigenvalue $\lambda$ such that $e w = 0$, then we say that $w$ is a maximal vector of $V$ and that $\lambda$ is a maximal weight.
+
+\begin{prop}
+    If $w$ is a maximal vector of a vector space $V$ with dimension $n$, then $w, fw, \hdots, f^{n-1} w$ is a basis for $V$.
+\end{prop}
+
+\begin{proof}
+    
+\end{proof}
+
+
+\section{Quantum Mechanics}
+\subsection{The Quantum Formalism}
+Classically, a physical system consisted of the following components: 
+\begin{enumerate}
+    \item A set $S$ of possible states. This set was a finite dimensional real vector space, with each coordinate corresponding to the value of a particular quantity. The original example of this is description of a single particle in Newtonian mechanics, in which $S$ is a two dimensional real vector space, with the first dimension corresponding position and the second to velocity.
+    \item A set $\Omega$ of observable quantities. These quantities were expressed as a function from $S$ to $\R$. For example, if a particle of mass $m$ was modeled in a Newtonian system, then the the energy of a particle would be given as $E: S \to \R : E(x, v) = mv^2/2$.
+    \item A rule which describes how the state evolves through time. For example, if a particle with mass $m$ under the influence of a constant force $F$ was modeled by Newtonian mechanics, then $(\dot{x}, \dot{v}) = (v, \frac{F}{m})$.
+\end{enumerate}
+Embedded in component $2$ is the assumption that every observable must always be completely described by a single real value. Unfortunately however, several experiments in the early 20th century showed this to be insufficient when modeling systems which are precise enough to deal with individual particles. As a result, the founders of quantum mechanics developed a system where
+\begin{enumerate}
+    \item $S$ is replaced with a Hilbert space $\H$. Examples include taking $\H = L^2(\R^3)$ to model a spin-less particle in three dimensions, $\H = \C^2$ for a two state system like the spin of an electron, $\H = L^2(\R) \otimes L^2(\R)$ for two particles in one dimension, and $\H = L^2(\R) \otimes \C^3$ for a particle in one dimension with three possible spin states.
+    \item Observable quantities become hermitian operators on $\H$. To see what this means in a physical context, note that hermitian operators are diagonalizable. Therefore, specifying a hermitian operator is equivalent to specifying a set of real eigenvalues (the possible `well defined' values of the observable) and an orthonormal basis for $\H$ (the states corresponding to those eigenvalues). The benefit of this  description is that it allows for the state of a particle to have nonzero components in multiple eigenspaces - i.e. the particle can be in a `superposition' of eigenstates. 
+    \item The equation defining evolution of the state through time is replaced with the schrodinger equation: 
+    $$i\hbar\frac{d}{dt}\ket{\psi(t)} = H\ket{\psi(t)},$$
+    where $H$ is a distinguished observable called the Hamiltonian, and $\hbar$ is plank's constant divided by $2 \pi$.
+\end{enumerate}
+
+An important consequence of $2$ is that if a system is in state $\ket{\phi} \in \H$, then all measurable quantities will be unchanged if the state changes to $\lambda\ket{\phi}$ for any scalar $\lambda \neq 0$ (Note that $\ket{0}$ does not correspond to a physical state, because it has no components in any eigenspace of any observable). As such, a state is actually better associated with a vector in $\H / \C$.
+
+When the eigenvalue spectrum of an operator is discrete, we find that the corresponding measurable becomes `quantized', and cannot take on the full range of values we would expect from classical mechanics. This is however, not always the case - it is common for observables such as position $X$ and momentum $P$ to have a continuous spectrum of eigenvalues. Unfortunately there is considerably more technical detail required for a precise mathematical treatment of this situation. For example, a continuous spectrum of eigenvalues would require that there is also an continuous set of orthonormal eigenvectors, which is not possible in typical Hilbert spaces such as $\C^n$ or $L^2(\R^3)$. The physics approach usually handles this case by introducing the Dirac delta function $\delta$, (which is actually a functional on ) and stipulating that $\anglet{x}{x'} = \delta(x-x')$.
+
+\subsection{Measurement}
+The formalism of quantum mechanics becomes useful when it can be applied to deduce results of experiments that can be conducted by humans. The problem is that any measurement system (which necessarily includes the people doing the measuring) has at least $\sim 10^{27}$ atoms. Unfortunately, it is impractical to model the evolution of such a system with Schr\"{o}dinger's equation. Physicists wanting to make useful predictions therefore imagine that when a quantum system interacts with a `measuring device', the system collapses into a well defined state. This is known as the Born rule.
+
+\begin{princ}[Born Rule]
+    Suppose a particle is in the state $\ket{\psi} = \sum \alpha_\omega \ket{\omega}$ where $\ket{\omega}$ are the eigenvectors of an observable $\Omega$. Measurement of $\Omega$ will yield the value $\omega$ with probability $$P(\omega) = \frac{\abs{\anglet{\omega}{\psi}}^2}{\anglet{\psi}{\psi}} = \frac{|\alpha_\omega|^2}{\sum |\alpha_\omega|^2}.$$ This measurement will cause the state of the particle to change from $\ket{\psi}$ to $\ket{\omega}$.
+\end{princ}
+
+Another perspective says that when a measurement is performed, the quantum system has simply become entangled with the measuring device. However, because each of the eigenstates of $\Omega$ would then evolve independently from each other, the question of whether or not the state has actually collapsed into an eigenvector is a matter of perspective. It can be argued that collapse (the Copenhagen interpretation) is `simpler' because it doesn't require the existence of vast numbers of noninteracting states, but on the other hand it can also be argued that `no collapse' (the many worlds interpretation) is simpler because it doesn't require a poorly defined, non-deterministic process to be a part of the theory. Clearly, this becomes a matter of philosophy.
+
+\subsection{Lie Theory, Representations in Quantum Mechanics}
+It turns out that for a quantum system modeled by a Hilbert space $\H$, most of the interesting observables arise from the symmetries of $\H$. In this section, we give a outline of how this works, and the remaining sections examine several examples.
+
+Suppose that a compact group $G$ has a strongly continuous unitary representation $\pi: G \to U(\H)$ for some Hilbert space $\H$. We say that $G$ is a group of symmetries for $\H$ because it preserves the inner product (and therefore also the probabilities of various physical measurements). According to the Peter Weyl theorem, $\H$ decomposes into a direct sum of finite dimensional unitary representations of $G$.  
+
+In the section on Lie theory, we showed that the lie algebra $\mathfrak{u}(n)$ of $U(n)$ is the set of $n \times n$ complex skew adjoint matrices. Furthermore, we showed that any Lie group representation $\pi$ has an associated Lie algebra representation $\pi'$. Therefore, for any $X \in \g$, $\pi'(X)$ is a skew adjoint, and acts on $\H$, so $i\pi'(X)$ is a hermitian operator (observable) on $\H$. 
+
+These observable transform in a particularly nice way under the action of $\pi(G)$ on $\H$. $\pi(g)\pi'(X)\pi(g)^{-1} = \pi'(gXg^{-1})$.
+
+To summarize, the action of a Lie group on a Hilbert space gives rise to a set of observables that respect the symmetries encapsulated by that Lie group. As we will see in the following sections, it just so happens that the observables generated in this manner turn out to be the observables of most interest to us.
+
+\subsection{Orbital Angular Momentum}
+Suppose that we have a Hilbert space $\H$ that is modeling a system in three dimensional space. Then the natural unitary representation of $SO(3)$ on $\H$ will generate the angular momentum operators. 
+
+To illustrate this process, we are going to study a single spin-less particle, which we will model by choosing $\H$ to be $L^2(\R^3, \C)$. In this situation, we imagine a state $\phi \in \H$ represents a probability cloud where $|\phi(\vec{x})|^2$ is the probability of being found around the point $\vec{x}$. Then it isn't too hard to see that the representation $\pi : SO(3) \to GL(H)$ defined by
+$$(\pi(R)\phi)(\vec{x}) = \phi(R^{-1}\vec{x})$$
+is `natural' in the sense that it corresponds to rotating the probability cloud $\phi$ by $R$. To see that this is also a unitary representation, note that for any $R \in SO(3)$, Jacobian is 1 so 
+$$\anglet{\pi(R)\psi}{\pi(R)\phi} = \int \psi(R^{-1}\vec{x})^* \phi(R^{-1}\vec{x})d\vec{x} = \int \psi(\vec{v})^* \phi(\vec{v})d\vec{v} = \anglet{\psi}{\phi}.$$
 
 
 
-what is the wave function collapse?
- - properties are always found to be discrete, not smeared out
+% As $SO(3)$ is a Lie group, we get an induced Lie algebra representation $\pi' : \so(3) \to \mathfrak{u}(\H)$. Recalling that $\mathfrak{u}()$ consists of skew adjoint matrices, we see that $X = i\pi'(x)$ is a hermitian operator on $\H$ for any $x \in \so(3)$. Observables generated by $SO(3)$ in this way are known as angular momentum operators, and correspond to the classical .
+
+% Our aim now is to find the eigenvectors and eigenvalues of every $X$. Once this is done, it will be simple to describe the state of a particle in terms of these eigenstates, allowing us to assign a probability to each of the eigenvalues of $iX$. We refer to the eigenvalue of $iX$ as the angular momentum in the direction represented by $X$.
+
+% In view of the Peter Weyl theorem, the compactness of $SO(3)$ implies that $\H$ decomposes as a direct sum of finite dimensional vector spaces $V_l$. These are irreducible under $SO(3)$ and $\so(3)$. As there is exactly one irreducible representation of $\so(3)$ for each odd dimension, we know that 
+% $$\H = V_1 \oplus V_3 \oplus V_5 \oplus \hdots.$$
+% Therefore, our aim is to find the action of $iX$ on each $V_l$.
+
+A basis for $\so(3)$ is given by 
+$$l_1 = \begin{pmatrix} 0 & 0 & 0 \\ 0 & 0 & -1 \\ 0 & 1 & 0 \\ \end{pmatrix}, \hspace{1em} l_2 = \begin{pmatrix} 0 & 0 & 1 \\ 0 & 0 & 0 \\ -1 & 0 & 0 \\ \end{pmatrix}, \hspace{1em} l_3 = \begin{pmatrix} 0 & -1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 0 \\ \end{pmatrix},$$
+with corresponding observables $L_j = i\pi'(l_j)$. To begin with, we find an expression for $L_j$ when using the standard basis for $\R^3$. For a given function $f \in L^2(\R^3)$,
+
+\begin{align*}
+    \pi'(l_1)f(\vec{x}) &= \left. \frac{d}{dt} \left(e^{t\pi'(l_1)}f(\vec{x})\right) \right|_{t=0}\\
+    &= \left. \frac{d}{dt} \pi\left(e^{t l_1}\right)f(\vec{x}) \right|_{t=0}\\ 
+    &= \left. \frac{d}{dt} f\left(\begin{pmatrix} 1 & 0 & 0 \\ 0 & \cos(t) & \sin(t) \\ 0 & -\sin(t) & \cos(t) \\ \end{pmatrix} \begin{pmatrix}x_1 \\ x_2 \\ x_3 \end{pmatrix}\right) \right|_{t=0}\\
+    &= \left. \frac{d}{dt} f(x_1, x_2\cos(t) + x_3 \sin(t), -x_2\sin(t) + x_3 \cos(t)) \right|_{t=0}\\ 
+    &= \left( \frac{\partial f}{\partial x_1}, \frac{\partial f}{\partial x_2}. \frac{\partial f}{\partial x_3}\right)  
+\end{align*}
 
 
+this is a 
 
+% It turns out that in a spherically symmetric potential, the Hamiltonian operator $H$ commutes with the action of $L_1, L_2, L_3$, so we see that each of the spaces $V_k$ are also energy eigenspaces. As such, we can label these spaces by their energy. As a `pure' state in quantum mechanics corresponds to an eigenstate of the observables under consideration, we see that there are $2n+ 1$ possible values of the orbital angular momentum at energy level $n$.
+
+\subsection{Spin: Intrinsic angular momentum}
+Suppose that $\H$ is finite dimensional. According to an above section, we know that up to isomorphism, there is only one irreducible representation $\rho$ of $\su(2)$. This representation will give us self adjoint operators on $\H$ in the following way: for any $X = a X_1 + b X_2 + c X_3 \in \su(2)$
+$$O(\hat{n}) = i\rho(\hat{n} \cdot X).$$
+This operator 
+
+For example, if we wanted to describe the state of a single electron, we might choose $\H$ to be the space of square integrable complex functions on $\R^3$. In this situation, we imagine a state $\phi \in \H$ represents a probability cloud where $|\phi(\vec{x})|^2$ is the probability of being found around the point $\vec{x}$. Then $SO(3)$ acts on $\H$ by 
+
+Now suppose that we have an observable $O$ which is a function of direction $\hat{n}$. The key insight is that measuring $O(R\hat{n})$ is the same as measuring $O(\hat{n})$ in a reference frame that has been acted on by $R$. Therefore, for any $\phi, \psi \in \H$, 
+$$\anglet{\phi}{O(R\hat{n})\psi} = \anglet{\rho(R)\phi}{O(\hat{n})\rho(R)\psi}= \anglet{\phi}{\rho(R)^\dagger O(\hat{n})\rho(R)\psi}$$
+Hence, any such observable must transform as  
+$$O(R\hat{n}) = \rho(R)^\dagger O(\hat{n})\rho(R) = \rho(R)^{-1} O(\hat{n})\rho(R)$$
+as $\rho$ is a unitary representation.
+
+Then we will need to describe an operator $O(\hat{n})$ on the Hilbert space $\H$. From a rotated reference frame corresponds to $SO(3)$ acting on $\hat{n}$ and $\H$ simultaneously. As the physical properties of the system should be independent of the direction from which we view the system, if we measure the angular momentum along $R\hat{n}$
+
+\subsection{Total Angular Momentum}
+The total angular momentum is the sum of spin and orbital angular momentum. We see that this arises from . If a system begins in a given eigenspace, then any action of SO(3) will leave that eigenspace invariant, therefore ensuring that angular momentum is conserved. This is the essence of Noether's theorem.
+
+\section{Questions}
+\begin{itemize}
+    \item What happens when the set of states $S$ is countably infinite? How do you define the sum in such a circumstance? If you just use an infinite sum, then how do you ensure that it converges? Furthermore, what happens if the set has cardinality greater than or equal to the power set of the reals? How would integration be defined in this kind of a circumstance? Is this where Lebesgue theory comes in?
+    \item What exactly is G acting on, and what is the difference between S and H? Is G acting on H or is G acting on S with an induced representation on H?
+    \item Does my proof of Maschke's theorem actually require V to be finite dimensional?
+    \item how does my little lemma about eigenvalues of representations work in finite fields?
+\end{itemize}
+
+\section{Sources}
+% https://www.cis.upenn.edu/~cis610/cis61005sl8.pdf
+
+% https://scholar.harvard.edu/files/noahmiller/files/representation-theory-quantum.pdf
+
+https://www.jmilne.org/math/CourseNotes/LAG.pdf
 
 \end{document}

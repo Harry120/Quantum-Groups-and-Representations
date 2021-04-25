@@ -31,7 +31,7 @@
 \begin{titlepage}
     \begin{center}
     \vspace*{15em}
-    {\fontsize{50}{60}\selectfont \textit{\@title}}
+    {\fontsize{28}{38}\selectfont \textit{\@title}}
     \vspace{2em}
 
     \begin{Large}
@@ -57,7 +57,6 @@
 \newtheorem*{thm}{Theorem}
 \newtheorem*{princ}{Principle}
 
-
 \pagestyle{fancyplain}
 \lhead{\textit{\nouppercase{\leftmark}}}
 \rhead{MATH3001}
@@ -66,19 +65,42 @@
 \usepackage{geometry}
 \geometry{a4paper, portrait, margin=4.5cm}
 
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\ch}{char}
+\DeclareMathOperator{\inv}{inv}
+\DeclareMathOperator{\Aut}{Aut} 
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Ad}{Ad}
+\DeclareMathOperator{\ad}{ad}
+\DeclareMathOperator{\Der}{Der}
+
+
 \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
 \newcommand{\ket}[1]{\left\lvert #1 \right\rangle}
 \newcommand{\bra}[1]{\left\langle #1 \right\rvert}
 \newcommand{\anglet}[2]{\left\langle #1 , #2 \right\rangle}
-\newcommand{\braket}[1]{\left( #1 \right)}
+\newcommand{\bracket}[1]{\left[ #1 \right]}
 \newcommand{\norm}[1]{\left\lVert #1\right\rVert}
-\renewcommand{\vec}[1]{\boldsymbol{\mathbf{#1}}}
+\newcommand{\set}[1]{\left\{ #1 \right\}}
+% \renewcommand{\vec}[1]{\boldsymbol{\mathbf{#1}}} 
 
-\newcommand{\h}{\mathcal{H}}
+\renewcommand{\H}{\mathcal{H}}
 \newcommand{\C}{\mathbb{C}}
+\newcommand{\class}{\mathcal{C}}
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\Zplus}{\mathbb{Z}^+}
 \newcommand{\F}{\mathbb{F}} 
+
+\renewcommand{\a}{\mathfrak{a}}
+\newcommand{\g}{\mathfrak{g}}
+\newcommand{\gl}{\mathfrak{gl}}
+\renewcommand{\sl}{\mathfrak{sl}}
+\newcommand{\su}{\mathfrak{su}}
+\newcommand{\so}{\mathfrak{so}}
+\newcommand{\h}{\mathfrak{h}}
+

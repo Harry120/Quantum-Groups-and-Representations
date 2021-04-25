@@ -62,4 +62,13 @@
     \item Why do we sometimes treat a vector space as a representation? (i.e. there are statements like `$V$ is a 3 dimensional representation of $G$') Can we not have different homomorphisms from the same group to the vector space? i.e. $C_2$ to $GL(C^2)$ could map $\sigma$ to $$\begin{pmatrix}0 & 1 \\ 1 & 0\end{pmatrix} \text{ or } \begin{pmatrix}-1 & 0 \\ 0 & -1\end{pmatrix}.$$ Are these not different? 
 \end{itemize}
 
+\begin{prop}
+    If $\rho$ is an irreducible representation of a finite group $G$ over a field of characteristic 0, then $\rho$ is isomorphic to a subrepresentation of $\rho_{reg}$.
+\end{prop}
+
+\textit{Proof.} Suppose $\rho: G \to GL(V)$ is an irreducible representation of $G$. Fix a non-zero $\vec{v} \in V$ and define $f: \F G \to V$ by $$\sum_{g \in G} \alpha_g g \mapsto \sum_{g \in G} \alpha_g \rho(g) (\vec{v}).$$
+Then Ker$f$ is a G-subspace of $\F G$ and $\F G /$Ker$f \simeq$ im$f =  V$.
+
+Suppose $W$ is a $G$-subspace of $V$ with respect to a linear action of $G$. Let $f: V \to W$ be the unique linear map such that $f(\vec{w}) = \vec{w}$ for all $\vec{w} \in W$. Define $\theta: V \to V$ by $$\theta(\vec{v}) = \frac{1}{|G|} \sum_{g \in G} gf(g^{-1}\vec{v}).$$ Then $V = $ Im $\theta$ $ \oplus $ Ker $\theta =$ Im $\theta \oplus W$
+
 \end{document}
