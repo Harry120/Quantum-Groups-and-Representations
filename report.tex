@@ -638,14 +638,20 @@ Embedded in component $2$ is the assumption that every observable must always be
 \begin{enumerate}
     \item $S$ is replaced with a Hilbert space $\H$. Examples include taking $\H = L^2(\R^3)$ to model a spin-less particle in three dimensions, $\H = \C^2$ for a two state system like the spin of an electron, $\H = L^2(\R) \otimes L^2(\R)$ for two particles in one dimension, and $\H = L^2(\R) \otimes \C^3$ for a particle in one dimension with three possible spin states.
     \item Observable quantities become hermitian operators on $\H$. To see what this means in a physical context, note that hermitian operators are diagonalizable. Therefore, specifying a hermitian operator is equivalent to specifying a set of real eigenvalues (the possible `well defined' values of the observable) and an orthonormal basis for $\H$ (the states corresponding to those eigenvalues). The benefit of this  description is that it allows for the state of a particle to have nonzero components in multiple eigenspaces - i.e. the particle can be in a `superposition' of eigenstates. 
-    \item The equation defining evolution of the state through time is replaced with the schrodinger equation: 
+    \item The equation defining evolution of the state through time is replaced with the Schr\"{o}dinger equation: 
     $$i\hbar\frac{d}{dt}\ket{\psi(t)} = H\ket{\psi(t)},$$
     where $H$ is a distinguished observable called the Hamiltonian, and $\hbar$ is plank's constant divided by $2 \pi$.
 \end{enumerate}
 
 An important consequence of $2$ is that if a system is in state $\ket{\phi} \in \H$, then all measurable quantities will be unchanged if the state changes to $\lambda\ket{\phi}$ for any scalar $\lambda \neq 0$ (Note that $\ket{0}$ does not correspond to a physical state, because it has no components in any eigenspace of any observable). As such, a state is actually better associated with a vector in $\H / \C$.
 
-When the eigenvalue spectrum of an operator is discrete, we find that the corresponding measurable becomes `quantized', and cannot take on the full range of values we would expect from classical mechanics. This is however, not always the case - it is common for observables such as position $X$ and momentum $P$ to have a continuous spectrum of eigenvalues. Unfortunately there is considerably more technical detail required for a precise mathematical treatment of this situation. For example, a continuous spectrum of eigenvalues would require that there is also an continuous set of orthonormal eigenvectors, which is not possible in typical Hilbert spaces such as $\C^n$ or $L^2(\R^3)$. The physics approach usually handles this case by introducing the Dirac delta function $\delta$, (which is actually a functional on ) and stipulating that $\anglet{x}{x'} = \delta(x-x')$.
+When the eigenvalue spectrum of an operator is discrete, we find that the corresponding measurable becomes `quantized', and cannot take on the full range of values we would expect from classical mechanics. This is however, not always the case - it is common for observables such as position $X$ and momentum $P$ to have a continuous spectrum of eigenvalues. Unfortunately there is considerably more technical detail required for a precise mathematical treatment of this situation. For example, a continuous spectrum of eigenvalues would require that there is also an continuous set of orthonormal eigenvectors, which is not possible in typical Hilbert spaces such as $\C^n$ or $L^2(\R^3)$. The physics approach usually handles this case by pretending that the Hilbert space also contains an object known as the Dirac delta function $\delta$, which is zero everywhere except for at point where it is infinite. A more mathematical approach requires the notion of a rigged Hilbert space, which we do not discuss.
+
+Before proceeding further, we consider an easy example. Suppose that $\H$ is two dimensional and $H$ has eigenvectors $\ket{\psi_1}$ and $\ket{\psi_2}$, with eigenvalues $E_1$ and $E_2$ respectively. Our aim is to find $\ket{\psi(t)}$ for any $t$. We start by writing $\ket{\psi(t)} = \alpha(t) \ket{\psi_1} + \beta(t) \ket{\psi_2}$, for arbitrary functions $\alpha, \beta$. Applying the Schr\"{o}dinger equation, 
+$$i\hbar \alpha'(t) \ket{\psi_1} + i\hbar \beta'(t) \ket{\psi_2} = E_1 \alpha(t) \ket{\psi_1} + E_2 \beta(t) \ket{\psi_2}.$$
+Equating components, we see that $\alpha(t) = Ae^{-iE_1t/\hbar}$ and $\beta(t) = Be^{-iE_2t/\hbar}$ for constants $A, B$ determined by the initial conditions. The solution is therefore $\ket{\psi(t)} = Ae^{-iE_1t/\hbar}\ket{\psi_1} + Be^{-iE_2t/\hbar}\ket{\psi_2}$. 
+
+This example highlights an important consequence of the linearity of the Schr\"{o}dinger equation: eigenstates of $H$ evolve independently through time. It turns out that this simple observation is the source of significant philosophical debate, which we discuss briefly in the next section.
 
 \subsection{Measurement}
 The formalism of quantum mechanics becomes useful when it can be applied to deduce results of experiments that can be conducted by humans. The problem is that any measurement system (which necessarily includes the people doing the measuring) has at least $\sim 10^{27}$ atoms. Unfortunately, it is impractical to model the evolution of such a system with Schr\"{o}dinger's equation. Physicists wanting to make useful predictions therefore imagine that when a quantum system interacts with a `measuring device', the system collapses into a well defined state. This is known as the Born rule.
@@ -654,7 +660,11 @@ The formalism of quantum mechanics becomes useful when it can be applied to dedu
     Suppose a particle is in the state $\ket{\psi} = \sum \alpha_\omega \ket{\omega}$ where $\ket{\omega}$ are the eigenvectors of an observable $\Omega$. Measurement of $\Omega$ will yield the value $\omega$ with probability $$P(\omega) = \frac{\abs{\anglet{\omega}{\psi}}^2}{\anglet{\psi}{\psi}} = \frac{|\alpha_\omega|^2}{\sum |\alpha_\omega|^2}.$$ This measurement will cause the state of the particle to change from $\ket{\psi}$ to $\ket{\omega}$.
 \end{princ}
 
-Another perspective says that when a measurement is performed, the quantum system has simply become entangled with the measuring device. However, because each of the eigenstates of $\Omega$ would then evolve independently from each other, the question of whether or not the state has actually collapsed into an eigenvector is a matter of perspective. It can be argued that collapse (the Copenhagen interpretation) is `simpler' because it doesn't require the existence of vast numbers of noninteracting states, but on the other hand it can also be argued that `no collapse' (the many worlds interpretation) is simpler because it doesn't require a poorly defined, non-deterministic process to be a part of the theory. Clearly, this becomes a matter of philosophy.
+Another perspective says that when a measurement is performed, the quantum system must simply be expanded to include the state of the measuring device. For example, if an experiment to determine the outcome of a `quantum' coin flip was conducted, the resulting state would be $$\alpha \ket{H}\otimes\ket{\text{H seen}} + \beta \ket{H}\otimes\ket{\text{T seen}} + \gamma \ket{T}\otimes\ket{\text{H seen}} + \delta \ket{T}\otimes\ket{\text{T seen}}$$ for some constants $\alpha, \beta, \gamma, \delta$ ($\beta$ and $\gamma$ are probably very small). In reality, the dimensionality of the new system is actually very high. As a result, each of these four `macroscopic' states will be very close to an eigenstate of the hamiltonian $H$. As eignstates of $H$ evolve independently from each other, we therefore see that each of these four states are effectively isolated from each other. This process is studied more rigorously in the subject of decoherence, which has been an active area of research since the 1980's.
+
+Under this perspective, there was no `collapse' - all of the outcomes of the experiment did in fact occur, but they are no longer interacting. This has a number of troubling consequences, most notably that there are an unimaginably number of slightly different `versions' of reality. 
+
+It can therefore be argued that the notion of collapse (the Copenhagen interpretation) is `simpler' because it doesn't require the existence of infinite noninteracting states which we can never detect. On the other hand it can also be argued that `no collapse' (the many worlds interpretation) is simpler because it doesn't require a poorly defined, non-deterministic process to be a part of the theory. Clearly, this becomes a matter of philosophy.
 
 \subsection{Lie Theory, Representations in Quantum Mechanics}
 It turns out that for a quantum system modeled by a Hilbert space $\H$, most of the interesting observables arise from the symmetries of $\H$. In this section, we give a outline of how this works, and the remaining sections examine several examples.
@@ -675,34 +685,72 @@ $$(\pi(R)\phi)(\vec{x}) = \phi(R^{-1}\vec{x})$$
 is `natural' in the sense that it corresponds to rotating the probability cloud $\phi$ by $R$. To see that this is also a unitary representation, note that for any $R \in SO(3)$, Jacobian is 1 so 
 $$\anglet{\pi(R)\psi}{\pi(R)\phi} = \int \psi(R^{-1}\vec{x})^* \phi(R^{-1}\vec{x})d\vec{x} = \int \psi(\vec{v})^* \phi(\vec{v})d\vec{v} = \anglet{\psi}{\phi}.$$
 
-
-
-% As $SO(3)$ is a Lie group, we get an induced Lie algebra representation $\pi' : \so(3) \to \mathfrak{u}(\H)$. Recalling that $\mathfrak{u}()$ consists of skew adjoint matrices, we see that $X = i\pi'(x)$ is a hermitian operator on $\H$ for any $x \in \so(3)$. Observables generated by $SO(3)$ in this way are known as angular momentum operators, and correspond to the classical .
-
-% Our aim now is to find the eigenvectors and eigenvalues of every $X$. Once this is done, it will be simple to describe the state of a particle in terms of these eigenstates, allowing us to assign a probability to each of the eigenvalues of $iX$. We refer to the eigenvalue of $iX$ as the angular momentum in the direction represented by $X$.
-
-% In view of the Peter Weyl theorem, the compactness of $SO(3)$ implies that $\H$ decomposes as a direct sum of finite dimensional vector spaces $V_l$. These are irreducible under $SO(3)$ and $\so(3)$. As there is exactly one irreducible representation of $\so(3)$ for each odd dimension, we know that 
-% $$\H = V_1 \oplus V_3 \oplus V_5 \oplus \hdots.$$
-% Therefore, our aim is to find the action of $iX$ on each $V_l$.
+As $SO(3)$ is a Lie group, we get an induced Lie algebra representation $\pi' : \so(3) \to \mathfrak{u}(\H) : l \to \left. \frac{d}{dt}\pi(e^{tl})\right|_{t=0}$. Recalling that $\mathfrak{u}()$ consists of skew adjoint matrices, we see that $L = i\hbar\pi'(l)$ is a hermitian operator on $\H$ for any $x \in \so(3)$ (The factor of $\hbar$ is introduced so that the eigenvalues of $L_j$ can be expressed in SI units). 
 
 A basis for $\so(3)$ is given by 
 $$l_1 = \begin{pmatrix} 0 & 0 & 0 \\ 0 & 0 & -1 \\ 0 & 1 & 0 \\ \end{pmatrix}, \hspace{1em} l_2 = \begin{pmatrix} 0 & 0 & 1 \\ 0 & 0 & 0 \\ -1 & 0 & 0 \\ \end{pmatrix}, \hspace{1em} l_3 = \begin{pmatrix} 0 & -1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 0 \\ \end{pmatrix},$$
-with corresponding observables $L_j = i\pi'(l_j)$. To begin with, we find an expression for $L_j$ when using the standard basis for $\R^3$. For a given function $f \in L^2(\R^3)$,
-
+with corresponding observables $L_j = i\hbar\pi'(l_j)$.  To begin with, we find an expression for $L_j$ when using the standard basis for $\R^3$. For a given function $f \in L^2(\R^3)$,
 \begin{align*}
-    \pi'(l_1)f(\vec{x}) &= \left. \frac{d}{dt} \left(e^{t\pi'(l_1)}f(\vec{x})\right) \right|_{t=0}\\
-    &= \left. \frac{d}{dt} \pi\left(e^{t l_1}\right)f(\vec{x}) \right|_{t=0}\\ 
+    \pi'(l_1)f(\vec{x}) &= \left. \frac{d}{dt} \pi\left(e^{t l_1}\right)f(\vec{x}) \right|_{t=0}\\ 
     &= \left. \frac{d}{dt} f\left(\begin{pmatrix} 1 & 0 & 0 \\ 0 & \cos(t) & \sin(t) \\ 0 & -\sin(t) & \cos(t) \\ \end{pmatrix} \begin{pmatrix}x_1 \\ x_2 \\ x_3 \end{pmatrix}\right) \right|_{t=0}\\
     &= \left. \frac{d}{dt} f(x_1, x_2\cos(t) + x_3 \sin(t), -x_2\sin(t) + x_3 \cos(t)) \right|_{t=0}\\ 
-    &= \left( \frac{\partial f}{\partial x_1}, \frac{\partial f}{\partial x_2}. \frac{\partial f}{\partial x_3}\right)  
+    &= x_3\frac{\partial f}{\partial x_2} - x_2\frac{\partial f}{\partial x_3}.
 \end{align*}
+Similar calculations show that 
+$$\pi'(l_2)f(\vec{x}) = \left(x_3\frac{\partial f}{\partial x_1} - x_1\frac{\partial f}{\partial x_3}\right) \text{  and  } \pi'(l_3)f(\vec{x}) = \left(x_2\frac{\partial f}{\partial x_1} - x_1\frac{\partial f}{\partial x_2}\right).$$
+Therefore, expressing any $l = al_1 + bl_2 + cl_3 \in \so(3)$ as a vector $\vec{n}$ in three dimensions, we see that 
+$$i\hbar\pi'(l)f(\vec{x}) = \vec{n} \cdot (\vec{x} \times i\hbar \nabla f(\vec{x})).$$
+Classically, the quantity $\vec{x} \times i\hbar \nabla f(\vec{x})$ represents the angular momentum of the wave $f$ in three dimensions. Therefore, $L = i\hbar\pi'(l)$ must correspond to the operator which measures the component of angular momentum in the direction represented by $\vec{n}$.
 
+Now that we have an understanding of what $L$ measures, our next task is to find its eigenvectors and eigenvalues. Once this is done, the state of our particle can be expanded in the resulting eigenbasis. This will allow us to assign a probability to each of the possible values of angular momentum. 
 
-this is a 
+In view of the Peter Weyl theorem, the compactness of $SO(3)$ implies that $\H$ decomposes as a direct sum of finite dimensional vector spaces $V_n$. These are irreducible under $SO(3)$ and $\so(3)$. As there is exactly one irreducible representation of $\so(3)$ for each odd dimension, we know that 
+$$\H = V_1 \oplus V_3 \oplus V_5 \oplus \hdots.$$
+Furthermore, we know that each $V_{2l+1}$ is spanned by a basis of $2l+1$ functions $Y^l_{-l}, Y^l_{-l + 1}, \hdots, Y^l_{l-1}, Y^l_{l}$ where $L_3 Y^l_{m} = m Y^l_{m}$, $L_{-} Y^l_{m} = Y^l_{m-1}$ and $L_{+} Y^l_{m} = Y^l_{m+1}$. 
+Suppose that $Y^l_{l}$ is the highest weight vector of $V_{2l+1}$. If we transform into spherical coordinates via
+\begin{align*}
+    x_1&=r\sin(\theta)\cos(\phi)\\
+    x_2&=r\sin(\theta)\sin(\phi)\\
+    x_3&=r\cos(\theta)
+\end{align*}
+then the action of $SO(3)$ will leave $r$ invariant, so we can consider $Y^l_{m}$ to be a function of just $\theta$ and $\phi$. Now 
+$$\left(
+    \begin{array}{c}
+    \frac{\partial}{\partial x_{1}} \\
+    \frac{\partial}{\partial x_{2}} \\
+    \frac{\partial}{\partial x_{3}}
+    \end{array}\right)=\left(\begin{array}{ccc}
+    \sin \theta \cos \phi & \cos \theta \cos \phi & -\sin \phi \\
+    \sin \theta \sin \phi & \cos \theta \sin \phi & \cos \phi \\
+    \cos \theta & -\sin \theta & 0
+    \end{array}\right)\left(\begin{array}{c}
+    \frac{\partial}{\partial r} \\
+    \frac{1}{\partial \theta} \\
+    \frac{\partial}{r \sin \theta} \frac{\partial}{\partial \phi}
+    \end{array}
+\right),$$
+so we can write 
+\begin{align*}
+    L_1 &= i\hbar\left(x_3\frac{\partial}{\partial x_2} - x_2\frac{\partial}{\partial x_3}\right) = i\hbar\left(\sin(\phi)\frac{\partial}{\partial \theta} + \cot(\theta)\cos(\phi)\frac{\partial}{\partial \phi}\right)\\
+    L_2 &= i\hbar\left(x_3\frac{\partial}{\partial x_1} - x_1\frac{\partial}{\partial x_3}\right) = i\hbar\left(-\cos(\phi)\frac{\partial}{\partial \theta} + \cot(\theta)\sin(\phi)\frac{\partial}{\partial \phi}\right)\\
+    L_3 &= i\hbar\left(x_2\frac{\partial}{\partial x_1} - x_1\frac{\partial}{\partial x_2}\right) = -i\hbar \frac{\partial}{\partial \phi}.
+\end{align*}
+Further calculations show that 
+$$L_{+} = \hbar e^{i\phi} \left(\frac{\partial}{\partial \theta} + i\cot(\theta)\frac{\partial}{\partial \phi}\right) \text{  and  } L_{-} = \hbar e^{-i\phi} \left(-\frac{\partial}{\partial \theta} + i\cot(\theta)\frac{\partial}{\partial \phi}\right).$$
+Considering the highest weight vector $Y^l_{l}(\theta, \phi)$, we therefore have two differential equations: $$L_3 Y^l_{l}(\theta, \phi) = - -i\hbar \frac{\partial}{\partial \phi} Y^l_{l}(\theta, \phi) = l Y^l_{l}(\theta, \phi)$$ 
+and 
+$$L_{+} Y^l_{l}(\theta, \phi) = \hbar e^{i\phi} \left(\frac{\partial}{\partial \theta} + i\cot(\theta)\frac{\partial}{\partial \phi}\right)Y^l_{l}(\theta, \phi) = 0.$$
+Solving these equations, we see that 
+$$Y^l_{l}(\theta, \phi) = C_{ll} e^{il\phi}\sin^{l}(\theta)$$
+for some constant $C_{ll}$. The lowering operator $L_{-}$ can then be applied repeatedly to find each $Y^l_{m} = L_{-}Y^l_{m+1}$ for $m = l, l -1, \hdots -l + 1, -l$.
 
-% It turns out that in a spherically symmetric potential, the Hamiltonian operator $H$ commutes with the action of $L_1, L_2, L_3$, so we see that each of the spaces $V_k$ are also energy eigenspaces. As such, we can label these spaces by their energy. As a `pure' state in quantum mechanics corresponds to an eigenstate of the observables under consideration, we see that there are $2n+ 1$ possible values of the orbital angular momentum at energy level $n$.
+To summarize, we have now found an expression in spherical coordinates of each of the eigenfunctions of $L_3$ (Note that $L_3$ is special only because of the arbitrary way in which we transformed into spherical coordinates). We could therefore express any function in $\H$ in terms of these eigenfunctions, allowing for a concrete description of the state of the particle.
 
-\subsection{Spin: Intrinsic angular momentum}
+In a spherically symmetric potential, the Hamiltonian operator $H$ commutes with the action of $L_3$ and $L_{\pm}$. This implies that each of the eigenspaces of $L_3$ must be fixed by $H$. However, because every eigenspace of $L_3$ is one dimensional, they must also be energy eigenspaces. As $H$ also commutes with $L_{\pm}$, we see that each $V_l$ must in fact be an energy eigenspace. As such, we can label these spaces by their energy. This is the reason that there are exactly $2n+ 1$ possible values of the orbital angular momentum at energy level $n$.
+
+\subsection{Spin}
+It is also possible to model the state of a particle with a finite dimensional Hilbert space $\C^n$. In this situation, we imagine that a vector $\phi \in \H$ represents the `intrinsic properties' of the particle. One such intrinsic property of all elementary particles is spin, which again arises from the action of $SO(3)$. 
+
 Suppose that $\H$ is finite dimensional. According to an above section, we know that up to isomorphism, there is only one irreducible representation $\rho$ of $\su(2)$. This representation will give us self adjoint operators on $\H$ in the following way: for any $X = a X_1 + b X_2 + c X_3 \in \su(2)$
 $$O(\hat{n}) = i\rho(\hat{n} \cdot X).$$
 This operator 
@@ -717,16 +765,9 @@ as $\rho$ is a unitary representation.
 
 Then we will need to describe an operator $O(\hat{n})$ on the Hilbert space $\H$. From a rotated reference frame corresponds to $SO(3)$ acting on $\hat{n}$ and $\H$ simultaneously. As the physical properties of the system should be independent of the direction from which we view the system, if we measure the angular momentum along $R\hat{n}$
 
-\subsection{Total Angular Momentum}
-The total angular momentum is the sum of spin and orbital angular momentum. We see that this arises from . If a system begins in a given eigenspace, then any action of SO(3) will leave that eigenspace invariant, therefore ensuring that angular momentum is conserved. This is the essence of Noether's theorem.
+\subsection{The periodic table}
 
-\section{Questions}
-\begin{itemize}
-    \item What happens when the set of states $S$ is countably infinite? How do you define the sum in such a circumstance? If you just use an infinite sum, then how do you ensure that it converges? Furthermore, what happens if the set has cardinality greater than or equal to the power set of the reals? How would integration be defined in this kind of a circumstance? Is this where Lebesgue theory comes in?
-    \item What exactly is G acting on, and what is the difference between S and H? Is G acting on H or is G acting on S with an induced representation on H?
-    \item Does my proof of Maschke's theorem actually require V to be finite dimensional?
-    \item how does my little lemma about eigenvalues of representations work in finite fields?
-\end{itemize}
+The total angular momentum is the sum of spin and orbital angular momentum. We see that this arises from . If a system begins in a given eigenspace, then any action of SO(3) will leave that eigenspace invariant, therefore ensuring that angular momentum is conserved. This is the essence of Noether's theorem.
 
 \section{Sources}
 % https://www.cis.upenn.edu/~cis610/cis61005sl8.pdf
