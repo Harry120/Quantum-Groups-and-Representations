@@ -14,8 +14,8 @@
 \tableofcontents
 
 \newpage
-\section{Overview}
-The purpose of this report is to explore representation theory and Lie theory, and then examine implications for quantum mechanics. The key result here is that quantum observables arise from representations of Lie groups on a Hilbert space. This process occurs in the following way:
+\section{Introduction}
+The purpose of this report is to explore representation theory and examine implications for quantum mechanics. The key result here is that quantum observables arise from representations of Lie groups on a Hilbert space. This process occurs in the following way:
 \begin{enumerate}
     \item Suppose $G$ is a Lie group. The tangent space at the identity $e \in G$ is a vector space that can be made into a lie algebra $\g$. 
     \item Exponentiating elements $A$ of the lie algebra gives lie group elements $g = e^A$ in the connected component of the identity. 
@@ -24,17 +24,16 @@ The purpose of this report is to explore representation theory and Lie theory, a
 \end{enumerate}
 Some examples that we will explore 
 \begin{enumerate}
-    \item Say $\H$ is $L^2(\R^3)$. Then $SO(3)$ acts on $\H$ by $(\rho(R)f)(x) = f(R^{-1}x)$.
-    \item Say $\H$ is $\C^n$. Then what??
+    \item Say $\H$ is $L^2(\R^3)$. Then $SO(3)$ acts on $\H$ by $(\pi(R)f)(x) = f(R^{-1}x)$. This generates the orbital angular momentum operators.
+    \item Say $\H$ is $\C^n$. Then $SU(2)$ acts on $\H$ by $(\pi(R)f)(x) = f(R^{-1}x)$. This generates the spin angular momentum operators.
     \item Say $\H$ is $\C$. Then $U(1)$ acts on $\H$ by $\rho(e^{i\theta} = e^{ik\theta})$, $k$ an integer.
     \item $G = \R$ - time?
 \end{enumerate}
 
 \section{Representations of finite groups}
-\textit{This section is based primarily on notes by \underline{\href{https://dec41.user.srcf.net/notes/II_L/representation_theory.pdf}{Dexter Chua}}.}
 
 \subsection{Basic Definitions}
-There are several equivalent ways to define a representation of a group. The first is via a homomorphism.
+There are several equivalent ways to define a representation of a group \cite{dexter}. The first is via a homomorphism. 
 \begin{defi}[Representation]
     For a given group $G$, a \textbf{representation} is a group homomorphism $$\rho: G \to GL(V),$$ where $V$ is a vector space over a field $\F$. 
 \end{defi}
@@ -296,29 +295,66 @@ To conclude this section, we look at an example.
     TO DO.
 \end{eg}
 
-\section{Representations of Compact Groups}
-\subsection{Basic Definitions}
-\begin{defi}[Hilbert Space]
-    A vector space endowed with a inner product is a Hilbert space if it is complete under the norm induced by the inner product.
+\section{Lie Theory}
+\subsection{Representations of Topological Groups}
+A topological group is a group that has been endowed with a topology. Most of the definitions regarding representations of topological groups are very similar to those for finite groups, but typically also require some kind of continuity. 
+The following definitions are given by \cite{alex}.
+
+\begin{defi}[Topological group]\end{defi}
+\begin{enumerate}
+    \item A group $G$ endowed with a Hausdorff topology is a \textbf{topological group} if 
+    \begin{enumerate}
+        \item The left and right multiplication maps $L_g : G \to G : h \mapsto gh$ and $R_g : G \to G : h \mapsto hg$ are continuous for every $g$.
+        \item The inverse map $\inv: G \to G : g \mapsto g^{-1}$  is continuous.
+    \end{enumerate}
+    \item A \textbf{morphism} between topological groups is a continuous group homomorphism.
+\end{enumerate}
+
+Primarily, we are interested in the case where $G$ is compact under the topology $\tau$. Some examples of compact topological groups include all finite groups with discrete topology, discrete groups such as $\Z$ (also with discrete topology), and Lie groups. 
+
+\begin{defi}[G-space]\end{defi}
+\begin{enumerate}
+    \item A locally compact topological space $X$ is a $G$\textbf{-space} if there is a continuous map $X \to X$ given by $x \mapsto gx$ for every $g\in G$ and
+    \begin{enumerate}
+        \item $g_1 (g_2 x) = (g_1 g_2)x$ for all $g_1, g_2 \in G$
+        \item $ex = x$ where $e$ is the identity in $G$.
+    \end{enumerate} 
+    \item A \textbf{morphism} between two $G$-spaces $X$ and $Y$ is a continuous map $\phi: X \to Y$ satisfying $\phi(gx) = g \phi(x)$ for all $g \in G, x \in X$. 
+\end{enumerate}
+
+Representations of $G$ arise when $X$ is also endowed with a vector space structure. 
+
+\begin{defi}[Topological vector space]
+    A \textbf{topological vector space} is a vector space equipped with a Hausdorff topology for which addition and scalar multiplication are continuous.
 \end{defi}
 
-\begin{defi}[Unitary group]
-    Suppose $\H$ is a Hilbert space. The unitary group $U(\H)$ is the set of all bounded linear operators $\H \to \H$ that satisfy $\anglet{Uv}{Uw} = \anglet{v}{w}$ for all $v, w \in \H$.
+\begin{eg}
+    Suppose that $V$ is a finite dimensional vector space. Then the standard topology inherited via a linear isomorphism $V \simeq R^n$ is the unique topology which makes $V$ into a topological vector space. \cite{alex}
+\end{eg}
+
+For our purposes, the most important example of a topological vector space is a Hilbert space.
+
+\begin{defi}[Hilbert Space]
+    Suppose $V$ is a vector space endowed with an inner product $\anglet{\cdot}{\cdot}$. Then $V$ can be made into a topological vector space by the the topology induced by the metric $d(x, y) = \sqrt{\anglet{x}{y}}$. $V$ is then a \textbf{Hilbert space} if it is complete with respect to the metric $d$. 
 \end{defi}
+
+For any topological vector space $V$, we can define $GL(V)$ to be the set of continuous automorphisms on $V$. This set is itself a finite dimensional vector space, and is therefore made into a topological vector space in the canonical way.
+
+As is the case with finite groups, representations of topological groups can be viewed as either homomorphisms, linear actions or modules. We give one definition here; the other viewpoints relate in the same way as before.
+
+\begin{defi}[G-representation]\end{defi}
+\begin{enumerate}
+    \item Suppose $G$ is a topological group. A \textbf{representation} of $G$ on a topological vector space $V$ is a continuous homomorphism $\pi: G \to GL(V)$. The induced linear action of $G$ on $V$ is given by $gv = \pi(g)v$.
+    \item A \textbf{morphism} between $G$-representations $\pi_1$ and $\pi_2$ on $V_1$ and $V_2$ respectively is continuous linear map $T: V_1 \to V_2$ such that $T \circ \pi_1(g) = \pi_1(g) \circ T$ for all $g\in G$. It is clear that this is a $G$-space morphism when $V_1$ and $V_2$ are considered $G$-spaces under the actions induced by $\pi_1$ and $\pi_2$.
+\end{enumerate}
+
+If $V$ is a Hilbert space, we have a particularly important kind of representation.
 
 \begin{defi}[Unitary representation]
-    Suppose $G$ is a compact group and $\H$ is a Hilbert space. A \textbf{strongly continuous unitary representation} of $G$ on $\H$ is a group homomorphism $\pi : G \to U(\H)$ such that 
+    A representation $\pi$ of $G$ on a Hilbert space $\H$ is \textbf{unitary} if $\anglet{gv}{gw} = \anglet{v}{w}$ for all $v, w \in V$ and $g \in G$.
 \end{defi}
 
-\subsection{Examples of Representations}
-\subsection{Maschke's Theorem}
-\subsection{Schur's Lemma}
-\subsection{Peter Weyl Theorem}
-\subsection{Characters}
-
-\section{Lie Theory}
-
-\subsection{Manifolds}
+\subsection{Lie groups}
 We begin by reviewing some manifold theory.
 
 \begin{defi}[Manifold]
@@ -338,168 +374,44 @@ We begin by reviewing some manifold theory.
     A smooth map $f$ between two manifolds $M$ and $N$ is a \textbf{diffeomorphism} if $f^{-1}$ exists and is also a smooth map.
 \end{defi}
 
-In particular, a diffeomorphism is a special type of homeomorphism between topological spaces.
-
-We omit the proof of the following proposition.
-
-\begin{prop}[Product manifold]
-    Suppose that $M$ with topology $\tau_M$ and smooth structure $(V_\alpha, \phi_\alpha)$ and $N$ with topology $\tau_N$ and smooth structure $(U_\beta, \psi_\beta)$ are smooth $m$ and $n$ dimensional manifolds respectively. Then 
-    \begin{enumerate}
-        \item $M \times N$ with the product topology $\tau_M \times \tau_N$ is a manifold when endowed with charts $\phi_{\alpha\beta}: V_\alpha \times U_\beta \to \R^m \times \R^n: (v, u) \mapsto (\phi(v), \psi(u))$.
-        \item If $X$ and $Y$ are submanifolds of $M$ and $N$ respectively, then $X \times Y$ is a submanifold of $M \times N$.
-    \end{enumerate}
-    In particular, for any $x \in M$, $\{x\} \times N$ is a submanifold of $M \times N$.
-\end{prop}
-
-\subsection{Lie groups}
-
 A Lie group is a group $G$ that is also a smooth manifold. 
 
-\begin{defi}[Lie Group]
-    Let $G$ be a group that is also a manifold under a given topology $\tau$ and smooth structure $(V_\alpha, \phi_\alpha)$. Then $G$ is a \textbf{Lie group} iff 
-    \begin{enumerate}
-        \item $m: G \times G \to G : (g, h) \mapsto gh$ and
-        \item $\inv: G \to G : g \mapsto g^{-1}$ 
-    \end{enumerate}
-    are both smooth maps between manifolds.
-\end{defi}
-
-\begin{defi}[Lie group homomorphism]
-    A map between two lie groups $G$ and $H$ is a \textbf{lie group homomorphism} if it is a homomorphism of groups that is also a smooth map.
-\end{defi}
-
-A homomorphism of Lie groups $f$ is an isomorphism if $f^{-1}$ exists and is also a Lie group homomorphism. Equivalently, an isomorphism of Lie groups is a diffeomorphism that is also a homomorphism in both directions.
-
-For a given $n$ dimensional vector space $V$, the general linear group $GL(V)$ is a Lie group with manifold structure inherited from $\R^{n^2}$.
-
-\begin{defi}[Lie group action]
-    Let $G$ be a Lie group and let $X$ be a manifold. A \textbf{Lie group action} of $G$ on $X$ is a group action $G \times X \to X : (g, x) \mapsto gx$ that is also a differentiable map between manifolds. 
-\end{defi}
-
-\begin{defi}[Left and right actions]
-    For any $g$ an element of a Lie group $G$, the \textbf{left action} of $g$ is $L_g : G \to G: h \mapsto gh$. Similarly, the \textbf{right action} of $g$ is $R_g : G \to G: h \mapsto hg$.
-\end{defi}
-
-\begin{thm}
-    For any element $g\in G$, the left and right actions of $G$ are diffeomorphisms on $G$. 
-\end{thm}
-
-\begin{proof}
-The left action of $g$ is the restriction of the multiplication map $m$ to the Lie subgroup $\{g\} \times G = \{(g, h) : h \in G\}$. This can be written as $L_g = m \circ \iota$, so as the composition of smooth maps, $L_g$ is also smooth. $L_{g^{-1}}$ is an obvious smooth inverse, so $L_g$ is a diffeomorphism. The argument for $R_g$ is the same.
-\end{proof}
-
-\begin{defi}[Conjugation action]
-    For any $g \in S$, the \textbf{Conjugation action} $\Psi_g : G \to G$ of $g$ is composed of left and right actions: $\Psi_g(h) = L_g \circ R_g^{-1}(h) = ghg^{-1}$. 
-\end{defi}
-
-As a composition of diffeomorphisms, the conjugation action is itself a diffeomorphism. From elementary group theory, we know that the conjugation action is also a homomorphism with an inverse that is also a homomorphism. Hence the conjugation action is in fact a Lie group isomorphism.
-
-\subsection{Lie Group Representations}
-As expected, A Lie group representation is a Lie group homomorphism from $G$ to $GL(V)$ for some vector space $V$. This can also be viewed as a linear Lie action on a vector space $V$ where $V$ is made into a manifold in the natural way. The conjugation map $\Psi_g$ gives a particularly nice Lie group representation.
-
-Since $\Psi_g$ fixes the identity $e$ in $G$, the derivative $(d\Psi_g)_e : T_e G \to T_e G$ is an endomorphism on $T_e G$. Furthermore, because $\Psi_g$ is a Lie group isomorphism, $\Psi_g^{-1}$ is smooth, so $(d\Psi_g)^{-1}_e$ exists. Therefore $(d\Psi_g)_e$ is actually an automorphism on $T_e G$. This motivates the following definition.
-
-\begin{defi}[Adjoint representation of a Lie group]
-    Suppose $G$ is a Lie group. The \textbf{adjoint representation} $\Ad: G \to \Aut(T_e G)$ of $G$ is the map $\Ad(g) = (d\Psi_g)_e$.
-\end{defi}
-
-\subsection{Lie Algebras}
-We begin with the definition of a Lie algebra.
-
-\begin{defi}[Lie algebra]
-    A vector space $V$ over a field $\F$ is a Lie algebra if it is endowed with a multiplication $V \times V \to V$ denoted $(x, y) \mapsto \bracket{x, y}$ such that
-    \begin{enumerate}
-        \item The bracket operation is bilinear.
-        \item $\bracket{x, x} = 0$ for all $x \in V$. 
-        \item $\bracket{x, \bracket{y, z}} + \bracket{y, \bracket{z, x}} + \bracket{z, \bracket{x, y}} = 0$
-    \end{enumerate}
-    The third requirement is known as the Jacobi identity.
-\end{defi}
-
-The first thing to note is that applying the first and second requirements to $\bracket{x + y, x + y}$ we see that $\bracket{x, y} = -\bracket{y, x}$, so the bracket is anti commutative. We also note that in general the bracket does not have to be associative (the Jacobi identity can be used to show that associativity will hold only when $\bracket{a, \bracket{b,c}} = 0)$ for all $a, b, c$).
-
-Our first example of a Lie algebra is a very important one.
-
-\begin{defi}[General linear algebra]
-    For a given vector space $V$, the set of all endomorphisms on $V$ form an algebra with scalar multiplication from the field $\F$ in $V$. This vector space can be made into the \textbf{general linear algebra} $\gl(V)$ by replacing the standard product with a bracket operation where $$\bracket{x, y} = xy - yx$$
-    for all $x, y \in V$.
-\end{defi}
-
-Any vector space $V$ can be made into a trivial lie algebra by defining $\bracket{x, y} = 0$ for all $x, y \in V$. Such a lie algebra is said to be \textbf{abelian}.
-
-\begin{defi}[Lie algebra homomorphism]
-    Suppose $\g$ and $\h$ are two Lie algebras. A function $\tau: \g \to \h$ is a \textbf{Lie algebra homomorphism} if for all $X, Y \in \g$, $$\tau(\bracket{X, Y}) = \bracket{\tau(X), \tau(Y)}$$ and $$\tau(\alpha X + \beta Y) = \alpha \tau(X) + \beta \tau(Y).$$
-\end{defi}
-
-As usual, a homomorphism is a monomorphism, epimorphism or isomorphism if it is respectively injective, surjective or bijective. Two Lie algebras $\g$ and $\h$ are said to be \textbf{isomorphic} if there exists a Lie algebra isomorphism between them. 
-
-\begin{defi}[Subalgebra]
-    Suppose $\g$ is a Lie algebra. A vector subspace $\h$ of $\g$ is a Lie subalgebra if it is closed under the bracket operation in $\g$: $\bracket{x, y} \in \h$ for all $x, y \in \h$.
-\end{defi}
-
-\begin{defi}[ideal]
-    An \textbf{ideal} $\a$ of a Lie algebra $\g$ is a subalgebra that has total closure: for all $x \in \g$ and $a \in \a$, $\bracket{a, x} \in \a$. According to skew symmetry, this is equivalent to requiring that $\bracket{x, a} \in \a$.
-\end{defi}
-
-When $\a$ is an ideal of a Lie algebra $\g$, the quotient vector space $\g/\a$ can be made into a Lie algebra under the bracket $\bracket{x + \a, y + \a} = \bracket{x, y} + \a$.
-
-\subsection{Lie Algebra Representations}
-to do: expand.
-
-Just as a group representation was a group homomorphism into the general linear group, a lie algebra representation is a lie algebra homomorphism into the general linear algebra.
-
-\begin{defi}[Representation of a Lie algebra]
-    Suppose $\g$ is a Lie algebra. A \textbf{representation} of $\g$ on a vector space $V$ is a Lie algebra homomorphism 
-    $$\tau : \g \to \gl(V).$$
-\end{defi}
-
-Suppose $\g$ is a Lie algebra, and $x \in \g$. The map $\ad x : \g \to \g: y \mapsto \bracket{x, y}$ is a derivation on $\g$. This gives rise to the following important Lie algebra representation.
-
-\begin{defi}[Adjoint representation of a Lie algebra]
-    The map $\Ad : \g \to \Der(\g) : x \mapsto \ad x$ is the \textbf{adjoint} representation of $\g$.
-\end{defi}
-
-\subsection{The Lie Algebra of a Lie Group}
-It turns out that every Lie group has an associated Lie algebra. This is very useful, because often Lie algebras are easier to study than Lie groups. The key result is that the adjoint representation of a Lie group allows for the definition of a bracket operation on the tangent space.
-
-Recall that the adjoint representation $\Ad$ of a Lie group $G$ is a map from $G$ to the automorphisms on $T_e G$. $\Aut(T_e G)$ is an open subset of $\End(T_e G)$, so the tangent space of $\Aut(T_e G)$ at the identity $I = \id_{T_e G}$ can be naturally identified with $\End(T_e G)$. As such, the derivative of $\Ad$ is a map
-$$\ad = (d\Ad)_{I}: T_e G \to \End(T_e G).$$
-
-\begin{thm}
-    For a Lie group $G$, the vector space $T_e G$ is made into a Lie algebra $\g$ by the bilinear map
-    $$\bracket{\cdot, \cdot} : \g \times \g \to \g : \bracket{x, y} = \ad(x)(y).$$
-\end{thm}
-
-\begin{proof} 
-We verify the three axioms for Lie algebras.
+\begin{defi}[Lie group]\end{defi}
 \begin{enumerate}
-    \item $\rho $ 
-    \item $\bracket{x, x} = (d\Ad)_{I}(x)(x)$. 
-    \item 
+    \item A group $G$ endowed with a Hausdorff topology $\tau$ and smooth structure $(V_\alpha, \phi_\alpha)$ is a \textbf{Lie group} iff
+    \begin{enumerate}
+        \item The left and right multiplication maps $L_g : G \to G : h \mapsto gh$ and $R_g : G \to G : h \mapsto hg$ are smooth for every $g$.
+        \item The inverse map $\inv: G \to G : g \mapsto g^{-1}$  is smooth.
+    \end{enumerate}
+    \item A \textbf{morphism} between Lie groups is a smooth group homomorphism.
 \end{enumerate}
-\end{proof}
 
-There is also a one to one correspondence between homomorphisms between Lie groups and homomorphisms between their associated Lie algebras.
+Noting that $L_g$ and $R_g$ have smooth inverses $L_{g^{-1}}$ and $R_{g^{-1}}$, we see that these maps are in fact diffeomorphisms.
 
-\begin{thm}
-    Suppose $G$ and $H$ are Lie groups with $G$ simply connected. A homomorphism $\rho: G \to H$ is uniquely determined by its differential $(d\rho)_e : T_e G \to T_e H$. Furthermore, a linear map $T_e G \to T_e H$ is the differential of a homomorphism $\rho: G \to H$ iff it preserves the bracket operation.
-\end{thm}
+The first example of a Lie group is the general linear group $GL(V)$, where the manifold structure inherited from $\R^{n^2}$. This allows us to define representations of a Lie group.
 
-\begin{proof}
-    
-\end{proof}
+\begin{defi}[Lie Group Representation]
+    For a given Lie group $G$, a representation on a vector space $V$ is a Lie group morphism $\pi: G \to GL(V)$.
+\end{defi}
 
-\subsection{Covering spaces}
+There are several other important examples of Lie groups. In each of the following, the manifold structure is inherited from $\C^{n^2}$ or $\R^{n^2}$. 
 
-to do: define covering space map. Prove the theorems. 
+\begin{enumerate}
+    \item $U(n)$ is the group of $n\times n$ complex unitary matrices 
+    $$U(n) = \{X \in GL(n, \C) : XX^\dagger = 1\}.$$
+    \item $O(n)$ is the group of $n\times n$ real orthogonal matrices 
+    $$U(n) = \{X \in GL(n, \R) : XX^T = 1\}.$$
+    \item $SL(n, \C)$ is the group of $n\times n$ complex matrices with determinant 1:
+    $$SL(n, \C) = \{X \in GL(n, \C) : \det(X) = 1\}.$$
+    \item $SL(n, \R)$ is the group of $n\times n$ real matrices with determinant 1:
+    $$SL(n, \C) = \{X \in GL(n, \R) : \det(X) = 1\}.$$
+    \item $SU(n)$ is the intersection of $SL(n, \C)$ and $U(n)$:
+    $$SU(n) = \{X \in GL(n, \C) : XX^\dagger = 1, \det(X) = 1\}.$$
+    \item $SO(n)$ is the intersection of $SL(n, \R)$ and $O(n)$:
+    $$SU(n) = \{X \in GL(n, \R) : XX^T = 1, \det(X) = 1\}.$$
+\end{enumerate}
 
-\begin{thm}
-    Suppose $G$ is a Lie group, $H$ a connected manifold and $\phi: H \to G$ is a covering space map. If $e' \in \phi^{-1}(\{e\})$, then there is a unique Lie group structure on $H$ such that $e'$ is the identity and $\phi$ is a homomorphism of Lie groups. In this case, the kernel of $\phi$ is in the center of $H$.
-\end{thm}
-
-\begin{thm}
-    Suppose $H$ is a Lie group, and $\Gamma \subseteq Z(H)$ is a  discrete subgroup of its center. Then there is a unique Lie group structure on $G = H / \Gamma$ such that the quotient map $H \to G$ is a Lie group homomorphism. 
-\end{thm}
+Although Lie groups can often be very large, the following theorem shows that they can be characterised by an arbitrarily small open set.
 
 \begin{thm}
     Suppose $G$ is a connected Lie group, and $U \subseteq G$ is any neighborhood of the identity. Then $U$ generates $G$.
@@ -511,17 +423,101 @@ First of all, note that any neighborhood of a point contains an open neighborhoo
 Let $S$ be the set generated by $U$. For any $g \in S$, the left action of $g$ is a diffeomorphism, so $gU$ is open because $U$ is. Now write $H = G \setminus S$. If $hu \in S$ for any $u \in U$, $h \in H$, then $huu^{-1} = h$ is also in $S$, so we must have that $hU$ is disjoint with $S$. Hence as $hU$ is also open, $H' = \bigcup_{h \in H} hU$ is a open subset of $G$ that is disjoint from $S$ with $G = H' \cup S$. By the connectedness of $G$, since $S$ is nonempty, we must have $G=S$. 
 \end{proof}
 
-\subsection{The Exponential Map}
+It turns out that we can extend this idea further. The region around the identity of the Lie group can in fact be `Linearised' to form a Lie algebra that completely characterizes the connected component of the identity. This is the focus of the following two sections.
 
-We now illustrate how a Lie group homomorphism induces a Lie algebra homomorphism via the exponential map.
+\subsection{Lie Algebras}
+We begin with the definition of a Lie algebra.
+
+\begin{defi}[Lie algebra]\end{defi}
+
+\begin{enumerate}
+    \item A vector space $V$ over a field $\F$ is a \textbf{Lie algebra} if it is endowed with a multiplication $V \times V \to V$ denoted $(x, y) \mapsto \bracket{x, y}$ such that
+    \begin{enumerate}
+        \item The bracket operation is bilinear.
+        \item $\bracket{x, x} = 0$ for all $x \in V$. 
+        \item $\bracket{x, \bracket{y, z}} + \bracket{y, \bracket{z, x}} + \bracket{z, \bracket{x, y}} = 0$
+    \end{enumerate}
+    The third requirement is known as the Jacobi identity.
+    \item A \textbf{morphism} between Lie algebras $\g$ and $\h$ is a linear function $\phi : \g \to \h$ such that 
+    $$\phi(\bracket{X, Y}) = \bracket{\phi(X), \phi(Y)}.$$
+\end{enumerate}
+
+The first thing to note is that applying requirements $(a)$ and $(b)$ to the bracket $\bracket{x + y, x + y}$, we see that $\bracket{x, y} = -\bracket{y, x}$, so the bracket is anti commutative. We also note that in general the bracket does not have to be associative (the Jacobi identity can be used to show that associativity will hold only when $\bracket{a, \bracket{b,c}} = 0)$ for all $a, b, c$).
+
+Our first example of a Lie algebra is a very important one.
+
+\begin{defi}[General linear algebra]
+    For a given vector space $V$, the set of all endomorphisms on $V$ form an algebra with scalar multiplication from the field $\F$ in $V$. This vector space can be made into the \textbf{general linear algebra} $\gl(V)$ by replacing the standard product with a bracket operation where 
+    $$\bracket{x, y} = xy - yx$$
+    for all $x, y \in V$.
+\end{defi}
+
+Representations are then defined in the usual way. 
+
+\begin{defi}[Representation of a Lie algebra]
+    Suppose $\g$ is a Lie algebra. A \textbf{representation} of $\g$ on a vector space $V$ is a Lie algebra morphism 
+    $\pi : \g \to \gl(V).$
+\end{defi}
+
+\subsection{The Lie Algebra of a Lie group}
+This section illustrates how a Lie algebra arises from the tangent space at the identity of a Lie group.
+
+For any $g \in G$, we define the conjugation action $\Psi_g: G \to G$ by $\Psi_g(h) = L_g \circ R_g (h) = ghg^{-1}$.  Since $\Psi_g$ fixes the identity $e$ in $G$, the derivative $(d\Psi_g)_e : T_e G \to T_e G$ is an endomorphism on $T_e G$. As the composition of diffeomorphisms, $\Psi_g$ is a diffeomorphism. Therefore, $d\Psi_g^{-1}$ is non singular, so $(d\Psi_g)^{-1}_e$ exists. Therefore $(d\Psi_g)_e$ is actually an automorphism on $T_e G$. This motivates the following definition.
+
+\begin{defi}[Adjoint representation of a Lie group]
+    Suppose $G$ is a Lie group. The \textbf{adjoint representation} $\Ad: G \to \Aut(T_e G)$ of $G$ is the map $\Ad(g) = (d\Psi_g)_e$.
+\end{defi}
+
+Now $\Aut(T_e G)$ is an open subset of $\End(T_e G)$, so the tangent space of $\Aut(T_e G)$ at the identity $I = \id_{T_e G}$ can be naturally identified with $\End(T_e G)$. As such, the derivative of $\Ad$ is a map
+$$\ad = (d\Ad)_{I}: T_e G \to \End(T_e G).$$
+
+\begin{thm}
+    For a Lie group $G$, the vector space $T_e G$ is made into a Lie algebra $\g$ by the bilinear map
+    $$\bracket{\cdot, \cdot} : \g \times \g \to \g : \bracket{x, y} = \ad(x)(y).$$
+\end{thm}
+
+Instead of providing a complete proof, we show that this definition corresponds to the commutator when $G = GL(\R^n)$.
+
+\begin{proof}
+The first thing to note is that when $G = GL(\R^n)$, the exponential map $\exp: T_e G \to G: X \mapsto \sum_{n=0}^{\infty} X^n/n!$ is well defined. Therefore, for any $g \in G$, and $X \in T_e G$,
+\begin{align*}
+\Ad(g)(X) &= \left. d\Psi_g \right|_e (X)\\
+    &= \left. \frac{d}{dt} \Psi_g(\exp(tX)) \right|_{t=0} \\
+    &= \left. \frac{d}{dt} g\exp(tX)g^{-1} \right|_{t=0} \\
+    &= \left. gA \exp(t X)g^{-1} \right|_{t=0}\\
+    &= gXg^{-1}.
+\end{align*}
+We then see that for any $X, Y \in T_e G$,
+\begin{align*}
+\ad(X)(Y) &= \left. d\Ad \right|_e (X)(Y)\\
+    &= \left. \frac{d}{dt} \Ad(\exp(tX))(Y)\right|_{t=0} \\
+    &= \left. \frac{d}{dt} \exp(tX)Y\exp(tX)^{-1}\right|_{t=0} \\
+    &= \left. \frac{d}{dt} \exp(tX)Y\exp(-tX)\right|_{t=0} \\
+    &= \left. X\exp(tX)Y\exp(-tX) - \exp(tX)Y X \exp(-tX)\right|_{t=0} \\
+    &= XY - Y X.
+\end{align*}
+\end{proof}
+
+It turns out that we can define an exponential map even in more general situations. Suppose $G$ is a Lie group with Lie algebra $\g$. For any $X \in \g$, we can define a vector field $v_{X}$ by $V_X(g) = \left. dL_g \right|_e (X)$, where $L_g$ is the left action of $g$. Integrating $v_X$, we get a curve $\phi$ from an open neighborhood of 0 $I$ to $G$. According to \cite{fulton_harris}, $\phi$ is a homomorphism of Lie groups, so it extends to the entire real line. We can now define the exponential map.
+\begin{defi}[Exponential map]
+    Suppose $G$ is a Lie group with Lie algebra $\g$. The exponential map $\exp : \g \to G$ is defined by 
+    $$\exp(X) = \phi_X(1),$$
+    where $\phi_X$ is the integral curve described above. 
+\end{defi}
+
+According to \cite{fulton_harris}, there is also a one to one correspondence between morphisms of two Lie groups and morphisms of their associated Lie algebras.
+
+\begin{prop}
+    Suppose $G$ and $H$ are Lie groups with $G$ simply connected. A morphism $\pi: G \to H$ is uniquely determined by its differential $\pi' := \left. d\pi \right|_e : \g \to \h$. Furthermore, these maps commute with the exponential: 
+    $$\pi(\exp(X)) = \exp(\pi'(X))$$
+    for any $X \in \g$.
+\end{prop}
+
+This is particularly useful because it implies that a Lie group representation $\pi$ induces an associated Lie algebra representation $\pi'$. We will use this many times in the section on Quantum mechanics.
 
 \subsection{Lie algebras of U(n), SL(n, \texorpdfstring{$\C$}{C}) and SU(n)}
 
-\begin{defi}[U(n)]
-    $U(n)$ is the group of unitary matrices in $n$ dimensions: 
-    $$U(n) = \{X \in GL(n, \C) : XX^\dagger = 1\}.$$
-\end{defi}
-If we write $\mathfrak{u}(n)$ for the Lie algebra of $U(n)$, then for all $X \in \mathfrak{u}(n)$ and $t \in \R$, $e^{tX} \in U(n)$, so $e^{tX}e^{tX^\dagger} = 1$. Differentiating this expression with respect to $t$ yields the condition $X + X^\dagger = 0$. Therefore, elements of $\mathfrak{u}(n)$ must be skew adjoint matrices. This inspires the following proposition. 
+If we write $\mathfrak{u}(n)$ for the Lie algebra of $U(n)$, then for all $X \in \mathfrak{u}(n)$ and $t \in \R$, $e^{tX} \in U(n)$, so $e^{tX}e^{tX^\dagger} = 1$. Differentiating this expression with respect to $t$ yields the condition $X + X^\dagger = 0$. Note that this argument also holds for infinite dimensional unitary groups. In any case, we see that elements of $\mathfrak{u}(n)$ must be skew adjoint matrices. This inspires the following proposition. 
 
 \begin{prop}
     The Lie algebra $\mathfrak{u}(n)$ of $U(n)$ is precisely the set of skew adjoint $n \times n$ complex matrices.
@@ -535,96 +531,111 @@ If we write $\mathfrak{u}(n)$ for the Lie algebra of $U(n)$, then for all $X \in
     Therefore, every skew adjoint matrix must also be in $\mathfrak{u}(n)$ because $\mathfrak{u}(n)$ is a subset of the skew adjoint matrices with the same dimension.
 \end{proof}
 
-\begin{defi}[$SL(n, \C)$]
-    $SL(n, \C)$ is the group of $n\times n$ complex matrices with determinant 1:
-    $$SL(n, \C) = \{X \in GL(n, \C) : \det(X) = 1\}.$$
-\end{defi}
-
-Once again, we can use the exponential map to examine the Lie algebra: for any element $X \in \sl(n, \C)$, we have $\det(e^X) = 1$, so as $\det(e^X) = e^{\tr(X)}$, we have that $\tr(X) = 0$. 
+In the case of $SL(n, \C)$, we can again use the exponential map to examine the Lie algebra: for any element $X \in \sl(n, \C)$, we have $\det(e^X) = 1$, so as $\det(e^X) = e^{\tr(X)}$, we have that $\tr(X) = 0$. 
 
 \begin{prop}
-    The Lie algebra $\sl{u}(n)$ of $SL(n, \C)$ is precisely the set of traceless $n \times n$ complex matrices. 
+    The Lie algebra $\sl(n, \C)$ of $SL(n, \C)$ is precisely the set of traceless $n \times n$ complex matrices. 
 \end{prop}
 
 \begin{proof}
     As both the trace and determinant map a matrix to the complex numbers, both conditions impose two constraints on the matrices. 
     
-    Therefore, every traceless $n \times n$ complex matrix must also be in $\sl{u}(n)$ because $\sl{u}(n)$ is a subset with the same dimension.
+    Therefore, every traceless $n \times n$ complex matrix must also be in $\sl(n, \C)$ because $\sl(n, \C)$ is a subset with the same dimension.
 \end{proof}
 
-\begin{defi}[$SU(n)$]
-    $SU(n)$ is the intersection of $SL(n, \C)$ and $U(n)$:
-    $$SU(n) = \{X \in GL(n, \C) : XX^\dagger = 1, \det(X) = 1\}.$$
-\end{defi}
-
-As such, the lie algebra $\su(n)$ of $SU(n)$ is just the intersection of $\sl(n, \C)$ and $\mathfrak{u}(n)$. 
+As $SU(n)$ is the intersection of $SL(n, \C)$ and $U(n)$, the lie algebra $\su(n)$ of $SU(n)$ is just the intersection of $\sl(n, \C)$ and $\mathfrak{u}(n)$. 
 
 \begin{prop}
     $SL(n, \C)$ is the set of $n \times n$ complex skew adjoint traceless matrices: $$\su(n) = \{X \in M(n, \C) : X^\dagger = -X, \tr(X) = 0\}.$$
 \end{prop}
 
-\subsection{Irreducible representations of U(1)}
-$U(1)$ is the set of unitary one by one matrices. Therefore $U(1)$ is just the unit circle in the complex numbers. This group is clearly abelian, so by the first corollary of Schur's lemma, the irreducible representations of $U(1)$ must be one dimensional. This implies that any irreducible representation $\rho$ of $U(1)$ is actually just an automorphism on $U(1)$. This gives us our first lemma.
+In the case where $n = 2$, there is a nice relationship between $\su(n)$ and $\sl(n, \C)$. First of all, we can write
 
-\begin{lemma}
-    Any irreducible representation $\rho$ of $U(1)$ is of the form $$\rho(e^{i\theta}) = e^{ik\theta}$$
-\end{lemma}
+$$\su(2) = \left\{\begin{pmatrix}-ix & y+iz \\ -y + iz & ix\end{pmatrix} : x, y, z \in \R\right\}.$$
 
-\begin{proof}
-    As argued above, we must have that $\rho$
-\end{proof}
+On the other hand, since $\sl(2, \C)$ is just the set of traceless $2 \times 2$ complex matrices, so an element of $\sl(2, \C)$ is of the form
+$$
+\begin{pmatrix}x-i y & a+i b \\ c + id & -x+i y\end{pmatrix} = \begin{pmatrix}-i y & s+i u \\ -s + i u & i y\end{pmatrix} + i\begin{pmatrix}-i x & v+i t \\ -v + i t & i x\end{pmatrix}
+$$
+where $s = \frac{1}{2}(a - c)$, $t = -\frac{1}{2}(a + c)$, $u = \frac{1}{2}(b + d)$ and $v = \frac{1}{2}(b - d)$. Hence, it is not hard to see that when viewed as a vector space over $\R$, $\sl(2, \C) \simeq \su(2) \oplus i \su(2)$. 
 
-\subsection{\texorpdfstring{$\su(2)$}{su(2)} and \texorpdfstring{$\sl(2, \C)$}{sl(2, \C)}}
+To make this situation a little clearer, we give a basis for $\su(2)$ that relates nicely to a basis for $\sl(2, \C)$. It is not too hard to see that $\su(2) = \text{span}_{\R}\{X_1, X_2, X_3\}$, where
+$$X_1 = \begin{pmatrix}0 & i \\ i & 0\end{pmatrix}, \hspace{2em} X_2 = \begin{pmatrix}0 & 1 \\ -1 & 0\end{pmatrix}, \hspace{2em} X_3 = \begin{pmatrix}-i & 0 \\ 0 & i\end{pmatrix}.$$
+These matrices obey the commutation relations
+$$ \bracket{X_1, X_2} = X_3, \hspace{2em} \bracket{X_2, X_3} = X_1, \hspace{2em} \bracket{X_3, X_1} = X_2.$$
+We can then define ${e} = \frac{1}{2}(X_2 - iX_1)$, ${f} = -\frac{1}{2}(X_2 + iX_1)$ and ${h} = iX_3$ such that
+$${e} = \begin{pmatrix}0 & 1 \\ 0 & 0\end{pmatrix}, \hspace{2em} {f} = \begin{pmatrix}0 & 0 \\ 1 & 0\end{pmatrix}, \hspace{2em} {h} = \begin{pmatrix}1 & 0 \\ 0 & -1\end{pmatrix}.$$
+These matrices obey the commutation relations
+$$\bracket{{h}, {f}} = -2{f}, \hspace{2em} \bracket{{h}, {e}} = 2{e}, \hspace{2em} \bracket{{f}, {e}} = -{h}.$$
+Furthermore, $\sl(2, \C) = \text{span}_{\R}\{X_1, X_2, X_3, iX_1, iX_2, iX_3\} = \text{span}_{\C}\{{e}, {f}, {h}\}$.
 
-Recall that $\su(2)$ is the set of skew symmetric traceless $2 \times 2$ complex matrices: 
+\subsection{Complex Irreps of \texorpdfstring{$\sl(2, \C)$}{sl(2, \C)} and \texorpdfstring{$\su(2)$}{su(2))}}
 
-$$\su(2) = \left\{\begin{pmatrix}-ix & -y+iz \\ y + iz & ix\end{pmatrix} : x, y, z \in \R\right\}.$$
-
-On the other hand, since $\sl(2, \C)$ is just the set of traceless $2 \times 2$ complex matrices, we see that 
-\begin{align*}
-\sl(2) &= \begin{pmatrix}x-i y & a+i b \\ c + id & -x+i y\end{pmatrix}\\
-&= \begin{pmatrix}-i y & -s+i u \\ s + i u & i y\end{pmatrix} + i\begin{pmatrix}-i x & -v+i t \\ v + i t & i x\end{pmatrix}
-\end{align*}
-where $s = \frac{1}{2}(c - a)$, $t = -\frac{1}{2}(c + a)$, $u = \frac{1}{2}(d - b)$ and $v = \frac{1}{2}(d - b)$. Hence, it is not hard to see that $\sl(2, C) = \su(2) \oplus i \su(2)$. We will therefore work primarily with $\sl(2, \C)$, and derive representations of $\su(2)$ as a consequence. 
-
-A basis for $\sl(2, \C)$ is given by 
-
-$$h = \begin{pmatrix}1 & 0 \\ 0 & -1\end{pmatrix}, \hspace{2em} e = \begin{pmatrix}0 & 0 \\ 1 & 0\end{pmatrix}, \hspace{2em} f = \begin{pmatrix}0 & 1 \\ 0 & 0\end{pmatrix}.$$
-
-Recalling that the bracket is defined by $\bracket{x, y} = xy - yx$, we see that these matrices obey the commutation relations
-$$\bracket{h, e} = -2e, \hspace{2em} \bracket{h, f} = 2f, \hspace{2em} \bracket{e, f} = -h.$$
-
-\subsection{Irreducible representations of \texorpdfstring{$\sl(2, \C)$}{sl(2, \C)}}
-Suppose that $\sl(2, \C)$ acts linearly on a finite dimensional vector space $V$. We define the \textit{weight space} $V_\lambda = \{v \in V : hv = \lambda v\}$ for a given \textit{weight} $\lambda$. Clearly, if $\lambda$ is not an eigenvalue of $h$, then $V_\lambda = \{0\}$.
+Suppose that $\sl(2, \C)$ acts linearly on a complex finite dimensional vector space $V$. We define the \textbf{weight space} $V_\lambda = \{v \in V : {h}v = \lambda v\}$ for a given \textbf{weight} $\lambda$. Clearly, if $\lambda$ is not an eigenvalue of ${h}$, then $V_\lambda = \{0\}$.
 
 \begin{prop}
-    For any $v \in V_\lambda$, $e v \in V_{\lambda - 2}$ and $f v \in V_{\lambda + 2}$.
+    For any $v \in V_\lambda$, ${f} v \in V_{\lambda - 2}$ and ${e} v \in V_{\lambda + 2}$.
 \end{prop}
 
 \begin{proof}
-    According to the commutation relations given in the above section, $he - eh = -2e$, so $h(ev) = (eh - 2e) v = (\lambda - 2)ev$. Similarly, $hf - fh = 2f$, so $h(fv) = (fh + 2f) v = (\lambda - 2)fv$.
+    According to the commutation relations given in the above section, ${h}{f} - {f}{h} = -2{f}$, so ${h}({f}v) = ({f}{h} - 2{f}) v = (\lambda - 2){f}v$. Similarly, ${h}{e} - {e}{h} = 2{e}$, so ${h}({e}v) = ({e}{h} + 2{e}) v = (\lambda - 2){e}v$.
 \end{proof}
 
-The point of this proposition is to show that these weight spaces of $h$ form chains with weights incrementing by $2$. The next two propositions shows that there is exactly one such chain.
+As $\C$ is algebraically closed, ${h}$ must have at least one eigenvalue with an eigenvector $u$. Therefore, by finite dimensionality, there must be an eigenvector $v$ of ${h}$ such that ${e} v = 0$. We say that such an eigenvector is a \textbf{maximal vector} of $V$ and that the corresponding eigenvalue $\lambda$ is a \textbf{maximal weight}. Similarly, we say that an eigenvector $w$ of ${h}$ such that ${f} w = 0$ is a \textbf{minimal vector}, with \textbf{minimal weight}.
 
-\begin{prop}
-    Suppose that $\sl(2, \C)$ acts linearly on a finite dimensional vector space $V$. Then there exists an eigenvector $w \in V$ for $H$ such that $e w = 0$.
-\end{prop}
+\begin{thm}[Irreducible representations of $\sl(2, \C)$]
+    Let $V$ be an $n$ dimensional complex vector space with an irreducible representation $\pi$ of $\sl(2, \C)$. Then $V$ decomposes into a sum of one dimensional weight spaces 
+    $$V_{-l}, V_{-l + 2}, \hdots, V_{l -2}, V_{l},$$
+    where $l = n - 1$ is an integer.
+\end{thm}
 
 \begin{proof}
-    As $\C$ is algebraically closed, $h$ must have at least one eigenvalue with an eigenvalue $v$. Then if $v, ev, e^2v, \hdots$ are all non zero, then they must all be eigenvectors of $h$ with distinct eigenvalues. This would be an infinite sequence of independent vectors in $V$, which is impossible because $V$ is finite dimensional. Hence there exists an eigenvector $w = e^k v$ for $h$ such that $ew = e^{k+1}v = 0$ for some $k$. 
+    Repeatedly applying $\pi(f)$ to the highest weight vector $v_{\lambda}$, we get a set $\beta$ of $k+1$ eigenvectors of $\pi(h)$:
+    $$\beta = \{v_{\lambda}, v_{\lambda -2}, v_{\lambda -4}, \hdots, v_{\lambda - 2k} = w\}$$ 
+    where $v_{\lambda -2j} = \pi(f)^j v_{\lambda}$ and $w$ is the minimal vector. Let $W = \text{span}_{\C}(\beta) \subseteq V$. Then we claim that $W$ is invariant.
+
+    As $\pi(f)(\beta) = \{v_{\lambda -2}, v_{\lambda -4}, \hdots, w\} \subset \beta$, $W$ is invariant under the action of $\pi(f)$. Similarly, $\beta$ is a set of eigenvectors of $\pi(h)$, so $W$ must be $\pi(h)$ invariant. We now use induction to show that for all $j \leq k + 1$, (where $v_{\lambda - 2(k+1)} = 0$)
+    $$\pi(e)v_{\lambda - 2j} = j(\lambda-j+1)v_{\lambda - 2(j-1)}.$$ 
+    Since $v_{\lambda}$ is the highest weight vector, $\pi(e)v_{\lambda} = 0$, so the statement holds for $j=0$. Assuming validity for $j \leq k$, we see that 
+    \begin{align*}
+        \pi(e) v_{\lambda-2(j+1)} &= \pi(e) \pi(f) v_{\lambda-2 j} \\
+            &=(\pi([e, f])+\pi(f) \pi(e)) v_{\lambda-2 j} \\
+            &=(\pi(2 h)+\pi(f) \pi(e)) v_{\lambda-2 j} \\
+            &=((\lambda-2 j) v_{\lambda-2 j}+\pi(f) j(\lambda-j+1) v_{\lambda-2(j-1)}\\
+            &=((\lambda-2 j)+j(\lambda-j+1)) v_{\lambda-2 j} \\
+            &=(j+1)(\lambda-(j+1)+1) v_{\lambda-2((j+1)-1)}.
+    \end{align*}
+    Hence $W$ must also be $\pi(e)$ invariant, and therefore also invariant under the action of any $x \in \sl(2, \C)$. However, because $V$ is irreducible, this implies that $W=V$ and $k=l$.
+
+    Finally, note that $\pi(e)v_{\lambda-2(l+1)} = \pi(e)\pi(f)w = 0$. Therefore, $$(l + 1)(\lambda-(l+1)+1) = (l + 1)(\lambda-l) = 0,$$
+    so $\lambda = l$, and the theorem is proved.
 \end{proof}
 
-If $w$ is an eigenvector of $h$ with eigenvalue $\lambda$ such that $e w = 0$, then we say that $w$ is a maximal vector of $V$ and that $\lambda$ is a maximal weight.
+This classification carries over to $\su(2)$ in the following way. If $\pi$ is a finite dimensional complex irreducible representation of $\su(2)$ on $V$, then $\pi^*$ defined by $\pi^*({h}) = i\pi(X_3), \pi^*({e}) = \frac{1}{2}\pi(X_2) - \frac{i}{2}\pi(X_1)$, and $\pi^*({f}) = -\frac{1}{2}\pi(X_2) - \frac{i}{2}\pi(X_1)$ is an irrep of $\sl(2, \C)$. Therefore, $V$ decomposes in the way described above, and each of the weight spaces $V_m$ are also eigenspaces of $\pi(X_3)$.
 
-\begin{prop}
-    If $w$ is a maximal vector of a vector space $V$ with dimension $n$, then $w, fw, \hdots, f^{n-1} w$ is a basis for $V$.
-\end{prop}
+\subsection{Complex Irreps of SO(3) and SU(2)}
 
-\begin{proof}
-    
-\end{proof}
+Now that we have classified the complex irreps of $\su(2)$, we can use the exponential map to find the complex irreps of $SU(2)$. Explicitly, since $SU(2)$ is simply connected, any representation $\pi$ on $V$ is completely determined by its differential $\pi'$, which is a representation of $\su(2)$. Therefore, $V$ must decompose in the way described in the above section. 
 
+We now want to find the irreps of $SO(3)$. A basis for $\so(3)$ is given by 
+$$l_1 = \begin{pmatrix} 0 & 0 & 0 \\ 0 & 0 & -1 \\ 0 & 1 & 0 \\ \end{pmatrix}, \hspace{1em} l_2 = \begin{pmatrix} 0 & 0 & 1 \\ 0 & 0 & 0 \\ -1 & 0 & 0 \\ \end{pmatrix}, \hspace{1em} l_3 = \begin{pmatrix} 0 & -1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 0 \\ \end{pmatrix}.$$
+These matrices obey the commutation relations
+$$ \bracket{l_1, l_2} = l_3, \hspace{2em} \bracket{l_2, l_3} = l_1, \hspace{2em} \bracket{l_3, l_1} = l_2.$$
+Noting that this is the same set of relations as for $\su(2)$, we can define a Lie algebra isomorphism $\pi' : \so(3) \to \su(2) : X_j \mapsto l_j$. This means that the irreps of $\so(3)$ are the same as those for $\su(2)$. Importantly however, this does not mean that the irreps of $SO(3)$ are the same as those for $SU(2)$. Using the exponential map, we can define a Lie group homomorphism $\pi : SO(3) \to SU(2)$ by
+$$\pi\right(\exp\left(\vec{n} \cdot \vec{l}\right)\right) = \exp\left(\vec{n} \cdot \pi'\left(\vec{l}\right)\right),$$
+
+
+It turns out that there is a nice relationship between $SO(3)$, $SU(2)$ and the unit quaternions. Any element $g \in SU(2)$ has the form
+$$g = \begin{pmatrix}z & w \\ -\bar{w} & \bar{z}\end{pmatrix}$$
+where $z, w \in \C$ and $|z|^2 + |w|^2 = 1$. Writing $z = a + i b, w = c + i d$, we see that $a^2 + b^2 + c^2 + d^2 = 1$. This equation defines the three sphere $S^3$ in $\R^4$, which is topologically equivalent to the unit sphere in the quaternions \cite{wiki}. In fact, we can define $\phi: SU(2) \to \mathbb{H}$, by 
+$$\phi\begin{pmatrix}a + i b & c + i d \\ -c + i d & a - i b\end{pmatrix} = a + bi + cj + dk.$$
+Routine calculations show that this is an isomorphism. 
+
+For any point $(x, y, z) \in \R^3$, we can associate an imaginary quaternion $q = xi + yj + zk$. Suppose that $g \in SU(2)$ has $\phi(g)$ as its associated quaternion. Then more calculations show that $\phi(g)q\phi(g)^{-1} = u i + v j + w k$ is another imaginary quaternion, which can be associated with a point $(u, v, w)$ in $\R^3$. According to \cite{wiki}, this gives us a $2: 1$ surjective homomorphism $\Phi : SU(2) \to SO(3)$. In particular, note that $\Phi(-g)(q) = \phi(-g)q\phi(-g)^{-1} = \phi(g)q\phi(g)^{-1} = \Phi(g)(q)$, so $\Phi(-g) = \Phi(g)$. In this situation we say that $SU(2)$ is a double cover of $SO(3)$.
+
+The presence of $\Phi$ allows us to deduce the irreducible representations of $SO(3)$. 
+
+The net result of this is that there is exactly one complex irreducible representation of $SO(3)$ for each odd dimension.
 
 \section{Quantum Mechanics}
 \subsection{The Quantum Formalism}
@@ -682,14 +693,12 @@ Suppose that we have a Hilbert space $\H$ that is modeling a system in three dim
 
 To illustrate this process, we are going to study a single spin-less particle, which we will model by choosing $\H$ to be $L^2(\R^3, \C)$. In this situation, we imagine a state $\phi \in \H$ represents a probability cloud where $|\phi(\vec{x})|^2$ is the probability of being found around the point $\vec{x}$. Then it isn't too hard to see that the representation $\pi : SO(3) \to GL(H)$ defined by
 $$(\pi(R)\phi)(\vec{x}) = \phi(R^{-1}\vec{x})$$
-is `natural' in the sense that it corresponds to rotating the probability cloud $\phi$ by $R$. To see that this is also a unitary representation, note that for any $R \in SO(3)$, Jacobian is 1 so 
+is `natural' in the sense that it corresponds to rotating the probability cloud $\phi$ by $R$. To see that this is also a unitary representation, note that for any $R \in SO(3)$, a change of variables $\vec{x} \mapsto R\vec{x}$ has a Jacobian determinant of 1 so 
 $$\anglet{\pi(R)\psi}{\pi(R)\phi} = \int \psi(R^{-1}\vec{x})^* \phi(R^{-1}\vec{x})d\vec{x} = \int \psi(\vec{v})^* \phi(\vec{v})d\vec{v} = \anglet{\psi}{\phi}.$$
 
-As $SO(3)$ is a Lie group, we get an induced Lie algebra representation $\pi' : \so(3) \to \mathfrak{u}(\H) : l \to \left. \frac{d}{dt}\pi(e^{tl})\right|_{t=0}$. Recalling that $\mathfrak{u}()$ consists of skew adjoint matrices, we see that $L = i\hbar\pi'(l)$ is a hermitian operator on $\H$ for any $x \in \so(3)$ (The factor of $\hbar$ is introduced so that the eigenvalues of $L_j$ can be expressed in SI units). 
+As $SO(3)$ is a Lie group, we get an induced Lie algebra representation $\pi' : \so(3) \to \mathfrak{u}(\H) : l \to \left. \frac{d}{dt}\pi(e^{tl})\right|_{t=0}$. Recalling that $\mathfrak{u}(\H)$ consists of skew adjoint matrices, we see that $L = i\hbar\pi'(l)$ is a hermitian operator on $\H$ for any $x \in \so(3)$ (The factor of $\hbar$ is introduced so that the eigenvalues of $L_j$ can be expressed in SI units). 
 
-A basis for $\so(3)$ is given by 
-$$l_1 = \begin{pmatrix} 0 & 0 & 0 \\ 0 & 0 & -1 \\ 0 & 1 & 0 \\ \end{pmatrix}, \hspace{1em} l_2 = \begin{pmatrix} 0 & 0 & 1 \\ 0 & 0 & 0 \\ -1 & 0 & 0 \\ \end{pmatrix}, \hspace{1em} l_3 = \begin{pmatrix} 0 & -1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 0 \\ \end{pmatrix},$$
-with corresponding observables $L_j = i\hbar\pi'(l_j)$.  To begin with, we find an expression for $L_j$ when using the standard basis for $\R^3$. For a given function $f \in L^2(\R^3)$,
+Recall that a basis for $\so(3)$ is given by matrices $l_1, l_2$, and $l_3$, with corresponding observables $L_j = i\hbar\pi'(l_j)$.  To begin with, we find an expression for $L_j$ when using the standard basis for $\R^3$. For a given function $f \in L^2(\R^3)$,
 \begin{align*}
     \pi'(l_1)f(\vec{x}) &= \left. \frac{d}{dt} \pi\left(e^{t l_1}\right)f(\vec{x}) \right|_{t=0}\\ 
     &= \left. \frac{d}{dt} f\left(\begin{pmatrix} 1 & 0 & 0 \\ 0 & \cos(t) & \sin(t) \\ 0 & -\sin(t) & \cos(t) \\ \end{pmatrix} \begin{pmatrix}x_1 \\ x_2 \\ x_3 \end{pmatrix}\right) \right|_{t=0}\\
@@ -700,11 +709,12 @@ Similar calculations show that
 $$\pi'(l_2)f(\vec{x}) = \left(x_3\frac{\partial f}{\partial x_1} - x_1\frac{\partial f}{\partial x_3}\right) \text{  and  } \pi'(l_3)f(\vec{x}) = \left(x_2\frac{\partial f}{\partial x_1} - x_1\frac{\partial f}{\partial x_2}\right).$$
 Therefore, expressing any $l = al_1 + bl_2 + cl_3 \in \so(3)$ as a vector $\vec{n}$ in three dimensions, we see that 
 $$i\hbar\pi'(l)f(\vec{x}) = \vec{n} \cdot (\vec{x} \times i\hbar \nabla f(\vec{x})).$$
-Classically, the quantity $\vec{x} \times i\hbar \nabla f(\vec{x})$ represents the angular momentum of the wave $f$ in three dimensions. Therefore, $L = i\hbar\pi'(l)$ must correspond to the operator which measures the component of angular momentum in the direction represented by $\vec{n}$.
+Classically, the quantity $
+\vec{x} \times i\hbar \nabla f(\vec{x})$ represents the angular momentum of the wave $f$ in three dimensions. Therefore, $L = i\hbar\pi'(l)$ must correspond to the operator which measures the component of angular momentum in the direction represented by $\vec{n}$.
 
 Now that we have an understanding of what $L$ measures, our next task is to find its eigenvectors and eigenvalues. Once this is done, the state of our particle can be expanded in the resulting eigenbasis. This will allow us to assign a probability to each of the possible values of angular momentum. 
 
-In view of the Peter Weyl theorem, the compactness of $SO(3)$ implies that $\H$ decomposes as a direct sum of finite dimensional vector spaces $V_n$. These are irreducible under $SO(3)$ and $\so(3)$. As there is exactly one irreducible representation of $\so(3)$ for each odd dimension, we know that 
+In view of the corollary to the Peter Weyl theorem, the compactness of $SO(3)$ implies that $\H$ decomposes as a direct sum of finite dimensional vector spaces $V_n$ which are irreducible under $SO(3)$. As there is exactly one irreducible representation of $SO(3)$ for each odd dimension, we know that 
 $$\H = V_1 \oplus V_3 \oplus V_5 \oplus \hdots.$$
 Furthermore, we know that each $V_{2l+1}$ is spanned by a basis of $2l+1$ functions $Y^l_{-l}, Y^l_{-l + 1}, \hdots, Y^l_{l-1}, Y^l_{l}$ where $L_3 Y^l_{m} = m Y^l_{m}$, $L_{-} Y^l_{m} = Y^l_{m-1}$ and $L_{+} Y^l_{m} = Y^l_{m+1}$. 
 Suppose that $Y^l_{l}$ is the highest weight vector of $V_{2l+1}$. If we transform into spherical coordinates via
@@ -749,13 +759,15 @@ To summarize, we have now found an expression in spherical coordinates of each o
 In a spherically symmetric potential, the Hamiltonian operator $H$ commutes with the action of $L_3$ and $L_{\pm}$. This implies that each of the eigenspaces of $L_3$ must be fixed by $H$. However, because every eigenspace of $L_3$ is one dimensional, they must also be energy eigenspaces. As $H$ also commutes with $L_{\pm}$, we see that each $V_l$ must in fact be an energy eigenspace. As such, we can label these spaces by their energy. This is the reason that there are exactly $2n+ 1$ possible values of the orbital angular momentum at energy level $n$.
 
 \subsection{Spin}
-It is also possible to model the state of a particle with a finite dimensional Hilbert space $\C^n$. In this situation, we imagine that a vector $\phi \in \H$ represents the `intrinsic properties' of the particle. One such intrinsic property of all elementary particles is spin, which again arises from the action of $SO(3)$. 
+It is also possible to model the state of a particle with a finite dimensional Hilbert space $\C^n$. In this situation, we imagine that a vector $\phi \in \H$ represents the `intrinsic properties' of the particle. One such intrinsic property of all elementary particles is spin, which arises from the action of $SU(2)$. 
 
-Suppose that $\H$ is finite dimensional. According to an above section, we know that up to isomorphism, there is only one irreducible representation $\rho$ of $\su(2)$. This representation will give us self adjoint operators on $\H$ in the following way: for any $X = a X_1 + b X_2 + c X_3 \in \su(2)$
-$$O(\hat{n}) = i\rho(\hat{n} \cdot X).$$
+Suppose that $\H = \C^n$. We know than any representation of $SU(2)$ decomposes as a sum of irreducible representations, so we restrict ourselves to the case where $\pi : SU(2) \to GL(\H)$ is irreducible. We also want $\pi$ to represent a symmetry of $\H$, so we choose $\pi$ to be unitary. As usual, we also get a Lie algebra representation $\pi' : \su(2) \to \gl(\H)$. Fortunately, we have already classified such representations: we know that $\H$ must have a basis of $n$ eigenvectors $v_m$ such that $i\pi'(X_3)v_m = m v_m$ for $m = -n/2, -n/2 + 1, \hdots, n/2 - 1,  n/2$. 
+
+Once agin, the operators $\pi'(X_j)$ are skew adjoint, so $i\hbar\pi'(X_j)$ is an observable. It turns out that these observables measure `spin', which is a quantum property for which there is no classical analogue (although it bears some similarities to the angular momentum of a three dimensional object spinning about an internal axis). 
+
+In general, for any $X = a X_1 + b X_2 + c X_3 \in \su(2)$, we can write $\vec{n} = (a, b, c)$, $S = i\hbar(\pi'())$, and then 
+$$O(\hat{n}) = \hat{n}\cdot \pi'(X).$$
 This operator 
-
-For example, if we wanted to describe the state of a single electron, we might choose $\H$ to be the space of square integrable complex functions on $\R^3$. In this situation, we imagine a state $\phi \in \H$ represents a probability cloud where $|\phi(\vec{x})|^2$ is the probability of being found around the point $\vec{x}$. Then $SO(3)$ acts on $\H$ by 
 
 Now suppose that we have an observable $O$ which is a function of direction $\hat{n}$. The key insight is that measuring $O(R\hat{n})$ is the same as measuring $O(\hat{n})$ in a reference frame that has been acted on by $R$. Therefore, for any $\phi, \psi \in \H$, 
 $$\anglet{\phi}{O(R\hat{n})\psi} = \anglet{\rho(R)\phi}{O(\hat{n})\rho(R)\psi}= \anglet{\phi}{\rho(R)^\dagger O(\hat{n})\rho(R)\psi}$$
@@ -765,15 +777,14 @@ as $\rho$ is a unitary representation.
 
 Then we will need to describe an operator $O(\hat{n})$ on the Hilbert space $\H$. From a rotated reference frame corresponds to $SO(3)$ acting on $\hat{n}$ and $\H$ simultaneously. As the physical properties of the system should be independent of the direction from which we view the system, if we measure the angular momentum along $R\hat{n}$
 
-\subsection{The periodic table}
+\subsection{Tensor products and the periodic table}
+In the proceeding two sections, we examined an infinite dimensional Hilbert space $L^2(\R^3)$, which is used to model a particle in space, and a finite dimensional Hilbert space $\C^n$ which is used to model the intrinsic properties of a particle. We would now like to be able to do both at once. This is done by constructing a new Hilbert space $\H = L^2(\R^3) \otimes \C^n$, which is used to model particles in three dimensional space with multiple possible spin states.
 
-The total angular momentum is the sum of spin and orbital angular momentum. We see that this arises from . If a system begins in a given eigenspace, then any action of SO(3) will leave that eigenspace invariant, therefore ensuring that angular momentum is conserved. This is the essence of Noether's theorem.
+The most important example of this is that of the electron. We know that the electron has two possible spin states, so we use $\H = L^2(\R^3) \otimes \C^2$. In this situation, the operators which we had constructed on $L^2(\R^3)$ will leave the $\C^2$ subspace invariant and vise versa. The result of this is that the Hamiltonian and angular momentum operators commute with the spin operators, allowing us to break up the entire state into one dimensional eigenspaces labeled by energy, angular momentum and spin. 
 
-\section{Sources}
-% https://www.cis.upenn.edu/~cis610/cis61005sl8.pdf
+These states are the source of many basic facts about the periodic table. For example, the number of electrons per orbital is $2, 6, 10, 14, \hdots$. These numbers correspond to the fact that there are $1, 3, 5, 7, \hdots$ possible values of the angular momentum, and two possible spin states for each energy level.
 
-% https://scholar.harvard.edu/files/noahmiller/files/representation-theory-quantum.pdf
-
-https://www.jmilne.org/math/CourseNotes/LAG.pdf
+\bibliography{sources} 
+\bibliographystyle{ieeetr}
 
 \end{document}
