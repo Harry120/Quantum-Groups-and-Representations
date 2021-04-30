@@ -13,8 +13,25 @@ A.~Din, ``Representation theory of compact groups.''
 W.~Fulton and J.~Harris, {\em Representation theory: A first course}.
 \newblock Springer-Verlag, 1991.
 
+\bibitem{taylor}
+J.~Taylor, ``Representations of sl2(c).''
+  \url{https://dornsife.usc.edu/assets/sites/1317/docs/files/talks/rep_sl_2.pdf}.
+
+\bibitem{woit}
+P.~Woit, {\em Quantum Theory, Groups and Representations: An Introduction}.
+\newblock 2021.
+
 \bibitem{wiki}
 {Wikipedia contributors}, ``Special unitary group,'' 2020.
 \newblock [Online; accessed April-2020].
+
+\bibitem{shankar}
+R.~Shankar, {\em Principles of quantum mechanics}.
+\newblock Springer, 2014.
+
+\bibitem{miller}
+N.~Miller, ``Representation theory and quantum mechanics.''
+  \url{https://scholar.harvard.edu/files/noahmiller/files/representation-theory-quantum.pdf},
+  2018.
 
 \end{thebibliography}

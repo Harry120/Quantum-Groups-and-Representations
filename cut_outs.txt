@@ -402,3 +402,52 @@ The point of this proposition is to show that these weight spaces of ${h}$ form 
 
 we get a basis for $V$, on which the action of $\pi(X_j)$ is determined:
 $$\pi(X_1) = i\pi^*({e}+{f}), \pi(X_1) = \pi^*({e}-{f}), \pi(X_1) = -i\pi^*({h}).$$
+
+Using the exponential map, we can define a Lie group homomorphism $\pi : SO(3) \to SU(2)$ by
+$$\pi(\exp(\vec{n} \cdot \vec{l})) = \exp(\vec{n} \cdot \pi'(\vec{l})),$$
+where $\vec{n} \cdot \vec{l} = n_1 l_1 + n_2 l_2 + n_3 l_3$ and $\pi'(\vec{l}) = (\pi'(l_1), \pi'(l_2), \pi'(l_3))$.
+
+Fortunately, we have already classified such representations: we know that $\H$ must have a basis of $n$ eigenvectors $v_m$ with weights $-m,-m + 2, \hdots,m-2, m$. 
+
+
+
+To understand this a little better, we can think of $S_{\vec{n}} = S(\vec{n})$ as a function of the direction $\vec{n}$ in three dimensional space. Measuring $S(\vec{n})$ in a reference frame that has been rotated by $R$ should be the same as measuring $S(\vec{n})$ in an unrotated reference frame. Therefore, for any $\phi, \psi \in \H$, 
+$$\anglet{\pi(R)\phi}{O(R\hat{n})\pi(R)\psi} = \anglet{\phi}{\pi(R)^{-1}O(\hat{n})\pi(R)\psi} = \anglet{\phi}{O(\hat{n})\psi}$$
+Hence, any such observable must transform as  
+$$O(R\hat{n}) = \pi(R)O(\hat{n})\pi(R)^{-1}.$$
+
+
+As $\su(2) = \so(3)$, 
+
+When $n$ is odd, we also have an irreducible representation of $SO(3)$ given by $\pi \circ \Phi$.  
+
+
+
+such that $\pi(i\exp(X_3))v_m = m v_m$ for $m = -n/2, -n/2 + 1, \hdots, n/2 - 1,  n/2$. 
+
+
+
+Now suppose that we have an observable $O$ which is a function of direction $\hat{n}$. 
+
+
+Then we will need to describe an operator $O(\hat{n})$ on the Hilbert space $\H$. From a rotated reference frame corresponds to $SO(3)$ acting on $\hat{n}$ and $\H$ simultaneously. As the physical properties of the system should be independent of the direction from which we view the system, if we measure the angular momentum along $R\hat{n}$
+
+We now attempt to give some justification of why $SO(3)$ should generate angular momentum operators (or more existentially, why angular momentum operators should exist at all).
+
+
+This allows us to shed a bit more light on the observables $S(\vec{n})$ described in the last section. Considering the correspondence $l_j \leftrightarrow X_j$ between $\so(3)$ and $\su(2)$, we can actually say that the angular momentum .
+
+
+begins with the more general notion of a topological group before introducing Lie groups and Lie algebras. We then discuss a few important examples of Lie groups, Lie algebras and their representations. In the section on quantum mechanics, we begin by introducing the notion
+
+\begin{enumerate}
+    \item Suppose $G$ is a Lie group. The tangent space at the identity $e \in G$ is a vector space that can be made into a lie algebra $\g$. 
+    \item Exponentiating elements $A$ of the lie algebra gives lie group elements $g = e^A$ in the connected component of the identity. 
+    \item Suppose $G$ acts unitarily on a Hilbert space $\H$. Then $e^{(A^\dagger)} = \left(e^{A}\right)^\dagger = e^{-A}$, so $A^\dagger = -A$ and $A$ is skew adjoint. 
+    \item A new self adjoint operator $O = iA$ can be defined, and this will be an observable of the quantum system. 
+\end{enumerate}
+Some examples that we will explore 
+\begin{enumerate}
+    \item Say $\H$ is $L^2(\R^3)$. Then $SO(3)$ acts on $\H$ by $(\pi(R)f)(x) = f(R^{-1}x)$. This generates the orbital angular momentum operators.
+    \item Say $\H$ is $\C^n$. Then $SU(2)$ acts on $\H$ by $(\pi(R)f)(x) = f(R^{-1}x)$. This generates the spin angular momentum operators.
+\end{enumerate}

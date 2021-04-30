@@ -15,21 +15,22 @@
 
 \newpage
 \section{Introduction}
-The purpose of this report is to explore representation theory and examine implications for quantum mechanics. The key result here is that quantum observables arise from representations of Lie groups on a Hilbert space. This process occurs in the following way:
+Quantum mechanics models a physical system with a Hilbert space $\H$. For example, $L^2(\R^3, \C)$ is often used to model a single particle in $\R^3$. Explicitly, this means that at any given time, we associate the state of the particle with a vector $\ket{\phi(t)} \in L^2(\R^3, \C)$. We think of this as representing the `distribution' of the particle in space - the value of $\ket{\phi(t)}$ at a point $\vec{x}$ is supposed to represent the probability density of finding the particle around $\vec{x}$. 
+
+Of course, we can also work with a finite dimensional Hilbert space $\C^n$. The physical interpretation of states in this situation is less immediate - in fact, such a Hilbert space is used to represent the `internal properties' of the particle. 
+
+In the quantum formalism, any observable quantity is associated with a hermitian operator on $\H$. Surprisingly, it turns out that most of the interesting observable quantities can be deduced from the symmetries of $\H$ itself (a symmetry is a transformation that leaves the inner product of $\H$ invariant - i.e. a symmetry is a unitary action). Briefly, the reason for this is as follows:
 \begin{enumerate}
-    \item Suppose $G$ is a Lie group. The tangent space at the identity $e \in G$ is a vector space that can be made into a lie algebra $\g$. 
-    \item Exponentiating elements $A$ of the lie algebra gives lie group elements $g = e^A$ in the connected component of the identity. 
-    \item Suppose $G$ acts unitarily on a Hilbert space $\H$. Then $e^{(A^\dagger)} = \left(e^{A}\right)^\dagger = e^{-A}$, so $A^\dagger = -A$ and $A$ is skew adjoint. 
-    \item A new self adjoint operator $O = iA$ can be defined, and this will be an observable of the quantum system. 
-\end{enumerate}
-Some examples that we will explore 
-\begin{enumerate}
-    \item Say $\H$ is $L^2(\R^3)$. Then $SO(3)$ acts on $\H$ by $(\pi(R)f)(x) = f(R^{-1}x)$. This generates the orbital angular momentum operators.
-    \item Say $\H$ is $\C^n$. Then $SU(2)$ acts on $\H$ by $(\pi(R)f)(x) = f(R^{-1}x)$. This generates the spin angular momentum operators.
-    \item Say $\H$ is $\C$. Then $U(1)$ acts on $\H$ by $\rho(e^{i\theta} = e^{ik\theta})$, $k$ an integer.
-    \item $G = \R$ - time?
+    \item Suppose $G$ is a Lie group that has a unitary representation $\pi$ on $\H$. The tangent space at the identity $e \in G$ is a vector space that can be made into a lie algebra $\g$. 
+    \item The derivative of $\pi$ at the identity in $G$ gives a unitary lie algebra representation $\pi' : \g \to \mathfrak{u}(\H)$. 
+    \item Elements of $\mathfrak{u}(\H)$ are skew adjoint, so for any $X \in \g$, a hermitian operator $O = i\pi'(X)$ can be defined, and this will be an observable of the quantum system. 
 \end{enumerate}
 
+The purpose of this report is to explore representation theory and then examine this connection with quantum mechanics. To begin with, we look at the representations of finite groups. Although quantum mechanics is more concerned with the representations of infinite groups (particularly Lie groups), this serves as a starting point to introduce the main themes of representation theory. In contrast, the section on Lie theory does not dive much deeper than the definitions of essential concepts, and instead spends more time working through several examples that will be important for the section on quantum mechanics. 
+
+The section on Quantum mechanics begins with an overview of the core concepts and a brief discussion of some philosophical interpretations. We then explore two examples of situations where the irreducible representations of a Lie group generate a set of observables. In particular, we explore how orbital angular momentum operators arise from the action of $SO(3)$ on $L^2(\R^3, \C)$, and how spin angular momentum operators arise from the action of $SU(2)$ on $\C^n$.
+
+\newpage
 \section{Representations of finite groups}
 
 \subsection{Basic Definitions}
@@ -156,11 +157,13 @@ Therefore $\ker(\bar{f})$ is $G$-invariant, and the theorem is proved.
 \end{proof} 
 
 \begin{cor}
-    Any finite dimensional complex representation of a finite group $G$ is \textbf{completely reducible} (\textbf{semisimple}): there exist irreducible $G$-subspaces $V_1, \hdots V_n$ such that $V \simeq V_1 \oplus \hdots \oplus V_n$.
+    Any finite dimensional complex representation of a finite group $G$ is \textbf{completely reducible} (\textbf{semisimple}): there exist $G$-subspaces $V_1, \hdots, V_n$ with irreducible representations $\rho_1, \hdots, \rho_n$ such that $V \simeq V_1 \oplus \hdots \oplus V_n$ and $\rho \simeq \rho_1 \oplus \hdots \oplus \rho_n$.
 \end{cor}
 
 \begin{proof} If $V$ is one dimensional, it is irreducible so we are done. Otherwise, if $V$ is reducible, use Maschke's theorem to write $V = U \oplus W$, where $\dim(U) < \dim(V)$ and  $\dim(W) < \dim(V)$. The theorem then follows by induction on the dimension.
 \end{proof}
+
+If there are $m_j$ copies of $\rho_j$ in the sum $\rho_1 \oplus \hdots \oplus \rho_n$, then we write $\rho \simeq m_1 \rho_1 \oplus \hdots \oplus m_k \rho_k$, where each of the $\rho_j$ with $1 \leq j \leq k$ is unique.
 
 \subsection{Schur's lemma} 
 
@@ -243,7 +246,6 @@ We can now improve on the final corollary in section 2.6 and say that $Z(G)$ is 
 
 When taken over the complex numbers, $\class(G)$ can be made into a hermitian inner product space (In fact, $\class(G)$ is then a Hilbert space, as all norms on $\C^k$ are equivalent) by defining 
 $$\anglet{f}{f'} = \frac{1}{|G|}\sum_{g\in G} \overline{f(g)}f'(g).$$
-\textit{How can this be extended consistently to all fields where $(\ch(\F), |G|) = 1$?}
 
 The main result of character theory is that the irreducible characters of a group are orthonormal with respect to this inner product.
 
@@ -252,7 +254,7 @@ The main result of character theory is that the irreducible characters of a grou
 \end{thm}
 
 \begin{proof}
-    TO DO.
+    See \cite{dexter}.
 \end{proof}
 
 \begin{cor}
@@ -268,7 +270,7 @@ The main result of character theory is that the irreducible characters of a grou
 \end{cor}
 
 \begin{proof}
-    TO DO.
+    Suppose $\rho: G \to GL(V)$ affords a character $\chi$. According to complete reducibility, we can write $\rho = m_1\rho_1 \oplus \hdots \oplus m_k \rho_k$. Therefore, $\chi = m_1\chi_1 + \hdots + m_k \chi_k$. However, according to the completeness of characters, we see that $m_j = \anglet{\chi}{\chi_j}$ is determined by the character $\chi$. This determines the representation $\rho$.
 \end{proof}
 
 \begin{cor}[Irreduciblity Criterion]
@@ -282,19 +284,21 @@ The main result of character theory is that the irreducible characters of a grou
 \end{proof}
 
 \begin{thm}
-    sum of squares of dimensions is size of G.
+    Every complex irreducible representation $\rho_j$ of a group $G$ is a subrepresentation of the regular representation $\rho_{reg}$, occuring with a multiplicity $n_j$, the dimension of $\rho_j$.
 \end{thm}
 
 \begin{proof}
-    TO DO.
+    First of all, note that the character $\chi_{reg}$ of the regular representation has the property that $\chi_{reg}(e) = |G|$ and $\chi_{reg}(g) = 0$ for $g \neq e$. To see this, recall that the action of an element $g$ sends $h$ to itself iff $g = e$, so in the usual basis a matrix representation of $\rho_{reg}(g)$ will have non zero diagonal terms only when $g = e$. 
+    
+    Now, according to the completeness of characters,
+    $$\rho_{reg} = \sum_i \alpha_i \chi_i,$$
+    where $$\alpha_i = \anglet{\rho_{reg}}{\chi_i} = \frac{1}{|G|}\sum_{g\in G} \overline{\chi_{reg}(g)} \chi_i(g) = \frac{1}{|G|} |G| \chi_i(e) = n_j.$$
+    As $n_j \geq 0$, $\rho_j$ is a subrepresentation of $\rho_{reg}$ for every $j$.
 \end{proof}
 
-To conclude this section, we look at an example.
+An interesting corollary of this theorem is that the size of $G$ is determined by the dimensions of its irreducible representations; since $\chi_{reg}(e) = |G|$, we must have that $|G| = \sum_{j} n_j \chi_i(e) = \sum_{j} n_j^2$.
 
-\begin{eg}[Irreducible representations of $S_3$]
-    TO DO.
-\end{eg}
-
+\newpage
 \section{Lie Theory}
 \subsection{Representations of Topological Groups}
 A topological group is a group that has been endowed with a topology. Most of the definitions regarding representations of topological groups are very similar to those for finite groups, but typically also require some kind of continuity. 
@@ -310,7 +314,7 @@ The following definitions are given by \cite{alex}.
     \item A \textbf{morphism} between topological groups is a continuous group homomorphism.
 \end{enumerate}
 
-Primarily, we are interested in the case where $G$ is compact under the topology $\tau$. Some examples of compact topological groups include all finite groups with discrete topology, discrete groups such as $\Z$ (also with discrete topology), and Lie groups. 
+Primarily, we are interested in the case where $G$ is compact under the topology $\tau$. Some examples of compact topological groups include all finite groups with discrete topology, discrete groups such as $\Z$ (also with discrete topology), and Lie groups, which we introduce in the next section. 
 
 \begin{defi}[G-space]\end{defi}
 \begin{enumerate}
@@ -351,8 +355,14 @@ As is the case with finite groups, representations of topological groups can be 
 If $V$ is a Hilbert space, we have a particularly important kind of representation.
 
 \begin{defi}[Unitary representation]
-    A representation $\pi$ of $G$ on a Hilbert space $\H$ is \textbf{unitary} if $\anglet{gv}{gw} = \anglet{v}{w}$ for all $v, w \in V$ and $g \in G$.
+    A representation $\pi$ of $G$ on a complex Hilbert space $\H$ is \textbf{unitary} if $\anglet{gv}{gw} = \anglet{v}{w}$ for all $v, w \in V$ and $g \in G$.
 \end{defi}
+
+In the case of infinite dimensional unitary representations, we have the following corollary of the Peter-Weyl theorem \cite{alex}.
+
+\begin{prop}
+    Suppose $\pi$ is a unitary representation of a compact group $G$ on a complex Hilbert space $\H$. Then $\H$ decomposes into an orthogonal direct sum of finite dimensional irreducible representations of $G$.
+\end{prop}
 
 \subsection{Lie groups}
 We begin by reviewing some manifold theory.
@@ -374,7 +384,7 @@ We begin by reviewing some manifold theory.
     A smooth map $f$ between two manifolds $M$ and $N$ is a \textbf{diffeomorphism} if $f^{-1}$ exists and is also a smooth map.
 \end{defi}
 
-A Lie group is a group $G$ that is also a smooth manifold. 
+A Lie group is a topological group $G$ that is also a smooth manifold. 
 
 \begin{defi}[Lie group]\end{defi}
 \begin{enumerate}
@@ -423,7 +433,7 @@ First of all, note that any neighborhood of a point contains an open neighborhoo
 Let $S$ be the set generated by $U$. For any $g \in S$, the left action of $g$ is a diffeomorphism, so $gU$ is open because $U$ is. Now write $H = G \setminus S$. If $hu \in S$ for any $u \in U$, $h \in H$, then $huu^{-1} = h$ is also in $S$, so we must have that $hU$ is disjoint with $S$. Hence as $hU$ is also open, $H' = \bigcup_{h \in H} hU$ is a open subset of $G$ that is disjoint from $S$ with $G = H' \cup S$. By the connectedness of $G$, since $S$ is nonempty, we must have $G=S$. 
 \end{proof}
 
-It turns out that we can extend this idea further. The region around the identity of the Lie group can in fact be `Linearised' to form a Lie algebra that completely characterizes the connected component of the identity. This is the focus of the following two sections.
+It turns out that we can extend this idea further. The region around the identity of the Lie group can in fact be `linearised' to form a Lie algebra that completely characterizes the connected component of the identity. This is the focus of the following two sections.
 
 \subsection{Lie Algebras}
 We begin with the definition of a Lie algebra.
@@ -571,7 +581,7 @@ Furthermore, $\sl(2, \C) = \text{span}_{\R}\{X_1, X_2, X_3, iX_1, iX_2, iX_3\} =
 
 \subsection{Complex Irreps of \texorpdfstring{$\sl(2, \C)$}{sl(2, \C)} and \texorpdfstring{$\su(2)$}{su(2))}}
 
-Suppose that $\sl(2, \C)$ acts linearly on a complex finite dimensional vector space $V$. We define the \textbf{weight space} $V_\lambda = \{v \in V : {h}v = \lambda v\}$ for a given \textbf{weight} $\lambda$. Clearly, if $\lambda$ is not an eigenvalue of ${h}$, then $V_\lambda = \{0\}$.
+Suppose that $\sl(2, \C)$ acts linearly on a complex finite dimensional vector space $V$. In line with \cite{taylor}, we define the \textbf{weight space} $V_\lambda = \{v \in V : {h}v = \lambda v\}$ for a given \textbf{weight} $\lambda$. Clearly, if $\lambda$ is not an eigenvalue of ${h}$, then $V_\lambda = \{0\}$.
 
 \begin{prop}
     For any $v \in V_\lambda$, ${f} v \in V_{\lambda - 2}$ and ${e} v \in V_{\lambda + 2}$.
@@ -584,13 +594,13 @@ Suppose that $\sl(2, \C)$ acts linearly on a complex finite dimensional vector s
 As $\C$ is algebraically closed, ${h}$ must have at least one eigenvalue with an eigenvector $u$. Therefore, by finite dimensionality, there must be an eigenvector $v$ of ${h}$ such that ${e} v = 0$. We say that such an eigenvector is a \textbf{maximal vector} of $V$ and that the corresponding eigenvalue $\lambda$ is a \textbf{maximal weight}. Similarly, we say that an eigenvector $w$ of ${h}$ such that ${f} w = 0$ is a \textbf{minimal vector}, with \textbf{minimal weight}.
 
 \begin{thm}[Irreducible representations of $\sl(2, \C)$]
-    Let $V$ be an $n$ dimensional complex vector space with an irreducible representation $\pi$ of $\sl(2, \C)$. Then $V$ decomposes into a sum of one dimensional weight spaces 
+    Let $V$ be an $n$ dimensional complex vector space. Then there is an irreducible representation $\pi$ of $\sl(2, \C)$ and $V$ decomposes into a sum of one dimensional weight spaces 
     $$V_{-l}, V_{-l + 2}, \hdots, V_{l -2}, V_{l},$$
     where $l = n - 1$ is an integer.
 \end{thm}
 
 \begin{proof}
-    Repeatedly applying $\pi(f)$ to the highest weight vector $v_{\lambda}$, we get a set $\beta$ of $k+1$ eigenvectors of $\pi(h)$:
+    As argued above, there exists a highest weight vector $v_{\lambda}$. Repeatedly applying $\pi(f)$ to $v_{\lambda}$, we get a set $\beta$ of $k+1$ eigenvectors of $\pi(h)$:
     $$\beta = \{v_{\lambda}, v_{\lambda -2}, v_{\lambda -4}, \hdots, v_{\lambda - 2k} = w\}$$ 
     where $v_{\lambda -2j} = \pi(f)^j v_{\lambda}$ and $w$ is the minimal vector. Let $W = \text{span}_{\C}(\beta) \subseteq V$. Then we claim that $W$ is invariant.
 
@@ -615,15 +625,15 @@ This classification carries over to $\su(2)$ in the following way. If $\pi$ is a
 
 \subsection{Complex Irreps of SO(3) and SU(2)}
 
-Now that we have classified the complex irreps of $\su(2)$, we can use the exponential map to find the complex irreps of $SU(2)$. Explicitly, since $SU(2)$ is simply connected, any representation $\pi$ on $V$ is completely determined by its differential $\pi'$, which is a representation of $\su(2)$. Therefore, $V$ must decompose in the way described in the above section. 
+Now that we have classified the complex irreps of $\su(2)$, we can use the exponential map to find the complex irreps of $SU(2)$. Explicitly, since $SU(2)$ is simply connected, any irreducible representation $\pi$ on $V$ is completely determined by its differential $\pi'$, which is a representation of $\su(2)$. Therefore, if $V$ has an irrep of $SU(2)$, it must decompose in the way described in the above section. It turns out that this also works the other way: there is an irrep of $SU(2)$ for each dimension $n$; an explicit construction is given by \cite{woit}. 
+
+Using the fact that any element $g \in SU(2)$ has the form $\exp(X)$ for some $X \in \su(2)$, we can write $\pi(g) = \pi(\exp(X)) = \exp(\pi'(X))$. Now, recall that for an $m + 1$ dimensional irrep $\pi'$ of $\su(2)$, the eigenvalues of $i\pi'(X_3)$ were the integers $-m, -m + 2, \hdots, m - 2, m$. Therefore, the eigenvalues of $\pi(\exp(\theta X_3))$ must be $e^{mi\theta}, e^{(m-2)i\theta}, \hdots, e^{(-m + 2)i\theta}, e^{-mi\theta}$. Setting $\theta = \pi$, we see that $\pi(-I)$ has eigenvalues which are all $-1$ when $m$ is odd, and eigenvalues which are all $1$ when $m$ is even. Therefore, only odd dimensional irreducible representations of $SU(2)$ can have the property that $\pi(-I) = \id_V$. 
 
 We now want to find the irreps of $SO(3)$. A basis for $\so(3)$ is given by 
 $$l_1 = \begin{pmatrix} 0 & 0 & 0 \\ 0 & 0 & -1 \\ 0 & 1 & 0 \\ \end{pmatrix}, \hspace{1em} l_2 = \begin{pmatrix} 0 & 0 & 1 \\ 0 & 0 & 0 \\ -1 & 0 & 0 \\ \end{pmatrix}, \hspace{1em} l_3 = \begin{pmatrix} 0 & -1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 0 \\ \end{pmatrix}.$$
 These matrices obey the commutation relations
 $$ \bracket{l_1, l_2} = l_3, \hspace{2em} \bracket{l_2, l_3} = l_1, \hspace{2em} \bracket{l_3, l_1} = l_2.$$
-Noting that this is the same set of relations as for $\su(2)$, we can define a Lie algebra isomorphism $\pi' : \so(3) \to \su(2) : X_j \mapsto l_j$. This means that the irreps of $\so(3)$ are the same as those for $\su(2)$. Importantly however, this does not mean that the irreps of $SO(3)$ are the same as those for $SU(2)$. Using the exponential map, we can define a Lie group homomorphism $\pi : SO(3) \to SU(2)$ by
-$$\pi\right(\exp\left(\vec{n} \cdot \vec{l}\right)\right) = \exp\left(\vec{n} \cdot \pi'\left(\vec{l}\right)\right),$$
-
+Noting that this is the same set of relations as for $\su(2)$, we can define a Lie algebra isomorphism $\pi' : \so(3) \to \su(2) : X_j \mapsto l_j$. This means that the irreps of $\so(3)$ are the same as those for $\su(2)$. Importantly however, this does not mean that the irreps of $SO(3)$ are the same as those of $SU(2)$. 
 
 It turns out that there is a nice relationship between $SO(3)$, $SU(2)$ and the unit quaternions. Any element $g \in SU(2)$ has the form
 $$g = \begin{pmatrix}z & w \\ -\bar{w} & \bar{z}\end{pmatrix}$$
@@ -631,12 +641,11 @@ where $z, w \in \C$ and $|z|^2 + |w|^2 = 1$. Writing $z = a + i b, w = c + i d$,
 $$\phi\begin{pmatrix}a + i b & c + i d \\ -c + i d & a - i b\end{pmatrix} = a + bi + cj + dk.$$
 Routine calculations show that this is an isomorphism. 
 
-For any point $(x, y, z) \in \R^3$, we can associate an imaginary quaternion $q = xi + yj + zk$. Suppose that $g \in SU(2)$ has $\phi(g)$ as its associated quaternion. Then more calculations show that $\phi(g)q\phi(g)^{-1} = u i + v j + w k$ is another imaginary quaternion, which can be associated with a point $(u, v, w)$ in $\R^3$. According to \cite{wiki}, this gives us a $2: 1$ surjective homomorphism $\Phi : SU(2) \to SO(3)$. In particular, note that $\Phi(-g)(q) = \phi(-g)q\phi(-g)^{-1} = \phi(g)q\phi(g)^{-1} = \Phi(g)(q)$, so $\Phi(-g) = \Phi(g)$. In this situation we say that $SU(2)$ is a double cover of $SO(3)$.
+For any point $(x, y, z) \in \R^3$, we can associate an imaginary quaternion $q = xi + yj + zk$. Suppose that $g \in SU(2)$ has $\phi(g)$ as its associated quaternion. Then more calculations show that $\phi(g)q\phi(g)^{-1} = u i + v j + w k$ is another imaginary quaternion, which can be associated with a point $(u, v, w)$ in $\R^3$. According to \cite{wiki}, this gives us a $2: 1$ surjective Lie group morphism $\Phi : SU(2) \to SO(3)$. In particular, note that $\Phi(-g)(q) = \phi(-g)q\phi(-g)^{-1} = \phi(g)q\phi(g)^{-1} = \Phi(g)(q)$, so $\Phi(-g) = \Phi(g)$. In this situation we say that $SU(2)$ is a double cover of $SO(3)$.
 
-The presence of $\Phi$ allows us to deduce the irreducible representations of $SO(3)$. 
+The presence of $\Phi$ allows us to deduce the irreducible representations of $SO(3)$. For any irreducible representation $\pi$ of $SU(2)$, $\pi \circ \Phi$ is a irreducible representation of $SU(2)$ \cite{woit}. However, this implies that $\pi \circ \Phi(-I) = \pi \circ \Phi(I)$ for every possible $\pi$. As irreducible representations of $SU(2)$ can have this property when they are of odd dimension, we see that there are no even dimensional irreps of $SO(3)$. On the other hand, we refer again to \cite{woit} for the proof that odd dimensional irreps of $SO(3)$ do in fact exist.
 
-The net result of this is that there is exactly one complex irreducible representation of $SO(3)$ for each odd dimension.
-
+\newpage
 \section{Quantum Mechanics}
 \subsection{The Quantum Formalism}
 Classically, a physical system consisted of the following components: 
@@ -645,7 +654,7 @@ Classically, a physical system consisted of the following components:
     \item A set $\Omega$ of observable quantities. These quantities were expressed as a function from $S$ to $\R$. For example, if a particle of mass $m$ was modeled in a Newtonian system, then the the energy of a particle would be given as $E: S \to \R : E(x, v) = mv^2/2$.
     \item A rule which describes how the state evolves through time. For example, if a particle with mass $m$ under the influence of a constant force $F$ was modeled by Newtonian mechanics, then $(\dot{x}, \dot{v}) = (v, \frac{F}{m})$.
 \end{enumerate}
-Embedded in component $2$ is the assumption that every observable must always be completely described by a single real value. Unfortunately however, several experiments in the early 20th century showed this to be insufficient when modeling systems which are precise enough to deal with individual particles. As a result, the founders of quantum mechanics developed a system where
+Embedded in component $2$ is the assumption that every observable must always be completely described by a single real value. Unfortunately however, several experiments in the early 20th century showed this to be insufficient when modeling systems which are precise enough to deal with individual particles. As a result, according to \cite{shankar} the founders of quantum mechanics developed a system where
 \begin{enumerate}
     \item $S$ is replaced with a Hilbert space $\H$. Examples include taking $\H = L^2(\R^3)$ to model a spin-less particle in three dimensions, $\H = \C^2$ for a two state system like the spin of an electron, $\H = L^2(\R) \otimes L^2(\R)$ for two particles in one dimension, and $\H = L^2(\R) \otimes \C^3$ for a particle in one dimension with three possible spin states.
     \item Observable quantities become hermitian operators on $\H$. To see what this means in a physical context, note that hermitian operators are diagonalizable. Therefore, specifying a hermitian operator is equivalent to specifying a set of real eigenvalues (the possible `well defined' values of the observable) and an orthonormal basis for $\H$ (the states corresponding to those eigenvalues). The benefit of this  description is that it allows for the state of a particle to have nonzero components in multiple eigenspaces - i.e. the particle can be in a `superposition' of eigenstates. 
@@ -662,7 +671,7 @@ Before proceeding further, we consider an easy example. Suppose that $\H$ is two
 $$i\hbar \alpha'(t) \ket{\psi_1} + i\hbar \beta'(t) \ket{\psi_2} = E_1 \alpha(t) \ket{\psi_1} + E_2 \beta(t) \ket{\psi_2}.$$
 Equating components, we see that $\alpha(t) = Ae^{-iE_1t/\hbar}$ and $\beta(t) = Be^{-iE_2t/\hbar}$ for constants $A, B$ determined by the initial conditions. The solution is therefore $\ket{\psi(t)} = Ae^{-iE_1t/\hbar}\ket{\psi_1} + Be^{-iE_2t/\hbar}\ket{\psi_2}$. 
 
-This example highlights an important consequence of the linearity of the Schr\"{o}dinger equation: eigenstates of $H$ evolve independently through time. It turns out that this simple observation is the source of significant philosophical debate, which we discuss briefly in the next section.
+This example highlights an important consequence of the linearity of the Schr\"{o}dinger equation: eigenstates of $H$ evolve independently through time. It turns out that this simple observation is the source of significant philosophical issues, which we discuss briefly in the next section.
 
 \subsection{Measurement}
 The formalism of quantum mechanics becomes useful when it can be applied to deduce results of experiments that can be conducted by humans. The problem is that any measurement system (which necessarily includes the people doing the measuring) has at least $\sim 10^{27}$ atoms. Unfortunately, it is impractical to model the evolution of such a system with Schr\"{o}dinger's equation. Physicists wanting to make useful predictions therefore imagine that when a quantum system interacts with a `measuring device', the system collapses into a well defined state. This is known as the Born rule.
@@ -710,7 +719,7 @@ $$\pi'(l_2)f(\vec{x}) = \left(x_3\frac{\partial f}{\partial x_1} - x_1\frac{\par
 Therefore, expressing any $l = al_1 + bl_2 + cl_3 \in \so(3)$ as a vector $\vec{n}$ in three dimensions, we see that 
 $$i\hbar\pi'(l)f(\vec{x}) = \vec{n} \cdot (\vec{x} \times i\hbar \nabla f(\vec{x})).$$
 Classically, the quantity $
-\vec{x} \times i\hbar \nabla f(\vec{x})$ represents the angular momentum of the wave $f$ in three dimensions. Therefore, $L = i\hbar\pi'(l)$ must correspond to the operator which measures the component of angular momentum in the direction represented by $\vec{n}$.
+\vec{x} \times i\hbar \nabla f(\vec{x})$ represents the angular momentum of the wave $f$ in three dimensions. Therefore, $L(\vec{n}) = i\hbar\pi'(l)$ must correspond to the operator which measures the component of angular momentum in the direction represented by $\vec{n}$.
 
 Now that we have an understanding of what $L$ measures, our next task is to find its eigenvectors and eigenvalues. Once this is done, the state of our particle can be expanded in the resulting eigenbasis. This will allow us to assign a probability to each of the possible values of angular momentum. 
 
@@ -761,29 +770,25 @@ In a spherically symmetric potential, the Hamiltonian operator $H$ commutes with
 \subsection{Spin}
 It is also possible to model the state of a particle with a finite dimensional Hilbert space $\C^n$. In this situation, we imagine that a vector $\phi \in \H$ represents the `intrinsic properties' of the particle. One such intrinsic property of all elementary particles is spin, which arises from the action of $SU(2)$. 
 
-Suppose that $\H = \C^n$. We know than any representation of $SU(2)$ decomposes as a sum of irreducible representations, so we restrict ourselves to the case where $\pi : SU(2) \to GL(\H)$ is irreducible. We also want $\pi$ to represent a symmetry of $\H$, so we choose $\pi$ to be unitary. As usual, we also get a Lie algebra representation $\pi' : \su(2) \to \gl(\H)$. Fortunately, we have already classified such representations: we know that $\H$ must have a basis of $n$ eigenvectors $v_m$ such that $i\pi'(X_3)v_m = m v_m$ for $m = -n/2, -n/2 + 1, \hdots, n/2 - 1,  n/2$. 
+Suppose that $\H = \C^n$. We know than any representation of $SU(2)$ decomposes as a sum of irreducible representations, so we restrict ourselves to the case where $\pi : SU(2) \to GL(\H)$ is irreducible. We also want $\pi$ to represent a symmetry of $\H$, so we choose $\pi$ to be unitary. Once agin, the operators $\pi'(X)$ are therefore skew adjoint, so $S = i\pi'(X)$ is an observable. We call the quantity that these observables measure the `spin' of the particle. 
 
-Once agin, the operators $\pi'(X_j)$ are skew adjoint, so $i\hbar\pi'(X_j)$ is an observable. It turns out that these observables measure `spin', which is a quantum property for which there is no classical analogue (although it bears some similarities to the angular momentum of a three dimensional object spinning about an internal axis). 
+In physics texts such as \cite{miller} \cite{woit}, instead of using our basis $X_1, X_2, X_3$ for $\su(2)$, it is conventional to use $-\frac{1}{2}X_1, -\frac{1}{2}X_2, \frac{1}{2}X_3$. This gives us observables 
+$$S_1 =i \pi'(-\frac{1}{2}X_1), \hspace{2em} S_2 =i \pi'(-\frac{1}{2}X_2), \hspace{2em} S_3 =i \pi'(\frac{1}{2}X_3).$$ In general, for any $X = -\frac{a}{2}X_1 + -\frac{b}{2} X_2 + \frac{c}{2} X_3 \in \su(2)$, we write $\vec{n} = (a, b, c)$, $\vec{X} = (-\frac{1}{2}X_1, -\frac{1}{2}X_2, \frac{1}{2}X_3)$, and $\vec{S} = (S_1, S_2, S_3)$. Then 
+$$S(\vec{n}) = i\pi'(\vec{n} \cdot \vec{X}) = \vec{n} \cdot \vec{S}$$
+is the observable corresponding to $X$. 
 
-In general, for any $X = a X_1 + b X_2 + c X_3 \in \su(2)$, we can write $\vec{n} = (a, b, c)$, $S = i\hbar(\pi'())$, and then 
-$$O(\hat{n}) = \hat{n}\cdot \pi'(X).$$
-This operator 
-
-Now suppose that we have an observable $O$ which is a function of direction $\hat{n}$. The key insight is that measuring $O(R\hat{n})$ is the same as measuring $O(\hat{n})$ in a reference frame that has been acted on by $R$. Therefore, for any $\phi, \psi \in \H$, 
-$$\anglet{\phi}{O(R\hat{n})\psi} = \anglet{\rho(R)\phi}{O(\hat{n})\rho(R)\psi}= \anglet{\phi}{\rho(R)^\dagger O(\hat{n})\rho(R)\psi}$$
-Hence, any such observable must transform as  
-$$O(R\hat{n}) = \rho(R)^\dagger O(\hat{n})\rho(R) = \rho(R)^{-1} O(\hat{n})\rho(R)$$
-as $\rho$ is a unitary representation.
-
-Then we will need to describe an operator $O(\hat{n})$ on the Hilbert space $\H$. From a rotated reference frame corresponds to $SO(3)$ acting on $\hat{n}$ and $\H$ simultaneously. As the physical properties of the system should be independent of the direction from which we view the system, if we measure the angular momentum along $R\hat{n}$
+Accodring to section $3.7$, $\H$ must have a basis of $m = n - 1$ eigenvectors for $S_3$, with eigenvalues (spin values)
+$$-s,-s + 1, \hdots,s-1, s,$$
+where $s = \frac{m}{2}$ is an integer when $n$ is odd, and a half integer when $n$ is even. It turns out \cite{woit} that particles (called bozons) which have integer spin (i.e. they are modeled by a even dimensional Hilbert space) have different properties to those with half interger spin (called fermions). For example, fermions are all elementary `matter' particles, such as electrons, protons and neutrons, where as bozons are all `force carrier' particles, such as photons (which mediate the electromagnetic force) or gluons (which mediate the strong force).
 
 \subsection{Tensor products and the periodic table}
-In the proceeding two sections, we examined an infinite dimensional Hilbert space $L^2(\R^3)$, which is used to model a particle in space, and a finite dimensional Hilbert space $\C^n$ which is used to model the intrinsic properties of a particle. We would now like to be able to do both at once. This is done by constructing a new Hilbert space $\H = L^2(\R^3) \otimes \C^n$, which is used to model particles in three dimensional space with multiple possible spin states.
+In the proceeding two sections, we examined an infinite dimensional Hilbert space $L^2(\R^3)$, which is used to model a particle in space, and a finite dimensional Hilbert space $\C^n$ which is used to model the intrinsic properties of a particle. We would now like to be able to do both at once. This is done by constructing a new Hilbert space $\H = L^2(\R^3) \otimes \C^n$, which is used to model particles in three dimensional space with multiple possible spin states. 
 
-The most important example of this is that of the electron. We know that the electron has two possible spin states, so we use $\H = L^2(\R^3) \otimes \C^2$. In this situation, the operators which we had constructed on $L^2(\R^3)$ will leave the $\C^2$ subspace invariant and vise versa. The result of this is that the Hamiltonian and angular momentum operators commute with the spin operators, allowing us to break up the entire state into one dimensional eigenspaces labeled by energy, angular momentum and spin. 
+An important example of this is that of the electron. We know that the electron has two possible spin states, so we use $\H = L^2(\R^3) \otimes \C^2$. In this situation, the operators which we had constructed on $L^2(\R^3)$ will leave the $\C^2$ subspace invariant and vise versa. The result of this is that in a spherically symmetric potential, the Hamiltonian and angular momentum operators commute with the spin operators, allowing us to break up the entire state into one dimensional eigenspaces labeled by energy, angular momentum and spin. 
 
 These states are the source of many basic facts about the periodic table. For example, the number of electrons per orbital is $2, 6, 10, 14, \hdots$. These numbers correspond to the fact that there are $1, 3, 5, 7, \hdots$ possible values of the angular momentum, and two possible spin states for each energy level.
 
+\newpage
 \bibliography{sources} 
 \bibliographystyle{ieeetr}
 
