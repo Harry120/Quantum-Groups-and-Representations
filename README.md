@@ -1,3 +1,5 @@
 # Quantum Mechanics, Groups and Representations
 
-These are some notes I have taken whilst learning about quantum mechanics and its relation to group and representation theory. They are mostly based on Peter Woit's textbook.
+The purpose of this report is to explore representation theory and then examine the connection with quantum mechanics. To begin with, we look at the representations of finite groups. Although quantum mechanics is more concerned with the representations of infinite groups (particularly Lie groups), this serves as a starting point to introduce the main themes of representation theory. In contrast, the section on Lie theory does not dive much deeper than the definitions of essential concepts, and instead spends more time working through several examples that will be important for the section on quantum mechanics. 
+
+The section on Quantum mechanics begins with an overview of the core concepts and a brief discussion of some philosophical interpretations. We then explore two examples of situations where the irreducible representations of a Lie group generate a set of observables. In particular, we explore how orbital angular momentum operators arise from the action of SO(3), and how spin angular momentum operators arise from the action of SU(2).
