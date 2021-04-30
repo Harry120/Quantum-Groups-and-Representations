@@ -6,5 +6,6 @@ Banerjee\ -\ Microeconomics.pdf
 *.out
 *.synctex.gz
 *.toc
+*.blg
 offcuts.*
 main.*

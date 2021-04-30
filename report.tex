@@ -284,7 +284,7 @@ The main result of character theory is that the irreducible characters of a grou
 \end{proof}
 
 \begin{thm}
-    Every complex irreducible representation $\rho_j$ of a group $G$ is a subrepresentation of the regular representation $\rho_{reg}$, occuring with a multiplicity $n_j$, the dimension of $\rho_j$.
+    Every complex irreducible representation $\rho_j$ of a group $G$ is a subrepresentation of the regular representation $\rho_{reg}$, occurring with a multiplicity $n_j$, the dimension of $\rho_j$.
 \end{thm}
 
 \begin{proof}
@@ -361,7 +361,7 @@ If $V$ is a Hilbert space, we have a particularly important kind of representati
 In the case of infinite dimensional unitary representations, we have the following corollary of the Peter-Weyl theorem \cite{alex}.
 
 \begin{prop}
-    Suppose $\pi$ is a unitary representation of a compact group $G$ on a complex Hilbert space $\H$. Then $\H$ decomposes into an orthogonal direct sum of finite dimensional irreducible representations of $G$.
+    Suppose $\pi$ is a unitary representation of a compact topological group $G$ on a complex Hilbert space $\H$. Then $\H$ decomposes into an orthogonal direct sum of finite dimensional irreducible representations of $G$.
 \end{prop}
 
 \subsection{Lie groups}
@@ -570,10 +570,10 @@ $$
 where $s = \frac{1}{2}(a - c)$, $t = -\frac{1}{2}(a + c)$, $u = \frac{1}{2}(b + d)$ and $v = \frac{1}{2}(b - d)$. Hence, it is not hard to see that when viewed as a vector space over $\R$, $\sl(2, \C) \simeq \su(2) \oplus i \su(2)$. 
 
 To make this situation a little clearer, we give a basis for $\su(2)$ that relates nicely to a basis for $\sl(2, \C)$. It is not too hard to see that $\su(2) = \text{span}_{\R}\{X_1, X_2, X_3\}$, where
-$$X_1 = \begin{pmatrix}0 & i \\ i & 0\end{pmatrix}, \hspace{2em} X_2 = \begin{pmatrix}0 & 1 \\ -1 & 0\end{pmatrix}, \hspace{2em} X_3 = \begin{pmatrix}-i & 0 \\ 0 & i\end{pmatrix}.$$
+$$X_1 = \begin{pmatrix}0 & i \\ i & 0\end{pmatrix}, \hspace{2em} X_2 = \begin{pmatrix}0 & 1 \\ -1 & 0\end{pmatrix}, \hspace{2em} X_3 = \begin{pmatrix}i & 0 \\ 0 & -i\end{pmatrix}.$$
 These matrices obey the commutation relations
-$$ \bracket{X_1, X_2} = X_3, \hspace{2em} \bracket{X_2, X_3} = X_1, \hspace{2em} \bracket{X_3, X_1} = X_2.$$
-We can then define ${e} = \frac{1}{2}(X_2 - iX_1)$, ${f} = -\frac{1}{2}(X_2 + iX_1)$ and ${h} = iX_3$ such that
+$$\bracket{X_1, X_2} = -2X_3, \hspace{2em} \bracket{X_2, X_3} = -2X_1, \hspace{2em} \bracket{X_3, X_1} = -2X_2.$$
+We can then define ${e} = \frac{1}{2}(X_2 - iX_1)$, ${f} = -\frac{1}{2}(X_2 + iX_1)$ and ${h} = -iX_3$ such that
 $${e} = \begin{pmatrix}0 & 1 \\ 0 & 0\end{pmatrix}, \hspace{2em} {f} = \begin{pmatrix}0 & 0 \\ 1 & 0\end{pmatrix}, \hspace{2em} {h} = \begin{pmatrix}1 & 0 \\ 0 & -1\end{pmatrix}.$$
 These matrices obey the commutation relations
 $$\bracket{{h}, {f}} = -2{f}, \hspace{2em} \bracket{{h}, {e}} = 2{e}, \hspace{2em} \bracket{{f}, {e}} = -{h}.$$
@@ -621,19 +621,19 @@ As $\C$ is algebraically closed, ${h}$ must have at least one eigenvalue with an
     so $\lambda = l$, and the theorem is proved.
 \end{proof}
 
-This classification carries over to $\su(2)$ in the following way. If $\pi$ is a finite dimensional complex irreducible representation of $\su(2)$ on $V$, then $\pi^*$ defined by $\pi^*({h}) = i\pi(X_3), \pi^*({e}) = \frac{1}{2}\pi(X_2) - \frac{i}{2}\pi(X_1)$, and $\pi^*({f}) = -\frac{1}{2}\pi(X_2) - \frac{i}{2}\pi(X_1)$ is an irrep of $\sl(2, \C)$. Therefore, $V$ decomposes in the way described above, and each of the weight spaces $V_m$ are also eigenspaces of $\pi(X_3)$.
+This classification carries over to $\su(2)$ in the following way. If $\pi$ is a finite dimensional complex irreducible representation of $\su(2)$ on $V$, then $\pi^*$ defined by $\pi^*({h}) = -i\pi(X_3), \pi^*({e}) = \frac{1}{2}\pi(X_2) - \frac{i}{2}\pi(X_1)$, and $\pi^*({f}) = -\frac{1}{2}\pi(X_2) - \frac{i}{2}\pi(X_1)$ is an irrep of $\sl(2, \C)$. Therefore, $V$ decomposes in the way described above, and each of the weight spaces $V_m$ are also eigenspaces of $\pi(X_3)$.
 
 \subsection{Complex Irreps of SO(3) and SU(2)}
 
 Now that we have classified the complex irreps of $\su(2)$, we can use the exponential map to find the complex irreps of $SU(2)$. Explicitly, since $SU(2)$ is simply connected, any irreducible representation $\pi$ on $V$ is completely determined by its differential $\pi'$, which is a representation of $\su(2)$. Therefore, if $V$ has an irrep of $SU(2)$, it must decompose in the way described in the above section. It turns out that this also works the other way: there is an irrep of $SU(2)$ for each dimension $n$; an explicit construction is given by \cite{woit}. 
 
-Using the fact that any element $g \in SU(2)$ has the form $\exp(X)$ for some $X \in \su(2)$, we can write $\pi(g) = \pi(\exp(X)) = \exp(\pi'(X))$. Now, recall that for an $m + 1$ dimensional irrep $\pi'$ of $\su(2)$, the eigenvalues of $i\pi'(X_3)$ were the integers $-m, -m + 2, \hdots, m - 2, m$. Therefore, the eigenvalues of $\pi(\exp(\theta X_3))$ must be $e^{mi\theta}, e^{(m-2)i\theta}, \hdots, e^{(-m + 2)i\theta}, e^{-mi\theta}$. Setting $\theta = \pi$, we see that $\pi(-I)$ has eigenvalues which are all $-1$ when $m$ is odd, and eigenvalues which are all $1$ when $m$ is even. Therefore, only odd dimensional irreducible representations of $SU(2)$ can have the property that $\pi(-I) = \id_V$. 
+Using the fact that any element $g \in SU(2)$ has the form $\exp(X)$ for some $X \in \su(2)$, we can write $\pi(g) = \pi(\exp(X)) = \exp(\pi'(X))$. Now, recall that for an $m + 1$ dimensional irrep $\pi'$ of $\su(2)$, the eigenvalues of $-i\pi'(X_3)$ were the integers $-m, -m + 2, \hdots, m - 2, m$. Therefore, the eigenvalues of $\pi(\exp(\theta X_3))$ must be $e^{-mi\theta}, e^{(-m-2)i\theta}, \hdots, e^{(m - 2)i\theta}, e^{mi\theta}$. Setting $\theta = \pi$, we see that $\pi(-I)$ has eigenvalues which are all $-1$ when $m$ is odd, and eigenvalues which are all $1$ when $m$ is even. Therefore, only odd dimensional irreducible representations of $SU(2)$ can have the property that $\pi(-I) = \id_V$. 
 
 We now want to find the irreps of $SO(3)$. A basis for $\so(3)$ is given by 
 $$l_1 = \begin{pmatrix} 0 & 0 & 0 \\ 0 & 0 & -1 \\ 0 & 1 & 0 \\ \end{pmatrix}, \hspace{1em} l_2 = \begin{pmatrix} 0 & 0 & 1 \\ 0 & 0 & 0 \\ -1 & 0 & 0 \\ \end{pmatrix}, \hspace{1em} l_3 = \begin{pmatrix} 0 & -1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 0 \\ \end{pmatrix}.$$
 These matrices obey the commutation relations
 $$ \bracket{l_1, l_2} = l_3, \hspace{2em} \bracket{l_2, l_3} = l_1, \hspace{2em} \bracket{l_3, l_1} = l_2.$$
-Noting that this is the same set of relations as for $\su(2)$, we can define a Lie algebra isomorphism $\pi' : \so(3) \to \su(2) : X_j \mapsto l_j$. This means that the irreps of $\so(3)$ are the same as those for $\su(2)$. Importantly however, this does not mean that the irreps of $SO(3)$ are the same as those of $SU(2)$. 
+Noting that this is a very similar set of relations as for $\su(2)$, we can define a Lie algebra isomorphism $\theta : \so(3) \to \su(2): l_j \mapsto -\frac{1}{2}X_j$. This means that the irreps of $\so(3)$ are essentially the same as those for $\su(2)$, except for the fact that the eigenvalues are scaled by $\frac{1}{2}$. Importantly however, this does not mean that the irreps of $SO(3)$ are essentially the same as those of $SU(2)$. 
 
 It turns out that there is a nice relationship between $SO(3)$, $SU(2)$ and the unit quaternions. Any element $g \in SU(2)$ has the form
 $$g = \begin{pmatrix}z & w \\ -\bar{w} & \bar{z}\end{pmatrix}$$
@@ -654,7 +654,7 @@ Classically, a physical system consisted of the following components:
     \item A set $\Omega$ of observable quantities. These quantities were expressed as a function from $S$ to $\R$. For example, if a particle of mass $m$ was modeled in a Newtonian system, then the the energy of a particle would be given as $E: S \to \R : E(x, v) = mv^2/2$.
     \item A rule which describes how the state evolves through time. For example, if a particle with mass $m$ under the influence of a constant force $F$ was modeled by Newtonian mechanics, then $(\dot{x}, \dot{v}) = (v, \frac{F}{m})$.
 \end{enumerate}
-Embedded in component $2$ is the assumption that every observable must always be completely described by a single real value. Unfortunately however, several experiments in the early 20th century showed this to be insufficient when modeling systems which are precise enough to deal with individual particles. As a result, according to \cite{shankar} the founders of quantum mechanics developed a system where
+Embedded in component $2$ is the assumption that every observable must always be completely described by a single real value. Unfortunately however, several experiments (a common example being the single photon double slit experiment) in the early 20th century showed this to be insufficient when modeling systems which are precise enough to deal with individual particles. As a result, according to \cite{shankar} the founders of quantum mechanics developed a system where
 \begin{enumerate}
     \item $S$ is replaced with a Hilbert space $\H$. Examples include taking $\H = L^2(\R^3)$ to model a spin-less particle in three dimensions, $\H = \C^2$ for a two state system like the spin of an electron, $\H = L^2(\R) \otimes L^2(\R)$ for two particles in one dimension, and $\H = L^2(\R) \otimes \C^3$ for a particle in one dimension with three possible spin states.
     \item Observable quantities become hermitian operators on $\H$. To see what this means in a physical context, note that hermitian operators are diagonalizable. Therefore, specifying a hermitian operator is equivalent to specifying a set of real eigenvalues (the possible `well defined' values of the observable) and an orthonormal basis for $\H$ (the states corresponding to those eigenvalues). The benefit of this  description is that it allows for the state of a particle to have nonzero components in multiple eigenspaces - i.e. the particle can be in a `superposition' of eigenstates. 
@@ -686,17 +686,6 @@ Under this perspective, there was no `collapse' - all of the outcomes of the exp
 
 It can therefore be argued that the notion of collapse (the Copenhagen interpretation) is `simpler' because it doesn't require the existence of infinite noninteracting states which we can never detect. On the other hand it can also be argued that `no collapse' (the many worlds interpretation) is simpler because it doesn't require a poorly defined, non-deterministic process to be a part of the theory. Clearly, this becomes a matter of philosophy.
 
-\subsection{Lie Theory, Representations in Quantum Mechanics}
-It turns out that for a quantum system modeled by a Hilbert space $\H$, most of the interesting observables arise from the symmetries of $\H$. In this section, we give a outline of how this works, and the remaining sections examine several examples.
-
-Suppose that a compact group $G$ has a strongly continuous unitary representation $\pi: G \to U(\H)$ for some Hilbert space $\H$. We say that $G$ is a group of symmetries for $\H$ because it preserves the inner product (and therefore also the probabilities of various physical measurements). According to the Peter Weyl theorem, $\H$ decomposes into a direct sum of finite dimensional unitary representations of $G$.  
-
-In the section on Lie theory, we showed that the lie algebra $\mathfrak{u}(n)$ of $U(n)$ is the set of $n \times n$ complex skew adjoint matrices. Furthermore, we showed that any Lie group representation $\pi$ has an associated Lie algebra representation $\pi'$. Therefore, for any $X \in \g$, $\pi'(X)$ is a skew adjoint, and acts on $\H$, so $i\pi'(X)$ is a hermitian operator (observable) on $\H$. 
-
-These observable transform in a particularly nice way under the action of $\pi(G)$ on $\H$. $\pi(g)\pi'(X)\pi(g)^{-1} = \pi'(gXg^{-1})$.
-
-To summarize, the action of a Lie group on a Hilbert space gives rise to a set of observables that respect the symmetries encapsulated by that Lie group. As we will see in the following sections, it just so happens that the observables generated in this manner turn out to be the observables of most interest to us.
-
 \subsection{Orbital Angular Momentum}
 Suppose that we have a Hilbert space $\H$ that is modeling a system in three dimensional space. Then the natural unitary representation of $SO(3)$ on $\H$ will generate the angular momentum operators. 
 
@@ -705,9 +694,9 @@ $$(\pi(R)\phi)(\vec{x}) = \phi(R^{-1}\vec{x})$$
 is `natural' in the sense that it corresponds to rotating the probability cloud $\phi$ by $R$. To see that this is also a unitary representation, note that for any $R \in SO(3)$, a change of variables $\vec{x} \mapsto R\vec{x}$ has a Jacobian determinant of 1 so 
 $$\anglet{\pi(R)\psi}{\pi(R)\phi} = \int \psi(R^{-1}\vec{x})^* \phi(R^{-1}\vec{x})d\vec{x} = \int \psi(\vec{v})^* \phi(\vec{v})d\vec{v} = \anglet{\psi}{\phi}.$$
 
-As $SO(3)$ is a Lie group, we get an induced Lie algebra representation $\pi' : \so(3) \to \mathfrak{u}(\H) : l \to \left. \frac{d}{dt}\pi(e^{tl})\right|_{t=0}$. Recalling that $\mathfrak{u}(\H)$ consists of skew adjoint matrices, we see that $L = i\hbar\pi'(l)$ is a hermitian operator on $\H$ for any $x \in \so(3)$ (The factor of $\hbar$ is introduced so that the eigenvalues of $L_j$ can be expressed in SI units). 
+As $SO(3)$ is a Lie group, we get an induced Lie algebra representation $\pi' : \so(3) \to \mathfrak{u}(\H) : l \to \left. \frac{d}{dt}\pi(e^{tl})\right|_{t=0}$. Recalling that $\mathfrak{u}(\H)$ consists of skew adjoint matrices, we see that $L = i\pi'(l)$ is a hermitian operator on $\H$ for any $x \in \so(3)$. 
 
-Recall that a basis for $\so(3)$ is given by matrices $l_1, l_2$, and $l_3$, with corresponding observables $L_j = i\hbar\pi'(l_j)$.  To begin with, we find an expression for $L_j$ when using the standard basis for $\R^3$. For a given function $f \in L^2(\R^3)$,
+Recall that a basis for $\so(3)$ is given by matrices $l_1, l_2$, and $l_3$, with corresponding observables $L_j = i\pi'(l_j)$. To begin with, we find an expression for $L_j$ when using the standard basis for $\R^3$. For a given function $f \in L^2(\R^3)$,
 \begin{align*}
     \pi'(l_1)f(\vec{x}) &= \left. \frac{d}{dt} \pi\left(e^{t l_1}\right)f(\vec{x}) \right|_{t=0}\\ 
     &= \left. \frac{d}{dt} f\left(\begin{pmatrix} 1 & 0 & 0 \\ 0 & \cos(t) & \sin(t) \\ 0 & -\sin(t) & \cos(t) \\ \end{pmatrix} \begin{pmatrix}x_1 \\ x_2 \\ x_3 \end{pmatrix}\right) \right|_{t=0}\\
@@ -717,9 +706,9 @@ Recall that a basis for $\so(3)$ is given by matrices $l_1, l_2$, and $l_3$, wit
 Similar calculations show that 
 $$\pi'(l_2)f(\vec{x}) = \left(x_3\frac{\partial f}{\partial x_1} - x_1\frac{\partial f}{\partial x_3}\right) \text{  and  } \pi'(l_3)f(\vec{x}) = \left(x_2\frac{\partial f}{\partial x_1} - x_1\frac{\partial f}{\partial x_2}\right).$$
 Therefore, expressing any $l = al_1 + bl_2 + cl_3 \in \so(3)$ as a vector $\vec{n}$ in three dimensions, we see that 
-$$i\hbar\pi'(l)f(\vec{x}) = \vec{n} \cdot (\vec{x} \times i\hbar \nabla f(\vec{x})).$$
+$$i\pi'(l)f(\vec{x}) = \vec{n} \cdot (\vec{x} \times i \nabla f(\vec{x})).$$
 Classically, the quantity $
-\vec{x} \times i\hbar \nabla f(\vec{x})$ represents the angular momentum of the wave $f$ in three dimensions. Therefore, $L(\vec{n}) = i\hbar\pi'(l)$ must correspond to the operator which measures the component of angular momentum in the direction represented by $\vec{n}$.
+\vec{x} \times i \nabla f(\vec{x})$ represents the angular momentum of the wave $f$ in three dimensions. Therefore, $L(\vec{n}) = i\pi'(l)$ must correspond to the operator which measures the component of angular momentum in the direction represented by $\vec{n}$.
 
 Now that we have an understanding of what $L$ measures, our next task is to find its eigenvectors and eigenvalues. Once this is done, the state of our particle can be expanded in the resulting eigenbasis. This will allow us to assign a probability to each of the possible values of angular momentum. 
 
@@ -750,15 +739,15 @@ $$\left(
 \right),$$
 so we can write 
 \begin{align*}
-    L_1 &= i\hbar\left(x_3\frac{\partial}{\partial x_2} - x_2\frac{\partial}{\partial x_3}\right) = i\hbar\left(\sin(\phi)\frac{\partial}{\partial \theta} + \cot(\theta)\cos(\phi)\frac{\partial}{\partial \phi}\right)\\
-    L_2 &= i\hbar\left(x_3\frac{\partial}{\partial x_1} - x_1\frac{\partial}{\partial x_3}\right) = i\hbar\left(-\cos(\phi)\frac{\partial}{\partial \theta} + \cot(\theta)\sin(\phi)\frac{\partial}{\partial \phi}\right)\\
-    L_3 &= i\hbar\left(x_2\frac{\partial}{\partial x_1} - x_1\frac{\partial}{\partial x_2}\right) = -i\hbar \frac{\partial}{\partial \phi}.
+    L_1 &= i\left(x_3\frac{\partial}{\partial x_2} - x_2\frac{\partial}{\partial x_3}\right) = i\left(\sin(\phi)\frac{\partial}{\partial \theta} + \cot(\theta)\cos(\phi)\frac{\partial}{\partial \phi}\right)\\
+    L_2 &= i\left(x_3\frac{\partial}{\partial x_1} - x_1\frac{\partial}{\partial x_3}\right) = i\left(-\cos(\phi)\frac{\partial}{\partial \theta} + \cot(\theta)\sin(\phi)\frac{\partial}{\partial \phi}\right)\\
+    L_3 &= i\left(x_2\frac{\partial}{\partial x_1} - x_1\frac{\partial}{\partial x_2}\right) = -i \frac{\partial}{\partial \phi}.
 \end{align*}
 Further calculations show that 
-$$L_{+} = \hbar e^{i\phi} \left(\frac{\partial}{\partial \theta} + i\cot(\theta)\frac{\partial}{\partial \phi}\right) \text{  and  } L_{-} = \hbar e^{-i\phi} \left(-\frac{\partial}{\partial \theta} + i\cot(\theta)\frac{\partial}{\partial \phi}\right).$$
-Considering the highest weight vector $Y^l_{l}(\theta, \phi)$, we therefore have two differential equations: $$L_3 Y^l_{l}(\theta, \phi) = - -i\hbar \frac{\partial}{\partial \phi} Y^l_{l}(\theta, \phi) = l Y^l_{l}(\theta, \phi)$$ 
+$$L_{+} = e^{i\phi} \left(\frac{\partial}{\partial \theta} + i\cot(\theta)\frac{\partial}{\partial \phi}\right) \text{  and  } L_{-} =  e^{-i\phi} \left(-\frac{\partial}{\partial \theta} + i\cot(\theta)\frac{\partial}{\partial \phi}\right).$$
+Considering the highest weight vector $Y^l_{l}(\theta, \phi)$, we therefore have two differential equations: $$L_3 Y^l_{l}(\theta, \phi) = -i \frac{\partial}{\partial \phi} Y^l_{l}(\theta, \phi) = l Y^l_{l}(\theta, \phi)$$ 
 and 
-$$L_{+} Y^l_{l}(\theta, \phi) = \hbar e^{i\phi} \left(\frac{\partial}{\partial \theta} + i\cot(\theta)\frac{\partial}{\partial \phi}\right)Y^l_{l}(\theta, \phi) = 0.$$
+$$L_{+} Y^l_{l}(\theta, \phi) =  e^{i\phi} \left(\frac{\partial}{\partial \theta} + i\cot(\theta)\frac{\partial}{\partial \phi}\right)Y^l_{l}(\theta, \phi) = 0.$$
 Solving these equations, we see that 
 $$Y^l_{l}(\theta, \phi) = C_{ll} e^{il\phi}\sin^{l}(\theta)$$
 for some constant $C_{ll}$. The lowering operator $L_{-}$ can then be applied repeatedly to find each $Y^l_{m} = L_{-}Y^l_{m+1}$ for $m = l, l -1, \hdots -l + 1, -l$.
@@ -772,14 +761,15 @@ It is also possible to model the state of a particle with a finite dimensional H
 
 Suppose that $\H = \C^n$. We know than any representation of $SU(2)$ decomposes as a sum of irreducible representations, so we restrict ourselves to the case where $\pi : SU(2) \to GL(\H)$ is irreducible. We also want $\pi$ to represent a symmetry of $\H$, so we choose $\pi$ to be unitary. Once agin, the operators $\pi'(X)$ are therefore skew adjoint, so $S = i\pi'(X)$ is an observable. We call the quantity that these observables measure the `spin' of the particle. 
 
-In physics texts such as \cite{miller} \cite{woit}, instead of using our basis $X_1, X_2, X_3$ for $\su(2)$, it is conventional to use $-\frac{1}{2}X_1, -\frac{1}{2}X_2, \frac{1}{2}X_3$. This gives us observables 
-$$S_1 =i \pi'(-\frac{1}{2}X_1), \hspace{2em} S_2 =i \pi'(-\frac{1}{2}X_2), \hspace{2em} S_3 =i \pi'(\frac{1}{2}X_3).$$ In general, for any $X = -\frac{a}{2}X_1 + -\frac{b}{2} X_2 + \frac{c}{2} X_3 \in \su(2)$, we write $\vec{n} = (a, b, c)$, $\vec{X} = (-\frac{1}{2}X_1, -\frac{1}{2}X_2, \frac{1}{2}X_3)$, and $\vec{S} = (S_1, S_2, S_3)$. Then 
+In physics texts such as \cite{miller} \cite{woit}, instead of using our basis $X_1, X_2, X_3$ for $\su(2)$, it is conventional to use $-\frac{1}{2}X_1, -\frac{1}{2}X_2, -\frac{1}{2}X_3$. This gives us observables 
+$$S_j =i \pi'(-\frac{1}{2}X_j).$$ 
+In general, for any $X = -\frac{a}{2}X_1 -\frac{b}{2} X_2 - \frac{c}{2} X_3 \in \su(2)$, we write $\vec{n} = (a, b, c)$, $\vec{X} = (-\frac{1}{2}X_1, -\frac{1}{2}X_2, -\frac{1}{2}X_3)$, and $\vec{S} = (S_1, S_2, S_3)$. Then 
 $$S(\vec{n}) = i\pi'(\vec{n} \cdot \vec{X}) = \vec{n} \cdot \vec{S}$$
 is the observable corresponding to $X$. 
 
-Accodring to section $3.7$, $\H$ must have a basis of $m = n - 1$ eigenvectors for $S_3$, with eigenvalues (spin values)
+According to section $3.7$, $\H$ must have a basis of $m = n - 1$ eigenvectors for $S_3$, with eigenvalues (spin values)
 $$-s,-s + 1, \hdots,s-1, s,$$
-where $s = \frac{m}{2}$ is an integer when $n$ is odd, and a half integer when $n$ is even. It turns out \cite{woit} that particles (called bozons) which have integer spin (i.e. they are modeled by a even dimensional Hilbert space) have different properties to those with half interger spin (called fermions). For example, fermions are all elementary `matter' particles, such as electrons, protons and neutrons, where as bozons are all `force carrier' particles, such as photons (which mediate the electromagnetic force) or gluons (which mediate the strong force).
+where $s = \frac{m}{2}$ is an integer when $n$ is odd, and a half integer when $n$ is even. It turns out \cite{woit} that particles (called bosons) which have integer spin (i.e. they are modeled by a even dimensional Hilbert space) have different properties to those with half integer spin (called fermions). For example, fermions are all elementary `matter' particles, such as electrons, protons and neutrons, where as bosons are all `force carrier' particles, such as photons (which mediate the electromagnetic force) or gluons (which mediate the strong force).
 
 \subsection{Tensor products and the periodic table}
 In the proceeding two sections, we examined an infinite dimensional Hilbert space $L^2(\R^3)$, which is used to model a particle in space, and a finite dimensional Hilbert space $\C^n$ which is used to model the intrinsic properties of a particle. We would now like to be able to do both at once. This is done by constructing a new Hilbert space $\H = L^2(\R^3) \otimes \C^n$, which is used to model particles in three dimensional space with multiple possible spin states. 

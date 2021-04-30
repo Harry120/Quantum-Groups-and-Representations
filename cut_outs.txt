@@ -451,3 +451,16 @@ Some examples that we will explore
     \item Say $\H$ is $L^2(\R^3)$. Then $SO(3)$ acts on $\H$ by $(\pi(R)f)(x) = f(R^{-1}x)$. This generates the orbital angular momentum operators.
     \item Say $\H$ is $\C^n$. Then $SU(2)$ acts on $\H$ by $(\pi(R)f)(x) = f(R^{-1}x)$. This generates the spin angular momentum operators.
 \end{enumerate}
+
+
+
+\subsection{Lie Theory, Representations in Quantum Mechanics}
+It turns out that for a quantum system modeled by a Hilbert space $\H$, most of the interesting observables arise from the symmetries of $\H$. In this section, we give a outline of how this works, and the remaining sections examine several examples.
+
+Suppose that a compact group $G$ has a strongly continuous unitary representation $\pi: G \to U(\H)$ for some Hilbert space $\H$. We say that $G$ is a group of symmetries for $\H$ because it preserves the inner product (and therefore also the probabilities of various physical measurements). According to the Peter Weyl theorem, $\H$ decomposes into a direct sum of finite dimensional unitary representations of $G$.  
+
+In the section on Lie theory, we showed that the lie algebra $\mathfrak{u}(n)$ of $U(n)$ is the set of $n \times n$ complex skew adjoint matrices. Furthermore, we showed that any Lie group representation $\pi$ has an associated Lie algebra representation $\pi'$. Therefore, for any $X \in \g$, $\pi'(X)$ is a skew adjoint, and acts on $\H$, so $i\pi'(X)$ is a hermitian operator (observable) on $\H$. 
+
+These observable transform in a particularly nice way under the action of $\pi(G)$ on $\H$. $\pi(g)\pi'(X)\pi(g)^{-1} = \pi'(gXg^{-1})$.
+
+To summarize, the action of a Lie group on a Hilbert space gives rise to a set of observables that respect the symmetries encapsulated by that Lie group. As we will see in the following sections, it just so happens that the observables generated in this manner turn out to be the observables of most interest to us.
